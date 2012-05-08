@@ -1,4 +1,4 @@
-/* 
+/*
  * OpenTyrian Classic: A modern cross-platform port of Tyrian
  * Copyright (C) 2007-2009  The OpenTyrian Development Team
  *
@@ -27,6 +27,12 @@ const char *custom_data_dir = ".";
 // finds the Tyrian data directory
 const char *data_dir( void )
 {
+#ifdef __PLAYBOOK__
+	const char *dirs[] =
+	{
+		"assets"
+	};
+#else
 	const char *dirs[] =
 	{
 		custom_data_dir,
@@ -36,40 +42,45 @@ const char *data_dir( void )
 #endif
 		"/usr/share/opentyrian/data"
 	};
-	
+#endif
 	static const char *dir = NULL;
-	
+
 	if (dir != NULL)
 		return dir;
-	
+
 	for (uint i = 0; i < COUNTOF(dirs); ++i)
 	{
 		FILE *f = dir_fopen(dirs[i], "tyrian1.lvl", "rb");
 		if (f)
 		{
 			fclose(f);
-			
+
 			dir = dirs[i];
 			break;
 		}
 	}
-	
+
 	if (dir == NULL) // data not found
 		dir = "";
-	
+
 	return dir;
 }
 
 // prepend directory and fopen
 FILE *dir_fopen( const char *dir, const char *file, const char *mode )
 {
+#ifdef __PLAYBOOK__
+	char path[512];
+	snprintf(path, sizeof(path), "%s/%s", dir, file);
+	FILE *f = fopen(path, mode);
+#else
 	char *path = malloc(strlen(dir) + 1 + strlen(file) + 1);
 	sprintf(path, "%s/%s", dir, file);
-	
+
 	FILE *f = fopen(path, mode);
-	
+
 	free(path);
-	
+#endif
 	return f;
 }
 
@@ -77,12 +88,12 @@ FILE *dir_fopen( const char *dir, const char *file, const char *mode )
 FILE *dir_fopen_warn(  const char *dir, const char *file, const char *mode )
 {
 	errno = 0;
-	
+
 	FILE *f = dir_fopen(dir, file, mode);
-	
+
 	if (!f)
 		fprintf(stderr, "warning: failed to open '%s': %s\n", file, strerror(errno));
-	
+
 	return f;
 }
 
@@ -90,9 +101,9 @@ FILE *dir_fopen_warn(  const char *dir, const char *file, const char *mode )
 FILE *dir_fopen_die( const char *dir, const char *file, const char *mode )
 {
 	errno = 0;
-	
+
 	FILE *f = dir_fopen(dir, file, mode);
-	
+
 	if (f == NULL)
 	{
 		fprintf(stderr, "error: failed to open '%s': %s\n", file, strerror(errno));
@@ -100,7 +111,7 @@ FILE *dir_fopen_die( const char *dir, const char *file, const char *mode )
 		                "       Please read the README file.\n");
 		exit(1);
 	}
-	
+
 	return f;
 }
 
@@ -117,12 +128,12 @@ bool dir_file_exists( const char *dir, const char *file )
 long ftell_eof( FILE *f )
 {
 	long pos = ftell(f);
-	
+
 	fseek(f, 0, SEEK_END);
 	long size = ftell(f);
-	
+
 	fseek(f, pos, SEEK_SET);
-	
+
 	return size;
 }
 
@@ -131,7 +142,7 @@ long ftell_eof( FILE *f )
 size_t efread( void *buffer, size_t size, size_t num, FILE *stream )
 {
 	size_t f = fread(buffer, size, num, stream);
-	
+
 	switch (size)
 	{
 		case 2:
@@ -149,7 +160,7 @@ size_t efread( void *buffer, size_t size, size_t num, FILE *stream )
 		default:
 			break;
 	}
-	
+
 	return f;
 }
 
@@ -157,7 +168,7 @@ size_t efread( void *buffer, size_t size, size_t num, FILE *stream )
 size_t efwrite( void *buffer, size_t size, size_t num, FILE *stream )
 {
 	void *swap_buffer;
-	
+
 	switch (size)
 	{
 		case 2:
@@ -179,12 +190,12 @@ size_t efwrite( void *buffer, size_t size, size_t num, FILE *stream )
 			swap_buffer = buffer;
 			break;
 	}
-	
+
 	size_t f = fwrite(swap_buffer, size, num, stream);
-	
+
 	if (swap_buffer != buffer)
 		free(swap_buffer);
-	
+
 	return f;
 }
 #endif

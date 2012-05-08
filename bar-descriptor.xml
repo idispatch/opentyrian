@@ -13,7 +13,6 @@
 
     <!-- The name that is displayed in the BlackBerry Tablet OS application installer. 
          May have multiple values for each language. See samples or xsd schema file. Optional. -->
-    <name>opentyrian</name>
     
     <!-- A string value of the format <0-999>.<0-999>.<0-999> that represents application version which can be used to check for application upgrade. 
          Values can also be 1-part or 2-part. It is not necessary to have a 3-part value.
@@ -29,13 +28,14 @@
 
     <!-- Description, displayed in the BlackBerry Tablet OS application installer.
          May have multiple values for each language. See samples or xsd schema file. Optional. -->
-    <description>The opentyrian application</description>
+    <description>OpenTyrian is an open-source port of the DOS game Tyrian.</description>
 
     <!-- Copyright information. Optional. -->
     <!-- <copyright></copyright> -->
 
     <!--  Name of author which is used for signing. Must match the developer name of your development certificate. -->
     <author>Oleg Kosenkov</author>
+    <name>Tyrian</name>
     
     <!--  Unique author ID assigned by signing authority. Required if using debug tokens. -->
     <!-- <authorId>ABC1234YjsnUk235h</authorId> -->
@@ -47,7 +47,7 @@
     
     <!--  The category where the application appears. Either core.games or core.media. -->
     <category>core.games</category>
-    <asset path="data">assets</asset>
+    <asset path="assets">assets</asset>
     <asset path="icon.png">icon.png</asset>
     <configuration id="com.qnx.qcc.configuration.exe.debug.1126421720" name="Device-Debug">
        <platformArchitecture>armle-v7</platformArchitecture>
@@ -56,26 +56,6 @@
     <configuration id="com.qnx.qcc.configuration.exe.release.1746496411" name="Device-Release">
        <platformArchitecture>armle-v7</platformArchitecture>
        <asset path="Device-Release/opentyrian" entry="true" type="Qnx/Elf">opentyrian</asset>
-    </configuration>
-    <configuration id="com.qnx.qcc.configuration.exe.profile.2097291914" name="Device-Profile">
-       <platformArchitecture>armle-v7</platformArchitecture>
-       <asset path="Device-Profile/opentyrian" entry="true" type="Qnx/Elf">opentyrian</asset>
-    </configuration>
-    <configuration id="com.qnx.qcc.configuration.exe.profile.coverage.1877071506" name="Device-Coverage">
-       <platformArchitecture>armle-v7</platformArchitecture>
-       <asset path="Device-Coverage/opentyrian" entry="true" type="Qnx/Elf">opentyrian</asset>
-    </configuration>
-    <configuration id="com.qnx.qcc.configuration.exe.debug.535381480" name="Simulator-Debug">
-       <platformArchitecture>x86</platformArchitecture>
-       <asset path="Simulator-Debug/opentyrian" entry="true" type="Qnx/Elf">opentyrian</asset>
-    </configuration>
-    <configuration id="com.qnx.qcc.configuration.exe.profile.2082236366" name="Simulator-Profile">
-       <platformArchitecture>x86</platformArchitecture>
-       <asset path="Simulator-Profile/opentyrian" entry="true" type="Qnx/Elf">opentyrian</asset>
-    </configuration>
-    <configuration id="com.qnx.qcc.configuration.exe.profile.coverage.853949753" name="Simulator-Coverage">
-       <platformArchitecture>x86</platformArchitecture>
-       <asset path="Simulator-Coverage/opentyrian" entry="true" type="Qnx/Elf">opentyrian</asset>
     </configuration>
     
     <!--  The icon for the application, which should be 86x86. -->

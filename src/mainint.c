@@ -523,6 +523,7 @@ void JE_loadScreen( void )
 		case 2:
 			min = 12;
 			max = 23;
+			break;
 		}
 
 		/* SYN: Go through text line by line */
@@ -1341,6 +1342,7 @@ JE_boolean JE_inGameSetup( void )
 						processorType = 6;
 						JE_initProcessorType();
 					}
+					break;
 				default:
 					break;
 			}
