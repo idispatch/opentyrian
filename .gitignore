@@ -1,2 +1,5 @@
 .hg
+.settings
+Device-Debug
+Device-Release
 

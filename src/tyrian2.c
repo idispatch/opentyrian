@@ -47,11 +47,7 @@
 #include "video.h"
 
 #include <assert.h>
-#include <ctype.h>
 #include <math.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdint.h>
 
 inline static void blit_enemy( SDL_Surface *surface, unsigned int i, signed int x_offset, signed int y_offset, signed int sprite_offset );
 
@@ -760,11 +756,11 @@ start_level_first:
 			player[i].old_x[j] = player[i].x - (19 - j);
 			player[i].old_y[j] = player[i].y - 18;
 		}
-		
+
 		player[i].last_x_shot_move = player[i].x;
 		player[i].last_y_shot_move = player[i].y;
 	}
-	
+
 	JE_loadPic(VGAScreen, twoPlayerMode ? 6 : 3, false);
 
 	JE_drawOptions();
@@ -1245,7 +1241,7 @@ level_loop:
 					fill_rectangle_xy(VGAScreenSeg, 269, 113 - 11 - temp, 276, 114 - 11 - lastPower, 113 + temp / 7);
 				else
 					fill_rectangle_xy(VGAScreenSeg, 269, 113 - 11 - lastPower, 276, 114 - 11 - temp, 0);
-				
+
 				lastPower = temp;
 			}
 		}
@@ -1917,15 +1913,15 @@ draw_player_shot_loop_end:
 		player[i].last_x_shot_move = player[i].x;
 		player[i].last_y_shot_move = player[i].y;
 	}
-	
+
 	/*=================================*/
 	/*=======Collisions Detection======*/
 	/*=================================*/
-	
+
 	for (uint i = 0; i < (twoPlayerMode ? 2 : 1); ++i)
 		if (player[i].is_alive && !endLevel)
 			JE_playerCollide(&player[i], i + 1);
-	
+
 	if (firstGameOver)
 		JE_mainGamePlayerFunctions();      /*--------PLAYER DRAW+MOVEMENT---------*/
 

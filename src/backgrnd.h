@@ -1,4 +1,4 @@
-/* 
+/*
  * OpenTyrian Classic: A modern cross-platform port of Tyrian
  * Copyright (C) 2007-2009  The OpenTyrian Development Team
  *
@@ -21,7 +21,6 @@
 
 #include "opentyr.h"
 
-#include <stdint.h>
 #include "SDL.h"
 
 extern JE_word backPos, backPos2, backPos3;

@@ -1,4 +1,4 @@
-/* 
+/*
  * OpenTyrian Classic: A modern cross-platform port of Tyrian
  * Copyright (C) 2007-2009  The OpenTyrian Development Team
  *
@@ -19,9 +19,15 @@
 #ifndef OPENTYR_H
 #define OPENTYR_H
 
-#include "SDL_types.h"
 #include <math.h>
+#include <malloc.h>
+#include <stdio.h>
 #include <stdbool.h>
+#include <stdint.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+#include "SDL_types.h"
 
 #define COUNTOF(x) ((unsigned)(sizeof(x) / sizeof *(x)))  // use only on arrays!
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
