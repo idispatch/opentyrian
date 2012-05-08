@@ -49,6 +49,7 @@
     <category>core.games</category>
     <asset path="assets">assets</asset>
     <asset path="icon.png">icon.png</asset>
+    <asset path="sdl-controls.xml">sdl-controls.xml</asset>
     <configuration id="com.qnx.qcc.configuration.exe.debug.1126421720" name="Device-Debug">
        <platformArchitecture>armle-v7</platformArchitecture>
        <asset path="Device-Debug/opentyrian" entry="true" type="Qnx/Elf">opentyrian</asset>

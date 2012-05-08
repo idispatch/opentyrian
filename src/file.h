@@ -1,4 +1,4 @@
-/* 
+/*
  * OpenTyrian Classic: A modern cross-platform port of Tyrian
  * Copyright (C) 2007-2009  The OpenTyrian Development Team
  *
@@ -27,7 +27,7 @@ extern const char *custom_data_dir;
 
 #ifdef TARGET_MACOSX
 const char *tyrian_game_folder();
-#endif // TARGET_MACOSX
+#endif /* TARGET_MACOSX */
 
 const char *data_dir( void );
 
@@ -39,7 +39,7 @@ bool dir_file_exists( const char *dir, const char *file );
 
 long ftell_eof( FILE *f );
 
-// endian-swapping fread/fwrite
+/* endian-swapping fread/fwrite */
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
 size_t efread( void *buffer, size_t size, size_t num, FILE *stream );
 size_t efwrite( void *buffer, size_t size, size_t num, FILE *stream );
@@ -48,6 +48,4 @@ size_t efwrite( void *buffer, size_t size, size_t num, FILE *stream );
 #define efwrite fwrite
 #endif
 
-#endif // FILE_H
-
-// kate: tab-width 4; vim: set noet:
+#endif /* FILE_H */

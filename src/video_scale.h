@@ -1,4 +1,4 @@
-/* 
+/*
  * OpenTyrian Classic: A modern cross-platform port of Tyrian
  * Copyright (C) 2007-2010  The OpenTyrian Development Team
  *
@@ -39,5 +39,3 @@ extern const uint scalers_count;
 void set_scaler_by_name( const char *name );
 
 #endif /* VIDEO_SCALE_H */
-
-// kate: tab-width 4; vim: set noet:

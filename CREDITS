@@ -18,6 +18,7 @@ a.h.vandijk            patch that fixed a buffer overflow,
 ECA                    Destruct rewrite
 spudd86.2              patch that fixed an audio bug
 Jan "heftig" Steffens  clean-up patches
+idispatch              ported to BlackBerry 10 and PlayBook Tablet OS
 
 == Further Thanks ==============================================================
 

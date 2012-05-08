@@ -16,22 +16,27 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#include "file.h"
 #include "opentyr.h"
-
+#include "file.h"
 #include "SDL.h"
-#include <errno.h>
 
 const char *custom_data_dir = ".";
 
-// finds the Tyrian data directory
+/* finds the Tyrian data directory */
 const char *data_dir( void )
 {
 #ifdef __PLAYBOOK__
-	const char *dirs[] =
-	{
-		"assets"
-	};
+	static char dir[512] = "";
+	if(dir[0] == '\0') {
+		char cwd[512] = "";
+		snprintf(dir, sizeof(dir), "%s/app/native/assets", getcwd(cwd, sizeof(cwd)));
+		FILE *f = dir_fopen(dir, "tyrian1.lvl", "rb");
+		if(f) {
+			fclose(f);
+		} else {
+			strcpy(dir, ".");
+		}
+	}
 #else
 	const char *dirs[] =
 	{
@@ -42,7 +47,7 @@ const char *data_dir( void )
 #endif
 		"/usr/share/opentyrian/data"
 	};
-#endif
+
 	static const char *dir = NULL;
 
 	if (dir != NULL)
@@ -60,19 +65,22 @@ const char *data_dir( void )
 		}
 	}
 
-	if (dir == NULL) // data not found
+	if (dir == NULL)
 		dir = "";
-
+#endif
 	return dir;
 }
 
-// prepend directory and fopen
+/* prepend directory and fopen */
 FILE *dir_fopen( const char *dir, const char *file, const char *mode )
 {
 #ifdef __PLAYBOOK__
 	char path[512];
 	snprintf(path, sizeof(path), "%s/%s", dir, file);
 	FILE *f = fopen(path, mode);
+#ifdef _DEBUG
+	fprintf(stderr, "%s: opening %s (%s)\n", __FUNCTION__, path, (f ? "ok" : "n/a"));
+#endif
 #else
 	char *path = malloc(strlen(dir) + 1 + strlen(file) + 1);
 	sprintf(path, "%s/%s", dir, file);
@@ -84,7 +92,7 @@ FILE *dir_fopen( const char *dir, const char *file, const char *mode )
 	return f;
 }
 
-// warn when dir_fopen fails
+/* warn when dir_fopen fails */
 FILE *dir_fopen_warn(  const char *dir, const char *file, const char *mode )
 {
 	errno = 0;
@@ -97,7 +105,7 @@ FILE *dir_fopen_warn(  const char *dir, const char *file, const char *mode )
 	return f;
 }
 
-// die when dir_fopen fails
+/* die when dir_fopen fails */
 FILE *dir_fopen_die( const char *dir, const char *file, const char *mode )
 {
 	errno = 0;
@@ -115,16 +123,20 @@ FILE *dir_fopen_die( const char *dir, const char *file, const char *mode )
 	return f;
 }
 
-// check if file can be opened for reading
+/* check if file can be opened for reading */
 bool dir_file_exists( const char *dir, const char *file )
 {
 	FILE *f = dir_fopen(dir, file, "rb");
-	if (f != NULL)
+	if (f != NULL) {
 		fclose(f);
+	}
+#ifdef _DEBUG
+	fprintf(stderr, "%s: probing %s (%s)\n", __FUNCTION__, file, (f ? "ok" : "n/a"));
+#endif
 	return (f != NULL);
 }
 
-// returns end-of-file position
+/* returns end-of-file position */
 long ftell_eof( FILE *f )
 {
 	long pos = ftell(f);
@@ -138,7 +150,7 @@ long ftell_eof( FILE *f )
 }
 
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
-// endian-swapping fread
+/* endian-swapping fread */
 size_t efread( void *buffer, size_t size, size_t num, FILE *stream )
 {
 	size_t f = fread(buffer, size, num, stream);
@@ -164,7 +176,7 @@ size_t efread( void *buffer, size_t size, size_t num, FILE *stream )
 	return f;
 }
 
-// endian-swapping fwrite
+/* endian-swapping fwrite */
 size_t efwrite( void *buffer, size_t size, size_t num, FILE *stream )
 {
 	void *swap_buffer;
@@ -199,5 +211,3 @@ size_t efwrite( void *buffer, size_t size, size_t num, FILE *stream )
 	return f;
 }
 #endif
-
-// kate: tab-width 4; vim: set noet:

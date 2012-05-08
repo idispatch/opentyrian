@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<emulation version="1">
+<key x="10" y="490" width="80" height="80" sym="13" scancode="13"/>
+<key x="10" y="400" width="80" height="80" sym="32" scancode="32"/>
+<key x="750" y="490" width="80" height="80" sym="276" scancode="276"/>
+<key x="837" y="490" width="80" height="80" sym="274" scancode="274"/>
+<key x="837" y="407" width="80" height="80" sym="273" scancode="273"/>
+<key x="918" y="490" width="80" height="80" sym="275" scancode="275"/>
+</emulation>

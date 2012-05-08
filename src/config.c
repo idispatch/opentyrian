@@ -1,4 +1,4 @@
-/* 
+/*
  * OpenTyrian Classic: A modern cross-platform port of Tyrian
  * Copyright (C) 2007-2009  The OpenTyrian Development Team
  *
@@ -16,6 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
+#include "opentyr.h"
 #include "config.h"
 #include "episodes.h"
 #include "file.h"
@@ -23,7 +24,6 @@
 #include "loudness.h"
 #include "mtrand.h"
 #include "nortsong.h"
-#include "opentyr.h"
 #include "player.h"
 #include "varz.h"
 #include "vga256d.h"
@@ -222,94 +222,101 @@ JE_word editorLevel;   /*Initial value 800*/
 
 cJSON *load_json( const char *filename )
 {
+#ifdef ENABLE_CONFIGURATION
 	FILE *f = dir_fopen_warn(get_user_directory(), filename, "rb");
 	if (f == NULL)
 		return NULL;
-	
+
 	size_t buffer_len = ftell_eof(f);
 	char *buffer = malloc(buffer_len + 1);
-	
+
 	fread(buffer, 1, buffer_len, f);
 	buffer[buffer_len] = '\0';
-	
+
 	fclose(f);
-	
+
 	cJSON *root = cJSON_Parse(buffer);
-	
+
 	free(buffer);
-	
+
 	return root;
+#else
+	return NULL;
+#endif /*ENABLE_CONFIGURATION*/
 }
 
 void save_json( cJSON *root, const char *filename )
 {
+#ifdef ENABLE_CONFIGURATION
 	FILE *f = dir_fopen_warn(get_user_directory(), filename, "w+");
 	if (f == NULL)
 		return;
-	
+
 	char *buffer = cJSON_Print(root);
-	
+
 	if (buffer != NULL)
 	{
 		fputs(buffer, f);
 		free(buffer);
 	}
-	
+
 	fclose(f);
+#endif
 }
 
 bool load_opentyrian_config( void )
 {
 	// defaults
 	fullscreen_enabled = false;
-	set_scaler_by_name("Scale2x");
-	
+	set_scaler_by_name("3x");
+#ifdef ENABLE_CONFIGURATION
 	cJSON *root = load_json("opentyrian.conf");
 	if (root == NULL)
 		return false;
-	
+
 	cJSON *section = cJSON_GetObjectItem(root, "video");
 	if (section != NULL)
 	{
 		cJSON *setting;
-		
+
 		if ((setting = cJSON_GetObjectItem(section, "fullscreen")))
 			fullscreen_enabled = (setting->type == cJSON_True);
-		
+
 		if ((setting = cJSON_GetObjectItem(section, "scaler")))
 			set_scaler_by_name(setting->valuestring);
 	}
-	
+
 	cJSON_Delete(root);
-	
+#endif /*ENABLE_CONFIGURATION*/
 	return true;
 }
 
 bool save_opentyrian_config( void )
 {
+#ifdef ENABLE_CONFIGURATION
 	cJSON *root = load_json("opentyrian.conf");
 	if (root == NULL)
 		root = cJSON_CreateObject();
-	
+
 	cJSON *section;
-	
+
 	section = cJSON_CreateOrGetObjectItem(root, "video");
 	cJSON_ForceType(section, cJSON_Object);
-	
+
 	{
 		cJSON *setting;
-		
+
 		setting = cJSON_CreateOrGetObjectItem(section, "fullscreen");
 		cJSON_SetBoolean(setting, fullscreen_enabled);
-		
+
 		setting = cJSON_CreateOrGetObjectItem(section, "scaler");
 		cJSON_SetString(setting, scalers[scaler].name);
 	}
-	
+
 	save_json(root, "opentyrian.conf");
-	
+
 	cJSON_Delete(root);
-	
+#endif /*ENABLE_CONFIGURATION*/
 	return true;
 }
 
@@ -364,24 +371,24 @@ void JE_saveGame( JE_byte slot, const char *name )
 	saveFiles[slot-1].initialDifficulty = initialDifficulty;
 	saveFiles[slot-1].gameHasRepeated = gameHasRepeated;
 	saveFiles[slot-1].level = saveLevel;
-	
+
 	if (superTyrian)
 		player[0].items.super_arcade_mode = SA_SUPERTYRIAN;
 	else if (superArcadeMode == SA_NONE && onePlayerAction)
 		player[0].items.super_arcade_mode = SA_ARCADE;
 	else
 		player[0].items.super_arcade_mode = superArcadeMode;
-	
+
 	playeritems_to_pitems(saveFiles[slot-1].items, &player[0].items, initial_episode_num);
-	
+
 	if (twoPlayerMode)
 		playeritems_to_pitems(saveFiles[slot-1].lastItems, &player[1].items, 0);
 	else
 		playeritems_to_pitems(saveFiles[slot-1].lastItems, &player[0].last_items, 0);
-	
+
 	saveFiles[slot-1].score  = player[0].cash;
 	saveFiles[slot-1].score2 = player[1].cash;
-	
+
 	memcpy(&saveFiles[slot-1].levelName, &lastLevelName, sizeof(lastLevelName));
 	saveFiles[slot-1].cubes  = lastCubeMax;
 
@@ -405,13 +412,13 @@ void JE_saveGame( JE_byte slot, const char *name )
 	saveFiles[slot-1].input2 = inputDevice[1];
 
 	strcpy(saveFiles[slot-1].name, name);
-	
+
 	for (uint port = 0; port < 2; ++port)
 	{
 		// if two-player, use first player's front and second player's rear weapon
 		saveFiles[slot-1].power[port] = player[twoPlayerMode ? port : 0].items.weapon[port].power;
 	}
-	
+
 	JE_saveConfiguration();
 }
 
@@ -429,22 +436,22 @@ void JE_loadGame( JE_byte slot )
 	gameHasRepeated   = saveFiles[slot-1].gameHasRepeated;
 	twoPlayerMode     = (slot-1) > 10;
 	difficultyLevel   = saveFiles[slot-1].difficulty;
-	
+
 	pitems_to_playeritems(&player[0].items, saveFiles[slot-1].items, &initial_episode_num);
-	
+
 	superArcadeMode = player[0].items.super_arcade_mode;
-	
+
 	if (superArcadeMode == SA_SUPERTYRIAN)
 		superTyrian = true;
 	if (superArcadeMode != SA_NONE)
 		onePlayerAction = true;
 	if (superArcadeMode > SA_NORTSHIPZ)
 		superArcadeMode = SA_NONE;
-	
+
 	if (twoPlayerMode)
 	{
 		onePlayerAction = false;
-		
+
 		pitems_to_playeritems(&player[1].items, saveFiles[slot-1].lastItems, NULL);
 	}
 	else
@@ -458,10 +465,10 @@ void JE_loadGame( JE_byte slot )
 		player[1].items.sidekick_level = 101;
 		player[1].items.sidekick_series = player[1].items.sidekick[LEFT_SIDEKICK];
 	}
-	
+
 	player[0].cash = saveFiles[slot-1].score;
 	player[1].cash = saveFiles[slot-1].score2;
-	
+
 	mainLevel   = saveFiles[slot-1].level;
 	cubeMax     = saveFiles[slot-1].cubes;
 	lastCubeMax = cubeMax;
@@ -475,7 +482,7 @@ void JE_loadGame( JE_byte slot )
 		// if two-player, use first player's front and second player's rear weapon
 		player[twoPlayerMode ? port : 0].items.weapon[port].power = saveFiles[slot-1].power[port];
 	}
-	
+
 	temp5 = saveFiles[slot-1].episode;
 
 	memcpy(&levelName, &saveFiles[slot-1].levelName, sizeof(levelName));
@@ -664,9 +671,7 @@ void JE_decryptSaveTemp( void )
 
 	}
 
-	/* for (x = 0; x < SAVE_FILE_SIZE; x++) printf("%c", s2[x]); */
-
-	/* Check save file for correctitude */
+	/* Check save file for correctness */
 	y = 0;
 	for (x = 0; x < SAVE_FILE_SIZE; x++)
 	{
@@ -726,17 +731,22 @@ void JE_decryptSaveTemp( void )
 const char *get_user_directory( void )
 {
 	static char user_dir[500] = "";
-	
+
 	if (strlen(user_dir) == 0)
 	{
 #ifdef TARGET_UNIX
 		if (getenv("HOME"))
 			snprintf(user_dir, sizeof(user_dir), "%s/.opentyrian", getenv("HOME"));
 #else
+#ifdef __PLAYBOOK__
+		char cwd[512];
+		snprintf(user_dir, sizeof(user_dir), "%s/data/.opentyrian", getcwd(cwd, sizeof(cwd)));
+#else
 		strcpy(user_dir, ".");
-#endif // TARGET_UNIX
+#endif /* __PLAYBOOK__ */
+#endif /* TARGET_UNIX */
 	}
-	
+
 	return user_dir;
 }
 #endif // TARGET_MACOSX
@@ -751,7 +761,7 @@ void JE_loadConfiguration( void )
 	int z;
 	JE_byte *p;
 	int y;
-	
+#ifdef ENABLE_CONFIGURATION
 	fi = dir_fopen_warn(get_user_directory(), "tyrian.cfg", "rb");
 	if (fi && ftell_eof(fi) == 20 + sizeof(keySettings))
 	{
@@ -760,33 +770,34 @@ void JE_loadConfiguration( void )
 		background2 = 0;
 		efread(&background2, 1, 1, fi);
 		efread(&gameSpeed, 1, 1, fi);
-		
+
 		efread(&inputDevice_, 1, 1, fi);
 		efread(&jConfigure, 1, 1, fi);
-		
+
 		efread(&versionNum, 1, 1, fi);
-		
+
 		efread(&processorType, 1, 1, fi);
 		efread(&midiPort, 1, 1, fi);
 		efread(&soundEffects, 1, 1, fi);
 		efread(&gammaCorrection, 1, 1, fi);
 		efread(&difficultyLevel, 1, 1, fi);
-		
+
 		efread(joyButtonAssign, 1, 4, fi);
-		
+
 		efread(&tyrMusicVolume, 2, 1, fi);
 		efread(&fxVolume, 2, 1, fi);
-		
+
 		efread(inputDevice, 1, 2, fi);
-		
+
 		efread(keySettings, sizeof(*keySettings), COUNTOF(keySettings), fi);
-		
+
 		fclose(fi);
 	}
 	else
 	{
+#endif /*ENABLE_CONFIGURATION*/
 		printf("\nInvalid or missing TYRIAN.CFG! Continuing using defaults.\n\n");
-		
+
 		soundEffects = 1;
 		memcpy(&keySettings, &defaultKeySettings, sizeof(keySettings));
 		background2 = true;
@@ -794,19 +805,20 @@ void JE_loadConfiguration( void )
 		gammaCorrection = 0;
 		processorType = 3;
 		gameSpeed = 4;
+#ifdef ENABLE_CONFIGURATION
 	}
-	
+#endif /*ENABLE_CONFIGURATION*/
 	load_opentyrian_config();
-	
+
 	if (tyrMusicVolume > 255)
 		tyrMusicVolume = 255;
 	if (fxVolume > 255)
 		fxVolume = 255;
-	
+
 	JE_calcFXVol();
-	
+
 	set_volume(tyrMusicVolume, fxVolume);
-	
+
 	fi = dir_fopen_warn(get_user_directory(), "tyrian.sav", "rb");
 	if (fi)
 	{
@@ -824,27 +836,27 @@ void JE_loadConfiguration( void )
 		{
 			memcpy(&saveFiles[z].encode, p, sizeof(JE_word)); p += 2;
 			saveFiles[z].encode = SDL_SwapLE16(saveFiles[z].encode);
-			
+
 			memcpy(&saveFiles[z].level, p, sizeof(JE_word)); p += 2;
 			saveFiles[z].level = SDL_SwapLE16(saveFiles[z].level);
-			
+
 			memcpy(&saveFiles[z].items, p, sizeof(JE_PItemsType)); p += sizeof(JE_PItemsType);
-			
+
 			memcpy(&saveFiles[z].score, p, sizeof(JE_longint)); p += 4;
 			saveFiles[z].score = SDL_SwapLE32(saveFiles[z].score);
-			
+
 			memcpy(&saveFiles[z].score2, p, sizeof(JE_longint)); p += 4;
 			saveFiles[z].score2 = SDL_SwapLE32(saveFiles[z].score2);
-			
+
 			/* SYN: Pascal strings are prefixed by a byte holding the length! */
 			memset(&saveFiles[z].levelName, 0, sizeof(saveFiles[z].levelName));
 			memcpy(&saveFiles[z].levelName, &p[1], *p);
 			p += 10;
-			
+
 			/* This was a BYTE array, not a STRING, in the original. Go fig. */
 			memcpy(&saveFiles[z].name, p, 14);
 			p += 14;
-			
+
 			memcpy(&saveFiles[z].cubes, p, sizeof(JE_byte)); p++;
 			memcpy(&saveFiles[z].power, p, sizeof(JE_byte) * 2); p += 2;
 			memcpy(&saveFiles[z].episode, p, sizeof(JE_byte)); p++;
@@ -853,29 +865,29 @@ void JE_loadConfiguration( void )
 			memcpy(&saveFiles[z].secretHint, p, sizeof(JE_byte)); p++;
 			memcpy(&saveFiles[z].input1, p, sizeof(JE_byte)); p++;
 			memcpy(&saveFiles[z].input2, p, sizeof(JE_byte)); p++;
-			
+
 			/* booleans were 1 byte in pascal -- working around it */
 			Uint8 temp;
 			memcpy(&temp, p, 1); p++;
 			saveFiles[z].gameHasRepeated = temp != 0;
-			
+
 			memcpy(&saveFiles[z].initialDifficulty, p, sizeof(JE_byte)); p++;
-			
+
 			memcpy(&saveFiles[z].highScore1, p, sizeof(JE_longint)); p += 4;
 			saveFiles[z].highScore1 = SDL_SwapLE32(saveFiles[z].highScore1);
-			
+
 			memcpy(&saveFiles[z].highScore2, p, sizeof(JE_longint)); p += 4;
 			saveFiles[z].highScore2 = SDL_SwapLE32(saveFiles[z].highScore2);
-			
+
 			memset(&saveFiles[z].highScoreName, 0, sizeof(saveFiles[z].highScoreName));
 			memcpy(&saveFiles[z].highScoreName, &p[1], *p);
 			p += 30;
-			
+
 			memcpy(&saveFiles[z].highScoreDiff, p, sizeof(JE_byte)); p++;
 		}
 
 		/* SYN: This is truncating to bytes. I have no idea what this is doing or why. */
-		/* TODO: Figure out what this is about and make sure it isn't broked. */
+		/* TODO: Figure out what this is about and make sure it isn't broken. */
 		editorLevel = (saveTemp[SIZEOF_SAVEGAMETEMP - 5] << 8) | saveTemp[SIZEOF_SAVEGAMETEMP - 6];
 
 		fclose(fi);
@@ -909,7 +921,7 @@ void JE_loadConfiguration( void )
 			}
 		}
 	}
-	
+
 	JE_initProcessorType();
 }
 
@@ -923,7 +935,11 @@ void JE_saveConfiguration( void )
 		mkdir(dir, 0755);
 	}
 #endif /* HOME */
-	
+#ifdef __PLAYBOOK__
+		char dir[1000];
+		char cwd[512];
+		snprintf(dir, sizeof(dir), "%s/data/.opentyrian", getcwd(cwd, sizeof(cwd)));
+#endif /* __PLAYBOOK__ */
 	FILE *f;
 	JE_byte *p;
 	int z;
@@ -933,31 +949,31 @@ void JE_saveConfiguration( void )
 	{
 		JE_SaveFileType tempSaveFile;
 		memcpy(&tempSaveFile, &saveFiles[z], sizeof(tempSaveFile));
-		
+
 		tempSaveFile.encode = SDL_SwapLE16(tempSaveFile.encode);
 		memcpy(p, &tempSaveFile.encode, sizeof(JE_word)); p += 2;
-		
+
 		tempSaveFile.level = SDL_SwapLE16(tempSaveFile.level);
 		memcpy(p, &tempSaveFile.level, sizeof(JE_word)); p += 2;
-		
+
 		memcpy(p, &tempSaveFile.items, sizeof(JE_PItemsType)); p += sizeof(JE_PItemsType);
-		
+
 		tempSaveFile.score = SDL_SwapLE32(tempSaveFile.score);
 		memcpy(p, &tempSaveFile.score, sizeof(JE_longint)); p += 4;
-		
+
 		tempSaveFile.score2 = SDL_SwapLE32(tempSaveFile.score2);
 		memcpy(p, &tempSaveFile.score2, sizeof(JE_longint)); p += 4;
-		
+
 		/* SYN: Pascal strings are prefixed by a byte holding the length! */
 		memset(p, 0, sizeof(tempSaveFile.levelName));
 		*p = strlen(tempSaveFile.levelName);
 		memcpy(&p[1], &tempSaveFile.levelName, *p);
 		p += 10;
-		
+
 		/* This was a BYTE array, not a STRING, in the original. Go fig. */
 		memcpy(p, &tempSaveFile.name, 14);
 		p += 14;
-		
+
 		memcpy(p, &tempSaveFile.cubes, sizeof(JE_byte)); p++;
 		memcpy(p, &tempSaveFile.power, sizeof(JE_byte) * 2); p += 2;
 		memcpy(p, &tempSaveFile.episode, sizeof(JE_byte)); p++;
@@ -966,32 +982,32 @@ void JE_saveConfiguration( void )
 		memcpy(p, &tempSaveFile.secretHint, sizeof(JE_byte)); p++;
 		memcpy(p, &tempSaveFile.input1, sizeof(JE_byte)); p++;
 		memcpy(p, &tempSaveFile.input2, sizeof(JE_byte)); p++;
-		
+
 		/* booleans were 1 byte in pascal -- working around it */
 		Uint8 temp = tempSaveFile.gameHasRepeated != false;
 		memcpy(p, &temp, 1); p++;
-		
+
 		memcpy(p, &tempSaveFile.initialDifficulty, sizeof(JE_byte)); p++;
-		
+
 		tempSaveFile.highScore1 = SDL_SwapLE32(tempSaveFile.highScore1);
 		memcpy(p, &tempSaveFile.highScore1, sizeof(JE_longint)); p += 4;
-		
+
 		tempSaveFile.highScore2 = SDL_SwapLE32(tempSaveFile.highScore2);
 		memcpy(p, &tempSaveFile.highScore2, sizeof(JE_longint)); p += 4;
-		
+
 		memset(p, 0, sizeof(tempSaveFile.highScoreName));
 		*p = strlen(tempSaveFile.highScoreName);
 		memcpy(&p[1], &tempSaveFile.highScoreName, *p);
 		p += 30;
-		
+
 		memcpy(p, &tempSaveFile.highScoreDiff, sizeof(JE_byte)); p++;
 	}
-	
+
 	saveTemp[SIZEOF_SAVEGAMETEMP - 6] = editorLevel >> 8;
 	saveTemp[SIZEOF_SAVEGAMETEMP - 5] = editorLevel;
-	
+
 	JE_encryptSaveTemp();
-	
+
 	f = dir_fopen_warn(get_user_directory(), "tyrian.sav", "wb");
 	if (f)
 	{
@@ -1002,16 +1018,16 @@ void JE_saveConfiguration( void )
 #endif
 	}
 	JE_decryptSaveTemp();
-	
+
 	f = dir_fopen_warn(get_user_directory(), "tyrian.cfg", "wb");
 	if (f)
 	{
 		efwrite(&background2, 1, 1, f);
 		efwrite(&gameSpeed, 1, 1, f);
-		
+
 		efwrite(&inputDevice_, 1, 1, f);
 		efwrite(&jConfigure, 1, 1, f);
-		
+
 		efwrite(&versionNum, 1, 1, f);
 		efwrite(&processorType, 1, 1, f);
 		efwrite(&midiPort, 1, 1, f);
@@ -1019,19 +1035,19 @@ void JE_saveConfiguration( void )
 		efwrite(&gammaCorrection, 1, 1, f);
 		efwrite(&difficultyLevel, 1, 1, f);
 		efwrite(joyButtonAssign, 1, 4, f);
-		
+
 		efwrite(&tyrMusicVolume, 2, 1, f);
 		efwrite(&fxVolume, 2, 1, f);
-		
+
 		efwrite(inputDevice, 1, 2, f);
-		
+
 		efwrite(keySettings, sizeof(*keySettings), COUNTOF(keySettings), f);
-		
+
 		fclose(f);
 	}
-	
+
 	save_opentyrian_config();
-	
+
 #if (_BSD_SOURCE || _XOPEN_SOURCE >= 500)
 	sync();
 #endif

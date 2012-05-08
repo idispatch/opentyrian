@@ -1,4 +1,4 @@
-/* 
+/*
  * OpenTyrian Classic: A modern cross-platform port of Tyrian
  * Copyright (C) 2007-2009  The OpenTyrian Development Team
  *
@@ -19,12 +19,9 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#include "cJSON.h"
 #include "opentyr.h"
-
-#include <stdio.h>
+#include "cJSON.h"
 #include "SDL.h"
-
 
 #define SAVE_FILES_NUM (11 * 2)
 
@@ -159,5 +156,3 @@ cJSON *load_json( const char *filename );
 void save_json( cJSON *root, const char *filename );
 
 #endif /* CONFIG_H */
-
-// kate: tab-width 4; vim: set noet:

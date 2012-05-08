@@ -59,7 +59,7 @@ const char *opentyrian_menu_items[] =
 {
 	"About OpenTyrian",
 	"Toggle Fullscreen",
-	"Scaler: None",
+	"Scaler: 3x",
 	/* "Play Destruct", */
 	"Jukebox",
 	"Return to Main Menu"
@@ -77,9 +77,9 @@ void opentyrian_menu( void )
 	int sel = 0;
 	const int maxSel = COUNTOF(opentyrian_menu_items) - 1;
 	bool quit = false, fade_in = true;
-	
+
 	uint temp_scaler = scaler;
-	
+
 	fade_black(10);
 	JE_loadPic(VGAScreen, 13, false);
 
@@ -307,7 +307,6 @@ int main( int argc, char *argv[] )
 	JE_loadExtraShapes();  /*Editship*/
 
 	JE_loadHelpText();
-	/*debuginfo("Help text complete");*/
 
 	if (isNetworkGame)
 	{
@@ -345,5 +344,3 @@ int main( int argc, char *argv[] )
 
 	return 0;
 }
-
-// kate: tab-width 4; vim: set noet:

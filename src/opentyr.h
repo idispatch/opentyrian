@@ -19,6 +19,8 @@
 #ifndef OPENTYR_H
 #define OPENTYR_H
 
+#include "SDL_stdinc.h"
+
 #include <math.h>
 #include <malloc.h>
 #include <stdio.h>
@@ -27,9 +29,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include "SDL_types.h"
+#include <unistd.h>
+#include <errno.h>
 
-#define COUNTOF(x) ((unsigned)(sizeof(x) / sizeof *(x)))  // use only on arrays!
+#define COUNTOF(x) ((unsigned)(sizeof(x) / sizeof *(x)))  /* use only on arrays! */
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 
@@ -37,16 +40,16 @@
 #define M_PI    3.14159265358979323846  // pi
 #endif
 #ifndef M_PI_2
-#define M_PI_2  1.57079632679489661923  // pi/2
+#define M_PI_2  1.57079632679489661923  /* pi/2 */
 #endif
 #ifndef M_PI_4
-#define M_PI_4  0.78539816339744830962  // pi/4
+#define M_PI_4  0.78539816339744830962  /* pi/4 */
 #endif
 
 typedef unsigned int uint;
 typedef unsigned long ulong;
 
-// Pascal types, yuck.
+/* Pascal types, yuck. */
 typedef Sint32 JE_longint;
 typedef Sint16 JE_integer;
 typedef Sint8  JE_shortint;
@@ -63,5 +66,3 @@ extern const char *opentyrian_str, *opentyrian_version;
 void opentyrian_menu( void );
 
 #endif /* OPENTYR_H */
-
-// kate: tab-width 4; vim: set noet:

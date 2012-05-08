@@ -2,7 +2,7 @@
 #define HG_REVISION_H
 
 #ifndef HG_REV
-#define HG_REV "unknown revision"
+#define HG_REV "BlackBerry PlayBook port"
 #endif
 
 #endif // HG_REVISION_H

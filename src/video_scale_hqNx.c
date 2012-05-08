@@ -1,7 +1,7 @@
-/* 
+/*
  * OpenTyrian Classic: A modern cross-platform port of Tyrian
  * Copyright (C) 2007-2010  The OpenTyrian Development Team
- * 
+ *
  * hq2x, hq3x, hq4x
  * Copyright (C) 2003 MaxSt ( maxst@hiend3d.com )
  *
@@ -23,6 +23,8 @@
 #include "palette.h"
 #include "video.h"
 
+#ifdef __PLAYBOOK__
+#else
 void interp1(Uint32 *pc, Uint32 c1, Uint32 c2);
 void interp2(Uint32 *pc, Uint32 c1, Uint32 c2, Uint32 c3);
 void interp3(Uint32 *pc, Uint32 c1, Uint32 c2);
@@ -60,7 +62,7 @@ inline void interp2(Uint32 *pc, Uint32 c1, Uint32 c2, Uint32 c3)
 inline void interp3(Uint32 *pc, Uint32 c1, Uint32 c2)
 {
 	//*((int*)pc) = (c1*7+c2)/8;
-	
+
 	*((int*)pc) = ((((c1 & 0x00FF00)*7 + (c2 & 0x00FF00) ) & 0x0007F800) +
 	               (((c1 & 0xFF00FF)*7 + (c2 & 0xFF00FF) ) & 0x07F807F8)) >> 3;
 }
@@ -68,7 +70,7 @@ inline void interp3(Uint32 *pc, Uint32 c1, Uint32 c2)
 inline void interp4(Uint32 *pc, Uint32 c1, Uint32 c2, Uint32 c3)
 {
 	//*((int*)pc) = (c1*2+(c2+c3)*7)/16;
-	
+
 	*((int*)pc) = ((((c1 & 0x00FF00)*2 + ((c2 & 0x00FF00) + (c3 & 0x00FF00))*7 ) & 0x000FF000) +
 	               (((c1 & 0xFF00FF)*2 + ((c2 & 0xFF00FF) + (c3 & 0xFF00FF))*7 ) & 0x0FF00FF0)) >> 4;
 }
@@ -81,7 +83,7 @@ inline void interp5(Uint32 *pc, Uint32 c1, Uint32 c2)
 inline void interp6(Uint32 *pc, Uint32 c1, Uint32 c2, Uint32 c3)
 {
 	//*pc = (c1*5+c2*2+c3)/8;
-	
+
 	*pc = ((((c1 & 0x00FF00)*5 + (c2 & 0x00FF00)*2 + (c3 & 0x00FF00) ) & 0x0007F800) +
 	       (((c1 & 0xFF00FF)*5 + (c2 & 0xFF00FF)*2 + (c3 & 0xFF00FF) ) & 0x07F807F8)) >> 3;
 }
@@ -89,7 +91,7 @@ inline void interp6(Uint32 *pc, Uint32 c1, Uint32 c2, Uint32 c3)
 inline void interp7(Uint32 *pc, Uint32 c1, Uint32 c2, Uint32 c3)
 {
 	//*pc = (c1*6+c2+c3)/8;
-	
+
 	*pc = ((((c1 & 0x00FF00)*6 + (c2 & 0x00FF00) + (c3 & 0x00FF00) ) & 0x0007F800) +
 	       (((c1 & 0xFF00FF)*6 + (c2 & 0xFF00FF) + (c3 & 0xFF00FF) ) & 0x07F807F8)) >> 3;
 }
@@ -97,7 +99,7 @@ inline void interp7(Uint32 *pc, Uint32 c1, Uint32 c2, Uint32 c3)
 inline void interp8(Uint32 *pc, Uint32 c1, Uint32 c2)
 {
 	//*pc = (c1*5+c2*3)/8;
-	
+
 	*pc = ((((c1 & 0x00FF00)*5 + (c2 & 0x00FF00)*3 ) & 0x0007F800) +
 	       (((c1 & 0xFF00FF)*5 + (c2 & 0xFF00FF)*3 ) & 0x07F807F8)) >> 3;
 }
@@ -105,7 +107,7 @@ inline void interp8(Uint32 *pc, Uint32 c1, Uint32 c2)
 inline void interp9(Uint32 *pc, Uint32 c1, Uint32 c2, Uint32 c3)
 {
 	//*pc = (c1*2+(c2+c3)*3)/8;
-	
+
 	*pc = ((((c1 & 0x00FF00)*2 + ((c2 & 0x00FF00) + (c3 & 0x00FF00))*3 ) & 0x0007F800) +
 	       (((c1 & 0xFF00FF)*2 + ((c2 & 0xFF00FF) + (c3 & 0xFF00FF))*3 ) & 0x07F807F8)) >> 3;
 }
@@ -113,7 +115,7 @@ inline void interp9(Uint32 *pc, Uint32 c1, Uint32 c2, Uint32 c3)
 inline void interp10(Uint32 *pc, Uint32 c1, Uint32 c2, Uint32 c3)
 {
 	//*pc = (c1*14+c2+c3)/16;
-	
+
 	*pc = ((((c1 & 0x00FF00)*14 + (c2 & 0x00FF00) + (c3 & 0x00FF00) ) & 0x000FF000) +
 	       (((c1 & 0xFF00FF)*14 + (c2 & 0xFF00FF) + (c3 & 0xFF00FF) ) & 0x0FF00FF0)) >> 4;
 }
@@ -184,15 +186,15 @@ void hq2x_32( SDL_Surface *src_surface, SDL_Surface *dst_surface )
 	int src_pitch = src_surface->pitch,
 	    dst_pitch = dst_surface->pitch;
 	const int dst_Bpp = 4;         // dst_surface->format->BytesPerPixel
-	
+
 	const int height = vga_height, // src_surface->h
 	          width = vga_width;   // src_surface->w
-	
+
 	int prevline, nextline;
-	
+
 	Uint32 w[10];
 	Uint32 c[10];
-	
+
 	//   +----+----+----+
 	//   |    |    |    |
 	//   | w1 | w2 | w3 |
@@ -203,21 +205,21 @@ void hq2x_32( SDL_Surface *src_surface, SDL_Surface *dst_surface )
 	//   |    |    |    |
 	//   | w7 | w8 | w9 |
 	//   +----+----+----+
-	
+
 	for (int j = 0; j < height; j++)
 	{
 		src_temp = src;
 		dst_temp = dst;
-		
+
 		prevline = (j > 0) ? -width : 0;
 		nextline = (j < height - 1) ? width : 0;
-		
+
 		for (int i = 0; i < width; i++)
 		{
 			w[2] = *(src + prevline);
 			w[5] = *src;
 			w[8] = *(src + nextline);
-			
+
 			if (i > 0)
 			{
 				w[1] = *(src + prevline - 1);
@@ -228,7 +230,7 @@ void hq2x_32( SDL_Surface *src_surface, SDL_Surface *dst_surface )
 				w[4] = w[5];
 				w[7] = w[8];
 			}
-			
+
 			if (i < width - 1)
 			{
 				w[3] = *(src + prevline + 1);
@@ -239,16 +241,16 @@ void hq2x_32( SDL_Surface *src_surface, SDL_Surface *dst_surface )
 				w[6] = w[5];
 				w[9] = w[8];
 			}
-			
+
 			int pattern = 0;
 			int flag = 1;
-			
+
 			YUV1 = yuv_palette[w[5]];
-			
+
 			for (int k=1; k<=9; k++)
 			{
 				if (k==5) continue;
-				
+
 				if ( w[k] != w[5] )
 				{
 					YUV2 = yuv_palette[w[k]];
@@ -259,10 +261,10 @@ void hq2x_32( SDL_Surface *src_surface, SDL_Surface *dst_surface )
 				}
 				flag <<= 1;
 			}
-			
+
 			for (int k=1; k<=9; k++)
 				c[k] = rgb_palette[w[k]] & 0xfcfcfcfc; // hq2x has a nasty inability to accept more than 6 bits for each component
-			
+
 			switch (pattern)
 			{
 				case 0:
@@ -2905,11 +2907,11 @@ void hq2x_32( SDL_Surface *src_surface, SDL_Surface *dst_surface )
 					break;
 				}
 			}
-			
+
 			src++;
 			dst += 2 * dst_Bpp;
 		}
-		
+
 		src = src_temp + src_pitch;
 		dst = dst_temp + 2 * dst_pitch;
 	}
@@ -2977,15 +2979,15 @@ void hq3x_32( SDL_Surface *src_surface, SDL_Surface *dst_surface )
 	int src_pitch = src_surface->pitch,
 	    dst_pitch = dst_surface->pitch;
 	const int dst_Bpp = 4;         // dst_surface->format->BytesPerPixel
-	
+
 	const int height = vga_height, // src_surface->h
 	          width = vga_width;   // src_surface->w
-	
+
 	int prevline, nextline;
-	
+
 	Uint32 w[10];
 	Uint32 c[10];
-	
+
 	//   +----+----+----+
 	//   |    |    |    |
 	//   | w1 | w2 | w3 |
@@ -2996,21 +2998,21 @@ void hq3x_32( SDL_Surface *src_surface, SDL_Surface *dst_surface )
 	//   |    |    |    |
 	//   | w7 | w8 | w9 |
 	//   +----+----+----+
-	
+
 	for (int j = 0; j < height; j++)
 	{
 		src_temp = src;
 		dst_temp = dst;
-		
+
 		prevline = (j > 0) ? -width : 0;
 		nextline = (j < height - 1) ? width : 0;
-		
+
 		for (int i = 0; i < width; i++)
 		{
 			w[2] = *(src + prevline);
 			w[5] = *src;
 			w[8] = *(src + nextline);
-			
+
 			if (i>0)
 			{
 				w[1] = *(src + prevline - 1);
@@ -3021,7 +3023,7 @@ void hq3x_32( SDL_Surface *src_surface, SDL_Surface *dst_surface )
 				w[4] = w[5];
 				w[7] = w[8];
 			}
-			
+
 			if (i < width - 1)
 			{
 				w[3] = *(src + prevline + 1);
@@ -3032,16 +3034,16 @@ void hq3x_32( SDL_Surface *src_surface, SDL_Surface *dst_surface )
 				w[6] = w[5];
 				w[9] = w[8];
 			}
-			
+
 			int pattern = 0;
 			int flag = 1;
-			
+
 			YUV1 = yuv_palette[w[5]];
-			
+
 			for (int k=1; k<=9; k++)
 			{
 				if (k==5) continue;
-				
+
 				if ( w[k] != w[5] )
 				{
 					YUV2 = yuv_palette[w[k]];
@@ -3052,10 +3054,10 @@ void hq3x_32( SDL_Surface *src_surface, SDL_Surface *dst_surface )
 				}
 				flag <<= 1;
 			}
-			
+
 			for (int k=1; k<=9; k++)
 				c[k] = rgb_palette[w[k]] & 0xfcfcfcfc; // hq3x has a nasty inability to accept more than 6 bits for each component
-			
+
 			switch (pattern)
 			{
 				case 0:
@@ -6671,11 +6673,11 @@ void hq3x_32( SDL_Surface *src_surface, SDL_Surface *dst_surface )
 					break;
 				}
 			}
-			
+
 			src++;
 			dst += 3 * dst_Bpp;
 		}
-		
+
 		src = src_temp + src_pitch;
 		dst = dst_temp + 3 * dst_pitch;
 	}
@@ -6830,15 +6832,15 @@ void hq4x_32( SDL_Surface *src_surface, SDL_Surface *dst_surface )
 	int src_pitch = src_surface->pitch,
 	    dst_pitch = dst_surface->pitch;
 	const int dst_Bpp = 4;         // dst_surface->format->BytesPerPixel
-	
+
 	const int height = vga_height, // src_surface->h
 	          width = vga_width;   // src_surface->w
-	
+
 	int prevline, nextline;
-	
+
 	Uint32 w[10];
 	Uint32 c[10];
-	
+
 	//   +----+----+----+
 	//   |    |    |    |
 	//   | w1 | w2 | w3 |
@@ -6849,21 +6851,21 @@ void hq4x_32( SDL_Surface *src_surface, SDL_Surface *dst_surface )
 	//   |    |    |    |
 	//   | w7 | w8 | w9 |
 	//   +----+----+----+
-	
+
 	for (int j = 0; j < height; j++)
 	{
 		src_temp = src;
 		dst_temp = dst;
-		
+
 		prevline = (j > 0) ? -width : 0;
 		nextline = (j < height - 1) ? width : 0;
-		
+
 		for (int i = 0; i < width; i++)
 		{
 			w[2] = *(src + prevline);
 			w[5] = *src;
 			w[8] = *(src + nextline);
-			
+
 			if (i>0)
 			{
 				w[1] = *(src + prevline - 1);
@@ -6874,7 +6876,7 @@ void hq4x_32( SDL_Surface *src_surface, SDL_Surface *dst_surface )
 				w[4] = w[5];
 				w[7] = w[8];
 			}
-			
+
 			if (i < width - 1)
 			{
 				w[3] = *(src + prevline + 1);
@@ -6885,16 +6887,16 @@ void hq4x_32( SDL_Surface *src_surface, SDL_Surface *dst_surface )
 				w[6] = w[5];
 				w[9] = w[8];
 			}
-			
+
 			int pattern = 0;
 			int flag = 1;
-			
+
 			YUV1 = yuv_palette[w[5]];
-			
+
 			for (int k=1; k<=9; k++)
 			{
 				if (k==5) continue;
-				
+
 				if ( w[k] != w[5] )
 				{
 					YUV2 = yuv_palette[w[k]];
@@ -6905,10 +6907,10 @@ void hq4x_32( SDL_Surface *src_surface, SDL_Surface *dst_surface )
 				}
 				flag <<= 1;
 			}
-			
+
 			for (int k=1; k<=9; k++)
 				c[k] = rgb_palette[w[k]] & 0xfcfcfcfc; // hq4x has a nasty inability to accept more than 6 bits for each component
-			
+
 			switch (pattern)
 			{
 				case 0:
@@ -11883,14 +11885,14 @@ void hq4x_32( SDL_Surface *src_surface, SDL_Surface *dst_surface )
 					break;
 				}
 			}
-			
+
 			src++;
 			dst += 4 * dst_Bpp;
 		}
-		
+
 		src = src_temp + src_pitch;
 		dst = dst_temp + 4 * dst_pitch;
 	}
 }
+#endif /* __PLAYBOOK__ */
 
-// kate: tab-width 4; vim: set noet:
