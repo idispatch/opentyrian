@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <emulation version="1">
-<key x="10"  y="490" width="85" height="84" sym="13"  scancode="13"  image="assets/button-alt-fire.png" />    <!-- SDLK_RETURN -->
-<key x="120" y="400" width="85" height="84" sym="32"  scancode="32"  image="assets/button-fire.png" />        <!-- SDLK_SPACE  -->
-<key x="10"  y="320" width="85" height="84" sym="306" scancode="306" image="assets/button-left-fire.png" />   <!-- SDLK_LCTRL  -->
-<key x="10"  y="240" width="85" height="84" sym="308" scancode="308" image="assets/button-right-fire.png" />  <!-- SDLK_LALT   -->
-<key x="10"  y="10"  width="85" height="84" sym="308" scancode="308" image="assets/button-esc.png" />         <!-- SDLK_ESCAPE -->
+<key x="50"  y="440" width="85" height="84" sym="13"  scancode="13"  image="assets/button-alt-fire.png" />    <!-- SDLK_RETURN -->
+<key x="50"  y="350" width="85" height="84" sym="32"  scancode="32"  image="assets/button-fire.png" />        <!-- SDLK_SPACE  -->
+<key x="155" y="320" width="85" height="84" sym="306" scancode="306" image="assets/button-left-fire.png" />   <!-- SDLK_LCTRL  -->
+<key x="155" y="414" width="85" height="84" sym="308" scancode="308" image="assets/button-right-fire.png" />  <!-- SDLK_LALT   -->
+<key x="5"   y="5"   width="85" height="84" sym="308" scancode="308" image="assets/button-esc.png" />         <!-- SDLK_ESCAPE -->
 
-<key x="750" y="490" width="85" height="84" sym="276" scancode="276" image="assets/button-left.png" />        <!-- SDLK_LEFT   -->
-<key x="837" y="490" width="85" height="84" sym="274" scancode="274" image="assets/button-down.png" />        <!-- SDLK_DOWN   -->
-<key x="837" y="407" width="85" height="84" sym="273" scancode="273" image="assets/button-up.png" />          <!-- SDLK_UP     -->
-<key x="918" y="490" width="85" height="84" sym="275" scancode="275" image="assets/button-right.png" />       <!-- SDLK_RIGHT  -->
+<key x="721" y="431" width="85" height="84" sym="276" scancode="276" image="assets/button-left.png" />        <!-- SDLK_LEFT   -->
+<key x="813" y="472" width="85" height="84" sym="274" scancode="274" image="assets/button-down.png" />        <!-- SDLK_DOWN   -->
+<key x="813" y="383" width="85" height="84" sym="273" scancode="273" image="assets/button-up.png" />          <!-- SDLK_UP     -->
+<key x="903" y="431" width="85" height="84" sym="275" scancode="275" image="assets/button-right.png" />       <!-- SDLK_RIGHT  -->
 </emulation>

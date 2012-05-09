@@ -19,18 +19,18 @@
 #ifndef OPENTYR_H
 #define OPENTYR_H
 
-#include "SDL_stdinc.h"
-
-#include <math.h>
-#include <malloc.h>
+#include <unistd.h>
 #include <stdio.h>
+#include <malloc.h>
+#include <string.h>
+#include <ctype.h>
+#include <errno.h>
+#include <math.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
-#include <unistd.h>
-#include <errno.h>
+#include "SDL_stdinc.h"
+
 
 #define ENABLE_CONFIGURATION 1
 

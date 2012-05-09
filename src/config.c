@@ -16,6 +16,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
+#include <unistd.h>
+#include <sys/stat.h>
 #include "opentyr.h"
 #include "config.h"
 #include "episodes.h"
@@ -30,9 +32,7 @@
 #include "video.h"
 #include "video_scale.h"
 
-#include <unistd.h>
-#include <sys/stat.h>
-
+extern char *getcwd(char *__buf, _CSTD size_t __size);
 
 /* Configuration Load/Save handler */
 
@@ -937,8 +937,8 @@ void JE_saveConfiguration( void )
 #endif /* HOME */
 #ifdef __PLAYBOOK__
 		char dir[1000];
-		char cwd[512];
-		snprintf(dir, sizeof(dir), "%s/data/.opentyrian", getcwd(cwd, sizeof(cwd)));
+		char working_dir[512];
+		snprintf(dir, sizeof(dir), "%s/data/.opentyrian", getcwd(working_dir, sizeof(working_dir)));
 #endif /* __PLAYBOOK__ */
 	FILE *f;
 	JE_byte *p;

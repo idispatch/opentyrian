@@ -21,6 +21,7 @@
 #include "SDL.h"
 
 const char *custom_data_dir = ".";
+extern char *getcwd(char *__buf, _CSTD size_t __size);
 
 /* finds the Tyrian data directory */
 const char *data_dir( void )
