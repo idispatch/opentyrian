@@ -3365,7 +3365,8 @@ bool JE_titleScreen( JE_boolean animate )
 
 	gameLoaded = false;
 	jumpSection = false;
-
+#ifdef __PLAYBOOK__
+#else
 	if (isNetworkGame)
 	{
 		JE_loadPic(VGAScreen, 2, false);
@@ -3445,6 +3446,7 @@ bool JE_titleScreen( JE_boolean animate )
 	}
 	else
 	{
+#endif
 		do
 		{
 			defaultBrightness = -3;
@@ -3747,7 +3749,10 @@ bool JE_titleScreen( JE_boolean animate )
 
 trentWinsGame:
 		fade_black(15);
+#ifdef __PLAYBOOK__
+#else
 	}
+#endif
 
 	return quit;
 }
@@ -3782,7 +3787,8 @@ void intro_logos( void )
 void JE_readTextSync( void )
 {
 	return;  // this function seems to be unnecessary
-
+#ifdef __PLAYBOOK__
+#else
 	JE_clr256(VGAScreen);
 	JE_showVGA();
 	JE_loadPic(VGAScreen, 1, true);
@@ -3803,6 +3809,7 @@ void JE_readTextSync( void )
 		wait_delay();
 
 	} while (0 /* TODO: NETWORK */);
+#endif
 }
 
 

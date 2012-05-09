@@ -1,4 +1,4 @@
-/* 
+/*
  * OpenTyrian Classic: A modern cross-platform port of Tyrian
  * Copyright (C) 2007-2009  The OpenTyrian Development Team
  *
@@ -19,7 +19,8 @@
 #include "opentyr.h"
 #include "pcxmast.h"
 
-
+#ifdef __PLAYBOOK__
+#else
 const char *pcxfile[PCX_NUM] = /* [1..PCXnum] */
 {
 	"INTSHPB.PCX",
@@ -36,6 +37,7 @@ const char *pcxfile[PCX_NUM] = /* [1..PCXnum] */
 	"ECLIPSE.PCX",
 	"FIREPICA.PCX"
 };
+#endif
 
 const JE_byte pcxpal[PCX_NUM] = /* [1..PCXnum] */
 { 0, 7, 5, 8, 10, 5, 18, 19, 19, 20, 21, 22, 5};
@@ -45,5 +47,3 @@ const JE_byte facepal[12] = /* [1..12] */
 { 1, 2, 3, 4, 6, 9, 11, 12, 16, 13, 14, 15};
 
 JE_pcxpostype pcxpos;
-
-// kate: tab-width 4; vim: set noet:

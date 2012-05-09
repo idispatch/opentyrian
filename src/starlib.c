@@ -386,7 +386,7 @@ void JE_newStar( void )
 				}
 				tempX = (int)(cosf(sinf(nsp2 / 5.0f) + (nsp / 100)) * 32000);
 				tempY = (int)(sinf(cosf(nsp2 / 5.0f) + (nsp / 100)) * 30000);
-				break;;
+				break;
 			case 11:
 				nsp2 += nspVar2Inc;
 				if ((nsp2 == 65535) || (nsp2 == 0))
@@ -429,4 +429,3 @@ void JE_newStar( void )
 	}
 }
 
-// kate: tab-width 4; vim: set noet:

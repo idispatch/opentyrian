@@ -1,4 +1,4 @@
-/* 
+/*
  * OpenTyrian Classic: A modern cross-platform port of Tyrian
  * Copyright (C) 2007-2009  The OpenTyrian Development Team
  *
@@ -23,8 +23,11 @@
 
 #include "SDL.h"
 
-
+#ifdef __PLAYBOOK__
+#define SDL_POLL_INTERVAL 4
+#else
 #define SDL_POLL_INTERVAL 5
+#endif
 
 extern JE_boolean ESCPressed;
 extern JE_boolean newkey, newmouse, keydown, mousedown;
@@ -55,5 +58,3 @@ void sleep_game( void );
 void JE_clearKeyboard( void );
 
 #endif /* KEYBOARD_H */
-
-// kate: tab-width 4; vim: set noet:

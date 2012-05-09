@@ -35,12 +35,15 @@
 
     <!--  Name of author which is used for signing. Must match the developer name of your development certificate. -->
     <author>Oleg Kosenkov</author>
+    <splashscreen>tyrian-loading.png</splashscreen>
     <name>Tyrian</name>
     
     <!--  Unique author ID assigned by signing authority. Required if using debug tokens. -->
     <!-- <authorId>ABC1234YjsnUk235h</authorId> -->
    
     <initialWindow>
+        <aspectRatio>landscape</aspectRatio>
+        <autoOrients>false</autoOrients>
         <systemChrome>none</systemChrome>
         <transparent>false</transparent>
     </initialWindow>
@@ -50,6 +53,8 @@
     <asset path="assets">assets</asset>
     <asset path="icon.png">icon.png</asset>
     <asset path="sdl-controls.xml">sdl-controls.xml</asset>
+    <asset path="assets/tyrian-icon.png">tyrian-icon.png</asset>
+    <asset path="assets/tyrian-loading.png">tyrian-loading.png</asset>
     <configuration id="com.qnx.qcc.configuration.exe.debug.1126421720" name="Device-Debug">
        <platformArchitecture>armle-v7</platformArchitecture>
        <asset path="Device-Debug/opentyrian" entry="true" type="Qnx/Elf">opentyrian</asset>
@@ -61,7 +66,7 @@
     
     <!--  The icon for the application, which should be 86x86. -->
     <icon>
-        <image>icon.png</image>
+        <image>tyrian-icon.png</image>
     </icon>
     
     <!--  The splash screen that will appear when your application is launching. Should be 1024x600. -->

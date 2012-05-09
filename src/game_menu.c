@@ -1569,6 +1569,8 @@ void JE_itemScreen( void )
 
 	} while (!(quit || gameLoaded || jumpSection));
 
+#ifdef __PLAYBOOK__
+#else
 	if (!quit && isNetworkGame)
 	{
 		JE_barShade(VGAScreen, 3, 3, 316, 196);
@@ -1609,7 +1611,7 @@ void JE_itemScreen( void )
 			SDL_Delay(16);
 		}
 	}
-
+#endif
 	if (gameLoaded)
 		fade_black(10);
 }
@@ -2495,7 +2497,11 @@ void JE_genItemMenu( JE_byte itemNum )
 
 void JE_scaleInPicture( SDL_Surface *dst, const SDL_Surface *src )
 {
+#ifdef __PLAYBOOK__
+	for (int i = 5; i <= 160; i += 5)
+#else
 	for (int i = 2; i <= 160; i += 2)
+#endif
 	{
 		if (JE_anyButton()) { break; }
 
@@ -2686,7 +2692,7 @@ void JE_menuFunction( JE_byte select )
 
 				wait_delay();
 			} while (!newkey && !mousedown && !joydown);
-			
+
 			if (newkey)
 			{
 				// already used? then swap
@@ -2698,7 +2704,7 @@ void JE_menuFunction( JE_byte select )
 						break;
 					}
 				}
-				
+
 				if (lastkey_sym != SDLK_ESCAPE && // reserved for menu
 				    lastkey_sym != SDLK_F11 &&    // reserved for gamma
 				    lastkey_sym != SDLK_p)        // reserved for pause
@@ -2707,7 +2713,7 @@ void JE_menuFunction( JE_byte select )
 					keySettings[curSelect-2] = lastkey_sym;
 					++curSelect;
 				}
-				
+
 				JE_wipeKey();
 			}
 		}
@@ -2920,6 +2926,7 @@ joystick_assign_done:
 
 				poll_joysticks();
 			}
+			break;
 		}
 		break;
 
@@ -2946,6 +2953,7 @@ joystick_assign_done:
 				gameLoaded = true;
 				mainLevel = 0;
 			}
+			break;
 		}
 		break;
 	}
@@ -3011,6 +3019,7 @@ void JE_drawShipSpecs( SDL_Surface * screen, SDL_Surface * temp_screen  )
 			break;
 		default:
 			assert(0);
+			break;
 	}
 	temp_x -= 30;
 
@@ -3339,5 +3348,3 @@ draw_player_shot_loop_end:
 
 	//JE_waitFrameCount();  TODO: didn't do anything?
 }
-
-// kate: tab-width 4; vim: set noet:

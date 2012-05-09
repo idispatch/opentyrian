@@ -35,7 +35,7 @@ void jukebox( void )
 {
 	bool trigger_quit = false,  // true when user wants to quit
 	     quitting = false;
-	
+
 	bool hide_text = false;
 
 	bool fade_looped_songs = true, fading_song = false;
@@ -52,7 +52,7 @@ void jukebox( void )
 	JE_starlib_init();
 
 	int fade_volume = tyrMusicVolume;
-	
+
 	for (; ; )
 	{
 		if (!stopped && !audio_disabled)
@@ -93,22 +93,26 @@ void jukebox( void )
 		if (!hide_text)
 		{
 			char buffer[60];
-			
+
 			if (fx)
 				snprintf(buffer, sizeof(buffer), "%d %s", fx_num + 1, soundTitle[fx_num]);
 			else
 				snprintf(buffer, sizeof(buffer), "%d %s", song_playing + 1, musicTitle[song_playing]);
-			
+
 			const int x = VGAScreen->w / 2;
-			
+
+#ifdef __PLAYBOOK__
+			draw_font_hv(VGAScreen, x, 170, "Press Enter to quit the jukebox.",         small_font, centered, 1, 0);
+#else
 			draw_font_hv(VGAScreen, x, 170, "Press ESC to quit the jukebox.",           small_font, centered, 1, 0);
+#endif
 			draw_font_hv(VGAScreen, x, 180, "Arrow keys change the song being played.", small_font, centered, 1, 0);
 			draw_font_hv(VGAScreen, x, 190, buffer,                                     small_font, centered, 1, 4);
 		}
 
 		if (palette_fade_steps > 0)
 			step_fade_palette(diff, palette_fade_steps--, 0, 255);
-		
+
 		JE_showVGA();
 
 		wait_delay();
@@ -123,6 +127,7 @@ void jukebox( void )
 			switch (lastkey_sym)
 			{
 			case SDLK_ESCAPE: // quit jukebox
+			case SDLK_RETURN:
 			case SDLK_q:
 				trigger_quit = true;
 				break;
@@ -159,7 +164,7 @@ void jukebox( void )
 				play_song((song_playing > 0 ? song_playing : MUSIC_NUM) - 1);
 				stopped = false;
 				break;
-			case SDLK_RETURN:
+
 			case SDLK_RIGHT:
 			case SDLK_DOWN:
 				play_song((song_playing + 1) % MUSIC_NUM);
@@ -178,18 +183,18 @@ void jukebox( void )
 				break;
 			}
 		}
-		
+
 		// user wants to quit, start fade-out
 		if (trigger_quit && !quitting)
 		{
 			palette_fade_steps = 15;
-			
+
 			SDL_Color black = { 0, 0, 0 };
 			init_step_fade_solid(diff, black, 0, 255);
-			
+
 			quitting = true;
 		}
-		
+
 		// if fade-out finished, we can finally quit
 		if (quitting && palette_fade_steps == 0)
 			break;
@@ -198,4 +203,3 @@ void jukebox( void )
 	set_volume(tyrMusicVolume, fxVolume);
 }
 
-// kate: tab-width 4; vim: set noet:

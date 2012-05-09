@@ -477,26 +477,15 @@ void JE_tyrianHalt( JE_byte code )
 
 	if (code != 9)
 	{
-		/*
-		TODO?
-		JE_drawANSI("exitmsg.bin");
-		JE_gotoXY(1,22);*/
-
 		JE_saveConfiguration();
-	}
-
-	/* endkeyboard; */
-
-	if (code == 9)
-	{
-		/* OutputString('call=file0002.EXE' + #0'); TODO? */
 	}
 
 	if (code == 5)
 	{
 		code = 0;
 	}
-
+#ifdef __PLAYBOOK__
+#else
 	if (trentWin)
 	{
 		printf("\n"
@@ -512,7 +501,7 @@ void JE_tyrianHalt( JE_byte code )
 		       "You'll need the 2.1 patch, though!\n"
 		       "\n");
 	}
-
+#endif
 	SDL_Quit();
 	exit(code);
 }

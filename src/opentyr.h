@@ -32,6 +32,8 @@
 #include <unistd.h>
 #include <errno.h>
 
+#define ENABLE_CONFIGURATION 1
+
 #define COUNTOF(x) ((unsigned)(sizeof(x) / sizeof *(x)))  /* use only on arrays! */
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 #define MAX(a, b) ((a) > (b) ? (a) : (b))

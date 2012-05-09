@@ -1,4 +1,4 @@
-/* 
+/*
  * OpenTyrian Classic: A modern cross-platform port of Tyrian
  * Copyright (C) 2007-2009  The OpenTyrian Development Team
  *
@@ -23,6 +23,9 @@
 #define _GNU_SOURCE
 #endif
 
+#ifdef __PLAYBOOK__
+#else
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -36,22 +39,22 @@ Option parse_args( int argc, const char *argv[], const Options *options )
 {
 	static int argn = 1;
 	static bool no_more_options = false;
-	
+
 	static int first_nonopt = 1;
-	
+
 	Option option = { NOT_OPTION, NULL, 0 };
 	option.argn = first_nonopt;
-	
+
 	while (argn < argc)
 	{
 		size_t arg_len = strlen(argv[argn]);
-		
+
 		if (!no_more_options &&
 		    argv[argn][0] == '-' &&  // first char is '-'
 		    arg_len > 1)             // option is not "-"
 		{
 			option.argn = argn;
-			
+
 			if (argv[argn][1] == '-')  // string begins with "--"
 			{
 				if (arg_len == 2)  // "--" alone indicates end of options
@@ -68,10 +71,10 @@ Option parse_args( int argc, const char *argv[], const Options *options )
 			{
 				argn = parse_short_opt(argc, argv, options, &option);
 			}
-			
+
 			// shift option in front of non-options
 			permute(argv, &first_nonopt, &option.argn, argn);
-			
+
 			// don't include "--" in non-options
 			if (no_more_options)
 				++option.argn;
@@ -83,14 +86,14 @@ Option parse_args( int argc, const char *argv[], const Options *options )
 			++argn;
 		}
 	}
-	
+
 	return option;
 }
 
 static void permute( const char *argv[], int *first_nonopt, int *first_opt, int after_opt )
 {
 	const int nonopts = *first_opt - *first_nonopt;
-	
+
 	// slide each of the options in front of the non-options
 	for (int i = *first_opt; i < after_opt; ++i)
 	{
@@ -101,11 +104,11 @@ static void permute( const char *argv[], int *first_nonopt, int *first_opt, int 
 			argv[j] = argv[j - 1];
 			argv[j - 1] = temp;
 		}
-		
+
 		// position of first non-option shifts right once for each option
 		++(*first_nonopt);
 	}
-	
+
 	// position of first option is initial position of first non-option
 	*first_opt -= nonopts;
 }
@@ -113,18 +116,18 @@ static void permute( const char *argv[], int *first_nonopt, int *first_opt, int 
 static int parse_short_opt( int argc, const char *const argv[], const Options *options, Option *option )
 {
 	static size_t offset = 1;  // ignore the "-"
-	
+
 	int argn = option->argn;
-	
+
 	const char *arg = argv[argn];
-	
+
 	const size_t arg_len = strlen(arg);
-	
+
 	const bool arg_attached = (offset + 1 < arg_len),  // possible argument attached?
 	           last_in_argv = (argn == argc - 1);
-	
+
 	option->value = INVALID_OPTION;
-	
+
 	for (; !(options->short_opt == 0 &&
 	         options->long_opt == NULL); ++options)
 	{
@@ -132,19 +135,19 @@ static int parse_short_opt( int argc, const char *const argv[], const Options *o
 		    options->short_opt == arg[offset])
 		{
 			option->value = options->value;
-			
+
 			if (options->has_arg)
 			{
 				if (arg_attached)  // arg direclty follows option
 				{
 					option->arg = arg + offset + 1;
-					
+
 					offset = arg_len;
 				}
 				else if (!last_in_argv)  // arg is next in argv
 				{
 					option->arg = argv[++argn];
-					
+
 					offset = arg_len;
 				}
 				else
@@ -153,11 +156,11 @@ static int parse_short_opt( int argc, const char *const argv[], const Options *o
 					break;
 				}
 			}
-			
+
 			break;
 		}
 	}
-	
+
 	switch (option->value)
 	{
 	case INVALID_OPTION:
@@ -167,30 +170,30 @@ static int parse_short_opt( int argc, const char *const argv[], const Options *o
 		fprintf(stderr, "%s: option requires an argument -- '%c'\n", argv[0], argv[option->argn][offset]);
 		break;
 	}
-	
+
 	if (++offset >= arg_len)
 	{
 		++argn;
 		offset = 1;
 	}
-	
+
 	return argn;  // which arg in argv that parse_args() should examine when called again
 }
 
 static int parse_long_opt( int argc, const char *const argv[], const Options *options, Option *option )
 {
 	int argn = option->argn;
-	
+
 	const char *arg = argv[argn] + 2;  // ignore the "--"
-	
+
 	const size_t arg_len = strlen(arg),
 	             arg_opt_len = strchrnul(arg, '=') - arg;  // length before "="
-	
+
 	const bool arg_attached = (arg_opt_len < arg_len),  // argument attached using "="?
 	           last_in_argv = (argn == argc - 1);
-	
+
 	option->value = INVALID_OPTION;
-	
+
 	for (; !(options->short_opt == 0 &&
 	         options->long_opt == NULL); ++options)
 	{
@@ -202,9 +205,9 @@ static int parse_long_opt( int argc, const char *const argv[], const Options *op
 				option->value = AMBIGUOUS_OPTION;
 				break;
 			}
-			
+
 			option->value = options->value;
-			
+
 			if (options->has_arg)
 			{
 				if (arg_attached)  // arg is after "="
@@ -221,13 +224,13 @@ static int parse_long_opt( int argc, const char *const argv[], const Options *op
 					// can't break, gotta check for ambiguity
 				}
 			}
-			
+
 			if (arg_opt_len == strlen(options->long_opt)) // exact match
 				break;
 			// can't break for partial match, gotta check for ambiguity
 		}
 	}
-	
+
 	switch (option->value)
 	{
 	case INVALID_OPTION:
@@ -240,8 +243,9 @@ static int parse_long_opt( int argc, const char *const argv[], const Options *op
 		fprintf(stderr, "%s: option '%s' requires an argument\n", argv[0], argv[option->argn]);
 		break;
 	}
-	
+
 	++argn;
-	
+
 	return argn;  // which arg in argv that parse_args() should examine when called again
 }
+#endif /*__PLAYBOOK__*/

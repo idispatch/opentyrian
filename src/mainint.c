@@ -926,9 +926,6 @@ void JE_highScoreScreen( void )
 
 			JE_dString(VGAScreen, JE_fontCenter( miscText[48 - 1], SMALL_FONT_SHAPES), 120, miscText[48 - 1], SMALL_FONT_SHAPES);
 
-			/*{        textshade(20,125,misctext[49],15,3,_FullShade);
-			  textshade(80,125,misctext[50],15,3,_FullShade);}*/
-
 			for (z = 0; z < 3; z++)
 			{
 				temp5 = saveFiles[temp + z].highScoreDiff;
@@ -955,8 +952,6 @@ void JE_highScoreScreen( void )
 
 			helpBoxColor = 15;
 			JE_helpBox(VGAScreen, 110, 182, miscText[57 - 1], 25);
-
-			/* {Dstring(fontcenter(misctext[57],_SmallFontShapes),190,misctext[57],_SmallFontShapes);} */
 
 			JE_showVGA();
 
@@ -1043,6 +1038,8 @@ JE_boolean JE_gammaCheck( void )
 
 void JE_doInGameSetup( void )
 {
+#ifdef __PLAYBOOK__
+#else
 	haltGame = false;
 
 	if (isNetworkGame)
@@ -1152,6 +1149,7 @@ void JE_doInGameSetup( void )
 	yourInGameMenuRequest = false;
 
 	//skipStarShowVGA = true;
+#endif
 }
 
 JE_boolean JE_inGameSetup( void )
@@ -1166,8 +1164,6 @@ JE_boolean JE_inGameSetup( void )
 	JE_boolean quit;
 
 	bool first = true;
-
-	//tempScreenSeg = VGAScreenSeg; /* <MXD> ? should work as VGAScreen */
 
 	quit = false;
 	sel = 1;
@@ -1360,8 +1356,6 @@ void JE_inGameHelp( void )
 	SDL_Surface *temp_surface = VGAScreen;
 	VGAScreen = VGAScreenSeg; /* side-effect of game_screen */
 
-	//tempScreenSeg = VGAScreenSeg;
-
 	JE_clearKeyboard();
 	JE_wipeKey();
 
@@ -1389,7 +1383,7 @@ void JE_inGameHelp( void )
 		helpBoxBrightness = 3;
 		JE_HBox(VGAScreen, 40, 43, 34, 44);
 
-		// sheild/armor help
+		// shield/armor help
 		blit_sprite(VGAScreenSeg, 2, 79, OPTION_SHAPES, 42);
 		helpBoxColor = 5;
 		helpBoxBrightness = 3;

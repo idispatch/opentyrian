@@ -37,7 +37,11 @@ bool select_gameplay( void )
 	JE_dString(VGAScreen, JE_fontCenter(gameplay_name[0], FONT_SHAPES), 20, gameplay_name[0], FONT_SHAPES);
 
 	int gameplay = 1,
+#ifdef __PLAYBOOK__
+		gameplay_max = 2;
+#else
 	    gameplay_max = 4;
+#endif
 
 	bool fade_in = true;
 	for (; ; )
@@ -105,6 +109,7 @@ bool select_gameplay( void )
 			}
 		}
 	}
+	return true;
 }
 
 bool select_episode( void )
@@ -179,6 +184,7 @@ bool select_episode( void )
 			}
 		}
 	}
+	return true;
 }
 
 bool select_difficulty( void )
@@ -241,8 +247,6 @@ bool select_difficulty( void )
 
 			case SDLK_RETURN:
 				JE_playSampleNum(S_SELECT);
-				/* fading handled elsewhere
-				fade_black(10); */
 
 				if (difficultyLevel == 6)
 				{
@@ -254,8 +258,6 @@ bool select_difficulty( void )
 
 			case SDLK_ESCAPE:
 				JE_playSampleNum(S_SPRING);
-				/* fading handled elsewhere
-				fade_black(10); */
 
 				return false;
 
@@ -264,6 +266,5 @@ bool select_difficulty( void )
 			}
 		}
 	}
+	return true;
 }
-
-// kate: tab-width 4; vim: set noet:

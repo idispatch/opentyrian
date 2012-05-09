@@ -38,6 +38,8 @@ const char pars[][9] = {
 
 void JE_paramCheck( int argc, char *argv[] )
 {
+#ifdef __PLAYBOOK__
+#else
 	const Options options[] =
 	{
 		{ 'h', 'h', "help",              false },
@@ -258,6 +260,5 @@ void JE_paramCheck( int argc, char *argv[] )
 			}
 		}
 	}
+#endif /*__PLAYBOOK__*/
 }
-
-// kate: tab-width 4; vim: set noet:

@@ -54,12 +54,15 @@
 #include <time.h>
 
 const char *opentyrian_str = "OpenTyrian",
-           *opentyrian_version = "Classic (" HG_REV ")";
+           *opentyrian_version = HG_REV;
 const char *opentyrian_menu_items[] =
 {
 	"About OpenTyrian",
+#ifdef __PLAYBOOK__
+#else
 	"Toggle Fullscreen",
 	"Scaler: 3x",
+#endif
 	/* "Play Destruct", */
 	"Jukebox",
 	"Return to Main Menu"
@@ -99,13 +102,14 @@ void opentyrian_menu( void )
 		{
 			const char *text = opentyrian_menu_items[i];
 			char buffer[100];
-
+#ifdef __PLAYBOOK__
+#else
 			if (i == 2) /* Scaler */
 			{
 				snprintf(buffer, sizeof(buffer), "Scaler: %s", scalers[temp_scaler].name);
 				text = buffer;
 			}
-
+#endif
 			draw_font_hv_shadow(VGAScreen, VGAScreen->w / 2, (i != maxSel) ? i * 16 + 32 : 118, text, normal_font, centered, 15, (i != sel) ? -4 : -2, false, 2);
 		}
 
@@ -179,6 +183,9 @@ void opentyrian_menu( void )
 							JE_showVGA();
 							fade_in = true;
 							break;
+#ifdef __PLAYBOOK__
+						case 1: /* Jukebox */
+#else
 						case 1: /* Fullscreen */
 							JE_playSampleNum(S_SELECT);
 
@@ -205,6 +212,7 @@ void opentyrian_menu( void )
 							}
 							break;
 						case 3: /* Jukebox */
+#endif
 							JE_playSampleNum(S_SELECT);
 
 							fade_black(10);
@@ -234,7 +242,8 @@ void opentyrian_menu( void )
 int main( int argc, char *argv[] )
 {
 	mt_srand(time(NULL));
-
+#ifdef __PLAYBOOK__
+#else
 	printf("\nWelcome to... >> %s %s <<\n\n", opentyrian_str, opentyrian_version);
 
 	printf("Copyright (C) 2007-2009 The OpenTyrian Development Team\n\n");
@@ -242,7 +251,7 @@ int main( int argc, char *argv[] )
 	printf("This program comes with ABSOLUTELY NO WARRANTY.\n");
 	printf("This is free software, and you are welcome to redistribute it\n");
 	printf("under certain conditions.  See the file GPL.txt for details.\n\n");
-
+#endif
 	if (SDL_Init(0))
 	{
 		printf("Failed to initialize SDL: %s\n", SDL_GetError());
@@ -260,7 +269,6 @@ int main( int argc, char *argv[] )
 	init_video();
 	init_keyboard();
 	init_joysticks();
-	printf("assuming mouse detected\n"); // SDL can't tell us if there isn't one
 
 	if (xmas && (!dir_file_exists(data_dir(), "tyrianc.shp") || !dir_file_exists(data_dir(), "voicesc.snd")))
 	{

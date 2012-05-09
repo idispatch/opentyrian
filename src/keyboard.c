@@ -1,4 +1,4 @@
-/* 
+/*
  * OpenTyrian Classic: A modern cross-platform port of Tyrian
  * Copyright (C) 2007-2009  The OpenTyrian Development Team
  *
@@ -63,7 +63,7 @@ void wait_input( JE_boolean keyboard, JE_boolean mouse, JE_boolean joystick )
 		SDL_Delay(SDL_POLL_INTERVAL);
 		push_joysticks_as_keyboard();
 		service_SDL_events(false);
-		
+
 		if (isNetworkGame)
 			network_check();
 	}
@@ -77,7 +77,7 @@ void wait_noinput( JE_boolean keyboard, JE_boolean mouse, JE_boolean joystick )
 		SDL_Delay(SDL_POLL_INTERVAL);
 		poll_joysticks();
 		service_SDL_events(false);
-		
+
 		if (isNetworkGame)
 			network_check();
 	}
@@ -86,7 +86,11 @@ void wait_noinput( JE_boolean keyboard, JE_boolean mouse, JE_boolean joystick )
 void init_keyboard( void )
 {
 	keysactive = SDL_GetKeyState(&numkeys);
+#ifdef __PLAYBOOK__
+	SDL_EnableKeyRepeat(400, 50);
+#else
 	SDL_EnableKeyRepeat(500, 60);
+#endif
 
 	newkey = newmouse = false;
 	keydown = mousedown = false;
@@ -101,7 +105,7 @@ void input_grab( void )
 #else
 	input_grabbed = input_grab_enabled || fullscreen_enabled;
 #endif
-	
+
 	SDL_ShowCursor(input_grabbed ? SDL_DISABLE : SDL_ENABLE);
 #ifdef NDEBUG
 	SDL_WM_GrabInput(input_grabbed ? SDL_GRAB_ON : SDL_GRAB_OFF);
@@ -118,21 +122,24 @@ JE_word JE_mousePosition( JE_word *mouseX, JE_word *mouseY )
 
 void set_mouse_position( int x, int y )
 {
+#ifdef __PLAYBOOK__
+#else
 	if (input_grabbed)
 	{
 		SDL_WarpMouse(x * scalers[scaler].width / vga_width, y * scalers[scaler].height / vga_height);
 		mouse_x = x;
 		mouse_y = y;
 	}
+#endif
 }
 
 void service_SDL_events( JE_boolean clear_new )
 {
 	SDL_Event ev;
-	
+
 	if (clear_new)
 		newkey = newmouse = false;
-	
+
 	while (SDL_PollEvent(&ev))
 	{
 		switch (ev.type)
@@ -142,6 +149,8 @@ void service_SDL_events( JE_boolean clear_new )
 				mouse_y = ev.motion.y * vga_height / scalers[scaler].height;
 				break;
 			case SDL_KEYDOWN:
+#ifdef __PLAYBOOK__
+#else
 				if (ev.key.keysym.mod & KMOD_CTRL)
 				{
 					/* <ctrl><bksp> emergency kill */
@@ -151,7 +160,7 @@ void service_SDL_events( JE_boolean clear_new )
 						SDL_Quit();
 						exit(1);
 					}
-					
+
 					/* <ctrl><f10> toggle input grab */
 					if (ev.key.keysym.sym == SDLK_F10)
 					{
@@ -160,7 +169,7 @@ void service_SDL_events( JE_boolean clear_new )
 						break;
 					}
 				}
-				
+
 				if (ev.key.keysym.mod & KMOD_ALT)
 				{
 					/* <alt><enter> toggle fullscreen */
@@ -174,13 +183,13 @@ void service_SDL_events( JE_boolean clear_new )
 						}
 						break;
 					}
-					
+
 					/* <alt><tab> disable input grab and fullscreen */
 					if (ev.key.keysym.sym == SDLK_TAB)
 					{
 						input_grab_enabled = false;
 						input_grab();
-						
+
 						if (!init_scaler(scaler, false) &&             // try windowed
 						    !init_any_scaler(false) &&                 // try any scaler windowed
 						    !init_scaler(scaler, fullscreen_enabled))  // revert on fail
@@ -190,7 +199,7 @@ void service_SDL_events( JE_boolean clear_new )
 						break;
 					}
 				}
-				
+#endif
 				newkey = true;
 				lastkey_sym = ev.key.keysym.sym;
 				lastkey_mod = ev.key.keysym.mod;
@@ -242,5 +251,3 @@ void JE_clearKeyboard( void )
 {
 	// /!\ Doesn't seems important. I think. D:
 }
-
-// kate: tab-width 4; vim: set noet:
