@@ -63,7 +63,8 @@ typedef float  JE_real;
 
 char *strnztcpy( char *to, const char *from, size_t count );
 
-extern const char *opentyrian_str, *opentyrian_version;
+extern const char *opentyrian_str;
+extern char opentyrian_version[100];
 
 void opentyrian_menu( void );
 

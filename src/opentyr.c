@@ -53,300 +53,316 @@
 #include <stdlib.h>
 #include <time.h>
 
-const char *opentyrian_str = "OpenTyrian",
-           *opentyrian_version = HG_REV;
+#ifdef __PLAYBOOK__
+#include <bbami.h>
+#endif
+const char *opentyrian_str = "OpenTyrian";
+char opentyrian_version[100];
 const char *opentyrian_menu_items[] =
 {
-	"About OpenTyrian",
+    "About OpenTyrian",
 #ifdef __PLAYBOOK__
 #else
-	"Toggle Fullscreen",
-	"Scaler: 3x",
+    "Toggle Fullscreen",
+    "Scaler: 3x",
 #endif
-	/* "Play Destruct", */
-	"Jukebox",
-	"Return to Main Menu"
+    /* "Play Destruct", */
+    "Jukebox",
+    "Return to Main Menu"
 };
 
 /* zero-terminated strncpy */
 char *strnztcpy( char *to, const char *from, size_t count )
 {
-	to[count] = '\0';
-	return strncpy(to, from, count);
+    to[count] = '\0';
+    return strncpy(to, from, count);
 }
 
 void opentyrian_menu( void )
 {
-	int sel = 0;
-	const int maxSel = COUNTOF(opentyrian_menu_items) - 1;
-	bool quit = false, fade_in = true;
+    int sel = 0;
+    const int maxSel = COUNTOF(opentyrian_menu_items) - 1;
+    bool quit = false, fade_in = true;
 
-	uint temp_scaler = scaler;
+    uint temp_scaler = scaler;
 
-	fade_black(10);
-	JE_loadPic(VGAScreen, 13, false);
+    fade_black(10);
+    JE_loadPic(VGAScreen, 13, false);
 
-	draw_font_hv(VGAScreen, VGAScreen->w / 2, 5, opentyrian_str, large_font, centered, 15, -3);
+    draw_font_hv(VGAScreen, VGAScreen->w / 2, 5, opentyrian_str, large_font, centered, 15, -3);
 
-	memcpy(VGAScreen2->pixels, VGAScreen->pixels, VGAScreen2->pitch * VGAScreen2->h);
+    memcpy(VGAScreen2->pixels, VGAScreen->pixels, VGAScreen2->pitch * VGAScreen2->h);
 
-	JE_showVGA();
+    JE_showVGA();
 
-	play_song(36); // A Field for Mag
+    play_song(36); // A Field for Mag
 
-	do
-	{
-		memcpy(VGAScreen->pixels, VGAScreen2->pixels, VGAScreen->pitch * VGAScreen->h);
+    do
+    {
+        memcpy(VGAScreen->pixels, VGAScreen2->pixels, VGAScreen->pitch * VGAScreen->h);
 
-		for (int i = 0; i <= maxSel; i++)
-		{
-			const char *text = opentyrian_menu_items[i];
-			char buffer[100];
+        for (int i = 0; i <= maxSel; i++)
+        {
+            const char *text = opentyrian_menu_items[i];
+            char buffer[100];
 #ifdef __PLAYBOOK__
 #else
-			if (i == 2) /* Scaler */
-			{
-				snprintf(buffer, sizeof(buffer), "Scaler: %s", scalers[temp_scaler].name);
-				text = buffer;
-			}
+            if (i == 2) /* Scaler */
+            {
+                snprintf(buffer, sizeof(buffer), "Scaler: %s", scalers[temp_scaler].name);
+                text = buffer;
+            }
 #endif
-			draw_font_hv_shadow(VGAScreen, VGAScreen->w / 2, (i != maxSel) ? i * 16 + 32 : 118, text, normal_font, centered, 15, (i != sel) ? -4 : -2, false, 2);
-		}
+            draw_font_hv_shadow(VGAScreen, VGAScreen->w / 2, (i != maxSel) ? i * 16 + 32 : 118, text, normal_font, centered, 15, (i != sel) ? -4 : -2, false, 2);
+        }
 
-		JE_showVGA();
+        JE_showVGA();
 
-		if (fade_in)
-		{
-			fade_in = false;
-			fade_palette(colors, 20, 0, 255);
-			wait_noinput(true, false, false);
-		}
+        if (fade_in)
+        {
+            fade_in = false;
+            fade_palette(colors, 20, 0, 255);
+            wait_noinput(true, false, false);
+        }
 
-		tempW = 0;
-		JE_textMenuWait(&tempW, false);
+        tempW = 0;
+        JE_textMenuWait(&tempW, false);
 
-		if (newkey)
-		{
-			switch (lastkey_sym)
-			{
-				case SDLK_UP:
-					sel--;
-					if (sel < 0)
-					{
-						sel = maxSel;
-					}
-					JE_playSampleNum(S_CURSOR);
-					break;
-				case SDLK_DOWN:
-					sel++;
-					if (sel > maxSel)
-					{
-						sel = 0;
-					}
-					JE_playSampleNum(S_CURSOR);
-					break;
-				case SDLK_LEFT:
-					if (sel == 2)
-					{
-						do
-						{
-							if (temp_scaler == 0)
-								temp_scaler = scalers_count;
-							temp_scaler--;
-						}
-						while (!can_init_scaler(temp_scaler, fullscreen_enabled));
-						JE_playSampleNum(S_CURSOR);
-					}
-					break;
-				case SDLK_RIGHT:
-					if (sel == 2)
-					{
-						do
-						{
-							temp_scaler++;
-							if (temp_scaler == scalers_count)
-								temp_scaler = 0;
-						}
-						while (!can_init_scaler(temp_scaler, fullscreen_enabled));
-						JE_playSampleNum(S_CURSOR);
-					}
-					break;
-				case SDLK_RETURN:
-					switch (sel)
-					{
-						case 0: /* About */
-							JE_playSampleNum(S_SELECT);
+        if (newkey)
+        {
+            switch (lastkey_sym)
+            {
+                case SDLK_UP:
+                    sel--;
+                    if (sel < 0)
+                    {
+                        sel = maxSel;
+                    }
+                    JE_playSampleNum(S_CURSOR);
+                    break;
+                case SDLK_DOWN:
+                    sel++;
+                    if (sel > maxSel)
+                    {
+                        sel = 0;
+                    }
+                    JE_playSampleNum(S_CURSOR);
+                    break;
+                case SDLK_LEFT:
+                    if (sel == 2)
+                    {
+                        do
+                        {
+                            if (temp_scaler == 0)
+                                temp_scaler = scalers_count;
+                            temp_scaler--;
+                        }
+                        while (!can_init_scaler(temp_scaler, fullscreen_enabled));
+                        JE_playSampleNum(S_CURSOR);
+                    }
+                    break;
+                case SDLK_RIGHT:
+                    if (sel == 2)
+                    {
+                        do
+                        {
+                            temp_scaler++;
+                            if (temp_scaler == scalers_count)
+                                temp_scaler = 0;
+                        }
+                        while (!can_init_scaler(temp_scaler, fullscreen_enabled));
+                        JE_playSampleNum(S_CURSOR);
+                    }
+                    break;
+                case SDLK_RETURN:
+                    switch (sel)
+                    {
+                        case 0: /* About */
+                            JE_playSampleNum(S_SELECT);
 
-							scroller_sine(about_text);
+                            scroller_sine(about_text);
 
-							memcpy(VGAScreen->pixels, VGAScreen2->pixels, VGAScreen->pitch * VGAScreen->h);
-							JE_showVGA();
-							fade_in = true;
-							break;
+                            memcpy(VGAScreen->pixels, VGAScreen2->pixels, VGAScreen->pitch * VGAScreen->h);
+                            JE_showVGA();
+                            fade_in = true;
+                            break;
 #ifdef __PLAYBOOK__
-						case 1: /* Jukebox */
+                        case 1: /* Jukebox */
 #else
-						case 1: /* Fullscreen */
-							JE_playSampleNum(S_SELECT);
+                        case 1: /* Fullscreen */
+                            JE_playSampleNum(S_SELECT);
 
-							if (!init_scaler(scaler, !fullscreen_enabled) && // try new fullscreen state
-							    !init_any_scaler(!fullscreen_enabled) &&     // try any scaler in new fullscreen state
-							    !init_scaler(scaler, fullscreen_enabled))    // revert on fail
-							{
-								exit(EXIT_FAILURE);
-							}
-							set_palette(colors, 0, 255); // for switching between 8 bpp scalers
-							break;
-						case 2: /* Scaler */
-							JE_playSampleNum(S_SELECT);
+                            if (!init_scaler(scaler, !fullscreen_enabled) && // try new fullscreen state
+                                !init_any_scaler(!fullscreen_enabled) &&     // try any scaler in new fullscreen state
+                                !init_scaler(scaler, fullscreen_enabled))    // revert on fail
+                            {
+                                exit(EXIT_FAILURE);
+                            }
+                            set_palette(colors, 0, 255); // for switching between 8 bpp scalers
+                            break;
+                        case 2: /* Scaler */
+                            JE_playSampleNum(S_SELECT);
 
-							if (scaler != temp_scaler)
-							{
-								if (!init_scaler(temp_scaler, fullscreen_enabled) &&   // try new scaler
-								    !init_scaler(temp_scaler, !fullscreen_enabled) &&  // try other fullscreen state
-								    !init_scaler(scaler, fullscreen_enabled))          // revert on fail
-								{
-									exit(EXIT_FAILURE);
-								}
-								set_palette(colors, 0, 255); // for switching between 8 bpp scalers
-							}
-							break;
-						case 3: /* Jukebox */
+                            if (scaler != temp_scaler)
+                            {
+                                if (!init_scaler(temp_scaler, fullscreen_enabled) &&   // try new scaler
+                                    !init_scaler(temp_scaler, !fullscreen_enabled) &&  // try other fullscreen state
+                                    !init_scaler(scaler, fullscreen_enabled))          // revert on fail
+                                {
+                                    exit(EXIT_FAILURE);
+                                }
+                                set_palette(colors, 0, 255); // for switching between 8 bpp scalers
+                            }
+                            break;
+                        case 3: /* Jukebox */
 #endif
-							JE_playSampleNum(S_SELECT);
+                            JE_playSampleNum(S_SELECT);
 
-							fade_black(10);
-							jukebox();
+                            fade_black(10);
+                            jukebox();
 
-							memcpy(VGAScreen->pixels, VGAScreen2->pixels, VGAScreen->pitch * VGAScreen->h);
-							JE_showVGA();
-							fade_in = true;
-							break;
-						default: /* Return to main menu */
-							quit = true;
-							JE_playSampleNum(S_SPRING);
-							break;
-					}
-					break;
-				case SDLK_ESCAPE:
-					quit = true;
-					JE_playSampleNum(S_SPRING);
-					break;
-				default:
-					break;
-			}
-		}
-	} while (!quit);
+                            memcpy(VGAScreen->pixels, VGAScreen2->pixels, VGAScreen->pitch * VGAScreen->h);
+                            JE_showVGA();
+                            fade_in = true;
+                            break;
+                        default: /* Return to main menu */
+                            quit = true;
+                            JE_playSampleNum(S_SPRING);
+                            break;
+                    }
+                    break;
+                case SDLK_ESCAPE:
+                    quit = true;
+                    JE_playSampleNum(S_SPRING);
+                    break;
+                default:
+                    break;
+            }
+        }
+    } while (!quit);
 }
 
 int main( int argc, char *argv[] )
 {
-	mt_srand(time(NULL));
+    mt_srand(time(NULL));
 #ifdef __PLAYBOOK__
+    bbami_info_ptr info;
+    snprintf(opentyrian_version, sizeof(opentyrian_version), "BlackBerry PlayBook port");
+    int rc = bbami_init(BBAMI_API_VERSION, DEFAULT_MANIFEST_PATH, &info);
+    if(rc == 0) {
+        int count;
+        char * version;
+        rc = bbami_query(info, BBAMI_APPLICATION_VERSION, &version);
+        if(rc == 0) {
+            snprintf(opentyrian_version, sizeof(opentyrian_version), "BlackBerry PlayBook port, version %s", version);
+            free(version);
+        }
+        bbami_done(info);
+    }
 #else
-	printf("\nWelcome to... >> %s %s <<\n\n", opentyrian_str, opentyrian_version);
+    printf("\nWelcome to... >> %s %s <<\n\n", opentyrian_str, opentyrian_version);
 
-	printf("Copyright (C) 2007-2009 The OpenTyrian Development Team\n\n");
+    printf("Copyright (C) 2007-2009 The OpenTyrian Development Team\n\n");
 
-	printf("This program comes with ABSOLUTELY NO WARRANTY.\n");
-	printf("This is free software, and you are welcome to redistribute it\n");
-	printf("under certain conditions.  See the file GPL.txt for details.\n\n");
+    printf("This program comes with ABSOLUTELY NO WARRANTY.\n");
+    printf("This is free software, and you are welcome to redistribute it\n");
+    printf("under certain conditions.  See the file GPL.txt for details.\n\n");
 #endif
-	if (SDL_Init(0))
-	{
-		printf("Failed to initialize SDL: %s\n", SDL_GetError());
-		return -1;
-	}
+    if (SDL_Init(0))
+    {
+        printf("Failed to initialize SDL: %s\n", SDL_GetError());
+        return -1;
+    }
 
-	JE_loadConfiguration();
-	xmas = xmas_time();  // arg handler may override
-	JE_paramCheck(argc, argv);
+    JE_loadConfiguration();
+    xmas = xmas_time();  // arg handler may override
+    JE_paramCheck(argc, argv);
 
-	JE_scanForEpisodes();
+    JE_scanForEpisodes();
 
-	init_video();
-	init_keyboard();
-	init_joysticks();
+    init_video();
+    init_keyboard();
+    init_joysticks();
 
-	if (xmas && (!dir_file_exists(data_dir(), "tyrianc.shp") || !dir_file_exists(data_dir(), "voicesc.snd")))
-	{
-		xmas = false;
+    if (xmas && (!dir_file_exists(data_dir(), "tyrianc.shp") || !dir_file_exists(data_dir(), "voicesc.snd")))
+    {
+        xmas = false;
 
-		fprintf(stderr, "warning: Christmas is missing.\n");
-	}
+        fprintf(stderr, "warning: Christmas is missing.\n");
+    }
 
-	JE_loadPals();
+    JE_loadPals();
 
-	JE_loadMainShapeTables(xmas ? "tyrianc.shp" : "tyrian.shp");
-	if (xmas && !xmas_prompt())
-	{
-		xmas = false;
+    JE_loadMainShapeTables(xmas ? "tyrianc.shp" : "tyrian.shp");
+    if (xmas && !xmas_prompt())
+    {
+        xmas = false;
 
-		free_main_shape_tables();
-		JE_loadMainShapeTables("tyrian.shp");
-	}
+        free_main_shape_tables();
+        JE_loadMainShapeTables("tyrian.shp");
+    }
 
-	/* Default Options */
-	youAreCheating = false;
-	smoothScroll = true;
-	loadDestruct = false;
+    /* Default Options */
+    youAreCheating = false;
+    smoothScroll = true;
+    loadDestruct = false;
 
-	if (!audio_disabled)
-	{
-		printf("initializing SDL audio...\n");
+    if (!audio_disabled)
+    {
+        printf("initializing SDL audio...\n");
 
-		init_audio();
+        init_audio();
 
-		load_music();
-		JE_loadSndFile("tyrian.snd", xmas ? "voicesc.snd" : "voices.snd");
-	}
-	else
-	{
-		printf("audio disabled\n");
-	}
+        load_music();
+        JE_loadSndFile("tyrian.snd", xmas ? "voicesc.snd" : "voices.snd");
+    }
+    else
+    {
+        printf("audio disabled\n");
+    }
 
-	if (record_demo)
-		printf("demo recording enabled (input limited to keyboard)\n");
+    if (record_demo)
+        printf("demo recording enabled (input limited to keyboard)\n");
 
-	JE_loadExtraShapes();  /*Editship*/
+    JE_loadExtraShapes();  /*Editship*/
 
-	JE_loadHelpText();
+    JE_loadHelpText();
 
 #ifdef __PLAYBOOK__
 #else
-	if (isNetworkGame)
-	{
-		if (network_init())
-		{
-			network_tyrian_halt(3, false);
-		}
-	}
+    if (isNetworkGame)
+    {
+        if (network_init())
+        {
+            network_tyrian_halt(3, false);
+        }
+    }
 #endif
 #ifdef NDEBUG
-	if (!isNetworkGame)
-		intro_logos();
+    if (!isNetworkGame)
+        intro_logos();
 #endif
 
-	for (; ; )
-	{
-		JE_initPlayerData();
-		JE_sortHighScores();
+    for (; ; )
+    {
+        JE_initPlayerData();
+        JE_sortHighScores();
 
-		if (JE_titleScreen(true))
-			break;  // user quit from title screen
+        if (JE_titleScreen(true))
+            break;  // user quit from title screen
 
-		if (loadDestruct)
-		{
-			JE_destructGame();
-			loadDestruct = false;
-		}
-		else
-		{
-			JE_main();
-		}
-	}
+        if (loadDestruct)
+        {
+            JE_destructGame();
+            loadDestruct = false;
+        }
+        else
+        {
+            JE_main();
+        }
+    }
 
-	JE_tyrianHalt(0);
+    JE_tyrianHalt(0);
 
-	return 0;
+    return 0;
 }

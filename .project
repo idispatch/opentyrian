@@ -3,6 +3,7 @@
 	<name>opentyrian</name>
 	<comment></comment>
 	<projects>
+		<project>bbami</project>
 		<project>SDL12</project>
 		<project>TouchControlOverlay</project>
 	</projects>
