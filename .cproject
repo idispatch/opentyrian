@@ -24,9 +24,6 @@
 								<option id="com.qnx.qcc.option.compiler.optlevel.1248939400" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
 								<option id="com.qnx.qcc.option.compile.debug.1765201453" name="Debug (-g)" superClass="com.qnx.qcc.option.compile.debug" value="true" valueType="boolean"/>
 								<option id="com.qnx.qcc.option.compiler.includePath.99966633" name="Include Directories (-I)" superClass="com.qnx.qcc.option.compiler.includePath" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/emulate}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/TouchControlOverlay}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SDL12}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SDL12/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/TouchControlOverlay/public}&quot;"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/../target-override/usr/include"/>
@@ -46,8 +43,7 @@
 							<tool id="com.qnx.qcc.tool.assembler.17569898" name="QCC Assembler" superClass="com.qnx.qcc.tool.assembler">
 								<option id="com.qnx.qcc.option.assembler.debug.989765499" name="Debug (-g)" superClass="com.qnx.qcc.option.assembler.debug" value="true" valueType="boolean"/>
 								<option id="com.qnx.qcc.option.assembler.includePath.182525070" name="Include Directories (-I)" superClass="com.qnx.qcc.option.assembler.includePath" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/emulate}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/TouchControlOverlay}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/TouchControlOverlay/public}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SDL12}&quot;"/>
 								</option>
 								<inputType id="com.qnx.qcc.inputType.assembler.1092290171" superClass="com.qnx.qcc.inputType.assembler"/>
@@ -55,9 +51,6 @@
 							<tool id="com.qnx.qcc.tool.linker.1670306411" name="QCC Linker" superClass="com.qnx.qcc.tool.linker">
 								<option id="com.qnx.qcc.option.linker.debug.1771658130" name="Debug (-g)" superClass="com.qnx.qcc.option.linker.debug" value="true" valueType="boolean"/>
 								<option id="com.qnx.qcc.option.linker.libraryPaths.2034790520" name="Library Paths (-L)" superClass="com.qnx.qcc.option.linker.libraryPaths" valueType="libPaths">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/emulate/Device-Release}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/TouchControlOverlay/Device-Release}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SDL12/Device-Release}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/TouchControlOverlay/Device-Debug}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SDL12/Device-Debug}&quot;"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/../target-override/${CPUVARDIR}/lib"/>
@@ -65,9 +58,8 @@
 								</option>
 								<option id="com.qnx.qcc.option.linker.security.773310958" name="Enhanced Security (-Wl,-z,relro -Wl,-z,now)" superClass="com.qnx.qcc.option.linker.security" value="true" valueType="boolean"/>
 								<option id="com.qnx.qcc.option.linker.libraries.1807607931" name="Libraries (-l)" superClass="com.qnx.qcc.option.linker.libraries" valueType="libs">
-									<listOptionValue builtIn="false" value="emulate"/>
-									<listOptionValue builtIn="false" value="TouchControlOverlay"/>
 									<listOptionValue builtIn="false" value="SDL12"/>
+									<listOptionValue builtIn="false" value="TouchControlOverlay"/>
 									<listOptionValue builtIn="false" value="xml2"/>
 									<listOptionValue builtIn="false" value="cpp"/>
 									<listOptionValue builtIn="false" value="png"/>
@@ -95,17 +87,14 @@
 				<externalSettings containerId="SDL12;" factoryId="org.eclipse.cdt.core.cfg.export.settings.sipplier">
 					<externalSetting>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/SDL12"/>
-						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/SDL12/Device-Release"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/SDL12/Device-Debug"/>
 						<entry flags="RESOLVED" kind="libraryFile" name="SDL12"/>
 					</externalSetting>
 				</externalSettings>
 				<externalSettings containerId="TouchControlOverlay;" factoryId="org.eclipse.cdt.core.cfg.export.settings.sipplier">
 					<externalSetting>
-						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/emulate"/>
-						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/TouchControlOverlay"/>
-						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/emulate/Device-Release"/>
-						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/TouchControlOverlay/Device-Release"/>
-						<entry flags="RESOLVED" kind="libraryFile" name="emulate"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/TouchControlOverlay/public"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/TouchControlOverlay/Device-Debug"/>
 						<entry flags="RESOLVED" kind="libraryFile" name="TouchControlOverlay"/>
 					</externalSetting>
 				</externalSettings>
@@ -173,7 +162,7 @@
 									<listOptionValue builtIn="false" value="GLESv2"/>
 								</option>
 								<option id="com.qnx.qcc.option.linker.warningLevel.441276830" name="Warning Level (-w)" superClass="com.qnx.qcc.option.linker.warningLevel" value="com.qnx.qcc.option.warningLevel.5" valueType="enumerated"/>
-								<option id="com.qnx.qcc.option.linker.symbols.1899763379" superClass="com.qnx.qcc.option.linker.symbols" value="com.qnx.qcc.option.linker.symbols.none" valueType="enumerated"/>
+								<option id="com.qnx.qcc.option.linker.symbols.1899763379" name="Symbol options" superClass="com.qnx.qcc.option.linker.symbols" value="com.qnx.qcc.option.linker.symbols.none" valueType="enumerated"/>
 								<inputType id="com.qnx.qcc.inputType.linker.1085663751" superClass="com.qnx.qcc.inputType.linker">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
