@@ -3345,8 +3345,11 @@ new_game:
 bool JE_titleScreen( JE_boolean animate )
 {
 	bool quit = false;
-
+#ifdef __PLAYBOOK__
+	const int menunum = 6; /* Navigator is not allowing the app to quit by itself. What a stupid restriction. */
+#else
 	const int menunum = 7;
+#endif
 
 	unsigned int arcade_code_i[SA_ENGAGE] = { 0 };
 
@@ -3670,9 +3673,13 @@ bool JE_titleScreen( JE_boolean animate )
 			{
 				switch (lastkey_sym)
 				{
+#ifdef __PLAYBOOK__
+				 /* Navigator is not allowing the app to quit by itself. What a stupid restriction. */
+#else
 				case SDLK_ESCAPE:
 					quit = true;
 					break;
+#endif
 				case SDLK_RETURN:
 					JE_playSampleNum(S_SELECT);
 					switch (menu)
@@ -3747,7 +3754,7 @@ bool JE_titleScreen( JE_boolean animate )
 		}
 		while (!(quit || gameLoaded || jumpSection || play_demo || loadDestruct));
 
-trentWinsGame:
+	trentWinsGame:
 		fade_black(15);
 #ifdef __PLAYBOOK__
 #else

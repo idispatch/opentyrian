@@ -40,6 +40,10 @@ Uint16 mouse_x, mouse_y;
 int numkeys;
 Uint8 *keysactive;
 
+#ifdef __PLAYBOOK__
+void JE_tyrianHalt( JE_byte code );
+#endif
+
 #ifdef NDEBUG
 bool input_grab_enabled = true,
 #else
@@ -86,11 +90,7 @@ void wait_noinput( JE_boolean keyboard, JE_boolean mouse, JE_boolean joystick )
 void init_keyboard( void )
 {
 	keysactive = SDL_GetKeyState(&numkeys);
-#ifdef __PLAYBOOK__
-	SDL_EnableKeyRepeat(400, 50);
-#else
 	SDL_EnableKeyRepeat(500, 60);
-#endif
 
 	newkey = newmouse = false;
 	keydown = mousedown = false;
@@ -122,15 +122,12 @@ JE_word JE_mousePosition( JE_word *mouseX, JE_word *mouseY )
 
 void set_mouse_position( int x, int y )
 {
-#ifdef __PLAYBOOK__
-#else
 	if (input_grabbed)
 	{
 		SDL_WarpMouse(x * scalers[scaler].width / vga_width, y * scalers[scaler].height / vga_height);
 		mouse_x = x;
 		mouse_y = y;
 	}
-#endif
 }
 
 void service_SDL_events( JE_boolean clear_new )
@@ -149,8 +146,6 @@ void service_SDL_events( JE_boolean clear_new )
 				mouse_y = ev.motion.y * vga_height / scalers[scaler].height;
 				break;
 			case SDL_KEYDOWN:
-#ifdef __PLAYBOOK__
-#else
 				if (ev.key.keysym.mod & KMOD_CTRL)
 				{
 					/* <ctrl><bksp> emergency kill */
@@ -199,7 +194,7 @@ void service_SDL_events( JE_boolean clear_new )
 						break;
 					}
 				}
-#endif
+
 				newkey = true;
 				lastkey_sym = ev.key.keysym.sym;
 				lastkey_mod = ev.key.keysym.mod;
@@ -241,7 +236,11 @@ void service_SDL_events( JE_boolean clear_new )
 				break;
 			case SDL_QUIT:
 				/* TODO: Call the cleanup code here. */
+#ifdef __PLAYBOOK__
+				JE_tyrianHalt(0);
+#else
 				exit(0);
+#endif
 				break;
 		}
 	}

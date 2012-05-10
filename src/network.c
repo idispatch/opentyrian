@@ -86,6 +86,7 @@ Uint32 last_state_in_tick = 0;
 
 bool net_initialized = false;
 #ifdef __PLAYBOOK__
+static bool quit = false;
 #else
 static bool connected = false, quit = false;
 #endif
@@ -589,7 +590,6 @@ void network_state_reset( void )
 int network_connect( void )
 {
 #ifdef __PLAYBOOK__
-	return 0;
 #else
 	SDLNet_ResolveHost(&ip, network_opponent_host, network_opponent_port);
 
@@ -695,15 +695,16 @@ connect_again:
 	network_send(12 + strlen(network_player_name) + 1); // PACKET_CONNECT
 
 	connected = true;
+#endif
 
 	return 0;
-#endif
 }
 
 // something has gone wrong :(
 void network_tyrian_halt( unsigned int err, bool attempt_sync )
 {
 #ifdef __PLAYBOOK__
+	quit = true;
 #else
 	const char *err_msg[] = {
 		"Quitting...",
@@ -840,5 +841,3 @@ void JE_clearSpecialRequests( void )
 	helpRequest = false;
 	nortShipRequest = false;
 }
-
-// kate: tab-width 4; vim: set noet:

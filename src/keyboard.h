@@ -23,11 +23,7 @@
 
 #include "SDL.h"
 
-#ifdef __PLAYBOOK__
-#define SDL_POLL_INTERVAL 4
-#else
 #define SDL_POLL_INTERVAL 5
-#endif
 
 extern JE_boolean ESCPressed;
 extern JE_boolean newkey, newmouse, keydown, mousedown;

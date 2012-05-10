@@ -259,9 +259,7 @@ int main( int argc, char *argv[] )
 	}
 
 	JE_loadConfiguration();
-
 	xmas = xmas_time();  // arg handler may override
-
 	JE_paramCheck(argc, argv);
 
 	JE_scanForEpisodes();
@@ -278,8 +276,8 @@ int main( int argc, char *argv[] )
 	}
 
 	JE_loadPals();
-	JE_loadMainShapeTables(xmas ? "tyrianc.shp" : "tyrian.shp");
 
+	JE_loadMainShapeTables(xmas ? "tyrianc.shp" : "tyrian.shp");
 	if (xmas && !xmas_prompt())
 	{
 		xmas = false;
@@ -287,7 +285,6 @@ int main( int argc, char *argv[] )
 		free_main_shape_tables();
 		JE_loadMainShapeTables("tyrian.shp");
 	}
-
 
 	/* Default Options */
 	youAreCheating = false;
@@ -301,7 +298,6 @@ int main( int argc, char *argv[] )
 		init_audio();
 
 		load_music();
-
 		JE_loadSndFile("tyrian.snd", xmas ? "voicesc.snd" : "voices.snd");
 	}
 	else
@@ -316,6 +312,8 @@ int main( int argc, char *argv[] )
 
 	JE_loadHelpText();
 
+#ifdef __PLAYBOOK__
+#else
 	if (isNetworkGame)
 	{
 		if (network_init())
@@ -323,7 +321,7 @@ int main( int argc, char *argv[] )
 			network_tyrian_halt(3, false);
 		}
 	}
-
+#endif
 #ifdef NDEBUG
 	if (!isNetworkGame)
 		intro_logos();

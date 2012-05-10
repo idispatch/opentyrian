@@ -41,7 +41,7 @@ bool select_gameplay( void )
 		gameplay_max = 2;
 #else
 	    gameplay_max = 4;
-#endif
+#endif /* __PLAYBOOK__ */
 
 	bool fade_in = true;
 	for (; ; )

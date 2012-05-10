@@ -1038,10 +1038,10 @@ JE_boolean JE_gammaCheck( void )
 
 void JE_doInGameSetup( void )
 {
-#ifdef __PLAYBOOK__
-#else
 	haltGame = false;
 
+#ifdef __PLAYBOOK__
+#else
 	if (isNetworkGame)
 	{
 		network_prepare(PACKET_GAME_MENU);
@@ -1146,10 +1146,9 @@ void JE_doInGameSetup( void )
 		VGAScreen = temp_surface; /* side-effect of game_screen */
 	}
 
-	yourInGameMenuRequest = false;
-
-	//skipStarShowVGA = true;
 #endif
+
+	yourInGameMenuRequest = false;
 }
 
 JE_boolean JE_inGameSetup( void )

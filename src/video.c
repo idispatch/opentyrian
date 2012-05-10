@@ -43,10 +43,9 @@ void init_video( void )
 		fprintf(stderr, "error: failed to initialize SDL video: %s\n", SDL_GetError());
 		exit(1);
 	}
-#ifdef __PLAYBOOK__
-#else
+
 	SDL_WM_SetCaption("OpenTyrian", NULL);
-#endif
+
 	VGAScreen = VGAScreenSeg = SDL_CreateRGBSurface(SDL_SWSURFACE, vga_width, vga_height, 8, 0, 0, 0, 0);
 	VGAScreen2 = SDL_CreateRGBSurface(SDL_SWSURFACE, vga_width, vga_height, 8, 0, 0, 0, 0);
 	game_screen = SDL_CreateRGBSurface(SDL_SWSURFACE, vga_width, vga_height, 8, 0, 0, 0, 0);

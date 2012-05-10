@@ -464,8 +464,6 @@ void JE_tyrianHalt( JE_byte code )
 	deinit_video();
 	deinit_joysticks();
 
-	/* TODO: NETWORK */
-
 	free_main_shape_tables();
 
 	free_sprite2s(&shapes6);
