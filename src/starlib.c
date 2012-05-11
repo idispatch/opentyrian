@@ -217,7 +217,9 @@ void JE_starlib_main( void )
 				nspVarVarInc = mt_rand_1() * 0.01f - 0.005f;
 				break;
 			case 'X':
+#if 0
 			case 27:
+#endif
 				run = false;
 				break;
 			case '[':

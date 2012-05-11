@@ -21,7 +21,6 @@
 #include "SDL.h"
 
 const char *custom_data_dir = ".";
-extern char *getcwd(char *__buf, _CSTD size_t __size);
 
 /* finds the Tyrian data directory */
 const char *data_dir( void )
@@ -30,7 +29,7 @@ const char *data_dir( void )
 	static char dir[512] = "";
 	if(dir[0] == '\0') {
 		char cwd[512] = "";
-		snprintf(dir, sizeof(dir), "%s/app/native/assets", getcwd(cwd, sizeof(cwd)));
+		snprintf(dir, sizeof(dir), "%s/../app/native/assets", getenv("HOME"));
 		FILE *f = dir_fopen(dir, "tyrian1.lvl", "rb");
 		if(f) {
 			fclose(f);
@@ -80,7 +79,7 @@ FILE *dir_fopen( const char *dir, const char *file, const char *mode )
 	snprintf(path, sizeof(path), "%s/%s", dir, file);
 	FILE *f = fopen(path, mode);
 #ifdef _DEBUG
-	fprintf(stderr, "%s: opening %s (%s)\n", __FUNCTION__, path, (f ? "ok" : "n/a"));
+	fprintf(stderr, "%s: %s (%s)\n", __FUNCTION__, path, (f ? "ok" : "n/a"));
 #endif
 #else
 	char *path = malloc(strlen(dir) + 1 + strlen(file) + 1);
