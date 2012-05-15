@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <emulation version="1">
-<key x="20"  y="440" width="130" height="130" sym="13"  scancode="13"  image="assets/button-alt-fire.png" />    <!-- SDLK_RETURN -->
-<key x="20"  y="300" width="130" height="130" sym="32"  scancode="32"  image="assets/button-fire.png" />        <!-- SDLK_SPACE  -->
-<key x="160" y="300" width="130" height="130" sym="306" scancode="306" image="assets/button-left-fire.png" />   <!-- SDLK_LCTRL  -->
-<key x="160" y="440" width="130" height="130" sym="308" scancode="308" image="assets/button-right-fire.png" />  <!-- SDLK_LALT   -->
-<key x="5"   y="5"   width="130" height="130" sym="27"  scancode="27"  image="assets/button-esc.png" />         <!-- SDLK_ESCAPE -->
-<dpad x="720" y="290" width="300" height="300" image="assets/dpad.png" />
+<key x="20" y="440" width="130" height="130" sym="13" scancode="13" image="assets/button-alt-fire.png"> <!-- SDLK_RETURN -->
+  <label x="0" y="0" width="130" height="130" image="assets/button-alt-fire.png" />
+</key>
+<key x="20" y="300" width="130" height="130" sym="32" scancode="32" image="assets/button-fire.png"> <!-- SDLK_SPACE  -->
+  <label x="0" y="0" width="130" height="130" image="assets/button-fire.png" />
+</key>
+<key x="160" y="300" width="130" height="130" sym="306" scancode="306" image="assets/button-left-fire.png"> <!-- SDLK_LCTRL  -->
+  <label x="0" y="0" width="130" height="130" image="assets/button-left-fire.png" />
+</key>
+<key x="160" y="440" width="130" height="130" sym="308" scancode="308" image="assets/button-right-fire.png"> <!-- SDLK_LALT   -->
+  <label x="0" y="0" width="130" height="130" image="assets/button-right-fire.png"/>
+</key>
+<key x="5" y="5" width="130" height="130" sym="27" scancode="27" image="assets/button-esc.png"> <!-- SDLK_ESCAPE -->
+  <label x="0" y="0" width="130" height="130" image="assets/button-esc.png" />
+</key>
+<dpad x="720" y="290" width="300" height="300" image="assets/dpad.png">
+  <label x="0" y="0" width="300" height="300" image="assets/dpad.png" />
+</dpad>
 </emulation>
