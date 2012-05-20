@@ -105,8 +105,11 @@ void input_grab( void )
 #else
 	input_grabbed = input_grab_enabled || fullscreen_enabled;
 #endif
-
+#ifdef __PLAYBOOK__
+	SDL_ShowCursor(SDL_DISABLE);
+#else
 	SDL_ShowCursor(input_grabbed ? SDL_DISABLE : SDL_ENABLE);
+#endif
 #ifdef NDEBUG
 	SDL_WM_GrabInput(input_grabbed ? SDL_GRAB_ON : SDL_GRAB_OFF);
 #endif

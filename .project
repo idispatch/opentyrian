@@ -3,7 +3,6 @@
 	<name>opentyrian</name>
 	<comment></comment>
 	<projects>
-		<project>bbami</project>
 		<project>SDL12</project>
 		<project>TouchControlOverlay</project>
 	</projects>
@@ -30,7 +29,7 @@
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.buildLocation</key>
-					<value>${workspace_loc:/opentyrian/Device-Release}</value>
+					<value>${workspace_loc:/opentyrian/Device-Debug}</value>
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.contents</key>
