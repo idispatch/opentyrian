@@ -44,10 +44,7 @@
 							</tool>
 							<tool id="com.qnx.qcc.tool.assembler.17569898" name="QCC Assembler" superClass="com.qnx.qcc.tool.assembler">
 								<option id="com.qnx.qcc.option.assembler.debug.989765499" name="Debug (-g)" superClass="com.qnx.qcc.option.assembler.debug" value="true" valueType="boolean"/>
-								<option id="com.qnx.qcc.option.assembler.includePath.182525070" name="Include Directories (-I)" superClass="com.qnx.qcc.option.assembler.includePath" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/TouchControlOverlay/public}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SDL12}&quot;"/>
-								</option>
+								<option id="com.qnx.qcc.option.assembler.includePath.182525070" name="Include Directories (-I)" superClass="com.qnx.qcc.option.assembler.includePath"/>
 								<inputType id="com.qnx.qcc.inputType.assembler.1092290171" superClass="com.qnx.qcc.inputType.assembler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.linker.1670306411" name="QCC Linker" superClass="com.qnx.qcc.tool.linker">
@@ -143,9 +140,7 @@
 								<inputType id="com.qnx.qcc.inputType.compiler.1198648413" superClass="com.qnx.qcc.inputType.compiler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.assembler.605414671" name="QCC Assembler" superClass="com.qnx.qcc.tool.assembler">
-								<option id="com.qnx.qcc.option.assembler.includePath.1886961254" name="Include Directories (-I)" superClass="com.qnx.qcc.option.assembler.includePath" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SDL12}&quot;"/>
-								</option>
+								<option id="com.qnx.qcc.option.assembler.includePath.1886961254" name="Include Directories (-I)" superClass="com.qnx.qcc.option.assembler.includePath"/>
 								<inputType id="com.qnx.qcc.inputType.assembler.1115268150" superClass="com.qnx.qcc.inputType.assembler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.linker.1141055326" name="QCC Linker" superClass="com.qnx.qcc.tool.linker">
