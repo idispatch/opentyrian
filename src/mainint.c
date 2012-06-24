@@ -2398,6 +2398,8 @@ void JE_operation( JE_byte slot )
 
 					if (newkey || newmouse)
 						break;
+
+					service_SDL_events(false);
 				}
 
 			}
