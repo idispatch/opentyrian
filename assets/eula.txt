@@ -1,24 +1,7 @@
-Legal Information
-
-Please read these terms of use carefully before using the site. By using this site, you indicate your agreement to these terms. If you are not agreeable to these terms of use, do not use this site.
-Restrictions On Use Of Materials
-
-You acknowledge that this site may contain information, communications, software, photos, text, video, graphics, music, sounds, images and other material and services (collectively "Content"), which is generally provided by Research In Motion Limited or its subsidiaries (collectively "RIM") or by licensors of RIM. You agree and acknowledge that, notwithstanding that RIM permits access to the Content, the Content is protected by copyrights, trademarks, and other proprietary (including intellectual property) rights (collectively "Rights"), that these Rights are valid and protected in all media now existing or later developed, and that except as specifically provided in these Terms, your use of the Content shall be governed and constrained by applicable copyright, trademark and other intellectual property laws.
-
-In addition to RIM's and its licensors' Rights in individual elements of the Content, RIM owns a copyright in the selection, coordination, arrangement and enhancement of the Content. You may not modify, publish, transmit, participate in the transfer or sale of, reproduce, create derivative works from, distribute, perform, display, incorporate into another Web site, or in any other way exploit any of the Content, in whole or in part. Any software that is made available to download from this site is the copyrighted work of RIM and/or its licensors'. Use of the software is governed by the terms of the end user license agreement that accompanies or is included with the software.
-Trademark Notices
-
-RIM and Research In Motion are registered trademarks of Research In Motion Limited. RIM, the RIM logo, BlackBerry, BlackBerry Enterprise Edition, BlackBerry Exchange Edition, BlackBerry Notes Edition, BlackBerry Internet Edition, the BlackBerry logo, the "Envelope In Motion" symbol, 'Always On, Always Connected', RIM Wireless Handheld, RIM 850 Wireless Handheld, RIM 857 Wireless Handheld, RIM 950 Wireless Handheld, RIM 957 Wireless Handheld, RIM 850, RIM 857, RIM 950, RIM 957, RIM 802D, RIM 902M, Inter@ctive Pager and Research In Motion are trademarks of Research In Motion Limited. All other brands, product names and company names mentioned herein may be trademarks or registered trademarks of their respective holders.
-Patent Notices
-
-RIM's software products, wireless handheld products and/or portions thereof are covered by various Canadian, U.S. and/or foreign patents. In additionally, several Canadian, U.S. and/or foreign patent applications are pending.
-NTP License
-
-RIM has licensed one or more of the following NTP, Inc. patents: U.S. Patent Nos. 6337628, 6317592, 6272190, 6198783, 6169485, 6067451, 5973601, 5819172, 5751773, 5745532, 5742644, 5722064, 5722059, 5717725, 5714937, 5710798, 5694428, 5650769, 5640146, 5631946, 5625670, 5479472, 5446759, 5438611 and 5436960; U.S. Patent Application Serial Nos. 10/090841, 10/086846, 09/640076, 07/850487, 07/850275, 07/850274 and 07/702319; Patent Cooperation Treaty Application Nos. 9627173, 9625802, 9506368 and 9221197; Canadian Patent Nos. 2212009 and 2169078; Canadian Patent Application No. 2212008; Australian Patent Application Nos. 96/51610, 96/47308 and 93/50943; European Patent Application Nos. 811214 and 716790; and Japanese Patent Application/Registration Nos. 2002515192 and 0502581.
-Unsolicited Submissions
-
-RIM welcomes comments regarding its products and services. However, RIM's policy is not to accept or consider creative ideas, suggestions or materials other than those it has specifically requested. We hope you will understand that the intent of this policy is to avoid misunderstandings when projects developed by RIM's very productive staff are similar to someone else's creative work. Accordingly, we must ask that you not send us any such ideas. While we do value your feedback on our services and products, we request that you be specific in your comments on those services and products and not submit any creative ideas, suggestions or materials.
-
-If, despite our request that you not do so, you send us creative suggestions, ideas, notes, drawings, concepts or other information (collectively, the "Unsolicited Information"), the Unsolicited Information shall be deemed, and shall remain, the property of RIM. None of the Unsolicited Information shall be subject to any obligation of confidentiality on the part of RIM and RIM shall not be liable or owe any compensation for any use or disclosure of the Unsolicited Information.
-
-While every effort has been made to ensure technical accuracy, information on this site is subject to change without notice, and does not represent a commitment on the part of RIM. 
+LICENSE ACKNOWLEDGEMENT
+ 
+This software is BlackBerry Handheld Software and is licensed to You by Research In Motion Limited or one of its affiliates (“RIM”) under the BlackBerry Solution License Agreement for Your jurisdiction (“BBSLA”).  BY CLICKING "I AGREE" BELOW, YOU ARE AGREEING THAT THE BBSLA APPLIES TO YOUR BLACKBERRY SOLUTION AND YOUR USE THEREOF, INCLUDING, YOUR USE OF THE SOFTWARE (provided that if You have agreed to an earlier BlackBerry license agreement, the BBSLA supercedes that agreement only from the date You click “I Agree” below).  You further agree that any third party entity acting as the Merchant of Record and/or seller of record for sales associated with this software or related services is excluded from any liability whatsoever in relation to this software and related services and is an intended third party beneficiary solely for the purpose of this clause.  If You do not agree to this License Acknowledgement, You have no right to use the software.  Capitalized terms have the meaning set forth in the BBSLA.
+ 
+IF YOU DO NOT ALREADY HAVE A COPY OF THE BBSLA, IT CAN BE FOUND AT WWW.BLACKBERRY.COM/LEGAL OR BY CONTACTING RIM AT LEGALINFO@RIM.COM.
+ 
+To obtain support in respect of this software or related services, please contact us by email at appworldsupport@blackberry.com.
