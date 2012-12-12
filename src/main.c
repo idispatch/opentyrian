@@ -55,6 +55,7 @@
 
 #ifdef __PLAYBOOK__
 #include <bbami.h>
+#include <eula.h>
 #endif
 const char *opentyrian_str = "OpenTyrian";
 char opentyrian_version[100];
@@ -246,6 +247,10 @@ int main( int argc, char *argv[] )
 {
     mt_srand(time(NULL));
 #ifdef __PLAYBOOK__
+    if(!show_eula()) {
+        return 1;
+    }
+
     bbami_info_ptr info;
     snprintf(opentyrian_version, sizeof(opentyrian_version), "BlackBerry PlayBook port");
     int rc = bbami_init(BBAMI_API_VERSION, DEFAULT_MANIFEST_PATH, &info);
