@@ -1,11 +1,12 @@
 # BUILD SETTINGS ###########################################
 
-PLATFORM := UNIX
+#PLATFORM := UNIX
+PLATFORM := QNX
 
 TARGET := opentyrian
 
 ############################################################
-
+ifneq ($(PLATFORM), QNX)
 STRIP := strip
 SDL_CONFIG := sdl-config
 
@@ -63,3 +64,30 @@ obj/%.o : src/%.c
 	@mkdir -p "$(dir $@)"
 	$(CC) -c -o $@ $(ALL_CFLAGS) $<
 
+else #QNX
+
+LIST=CPU
+ifndef QRECURSE
+QRECURSE=recurse.mk
+ifdef QCONFIG
+QRDIR=$(dir $(QCONFIG))
+endif
+endif
+include $(QRDIR)$(QRECURSE)
+
+.PHONY: show-variables release clean clean-release
+
+clean-release:
+	rm -f tyrian.bar
+
+clean: clean-release
+
+tyrian.bar: bar-descriptor.xml tyrian-icon.png tyrian-loading.png
+	blackberry-nativepackager -package tyrian.bar bar-descriptor.xml -target bar -C .
+	
+release: tyrian.bar
+
+show-variables:
+	echo $(VARIABT_BUILD_TYPE)
+
+endif #QNX
