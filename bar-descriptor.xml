@@ -21,15 +21,14 @@
     <asset path="tyrian-loading.png">tyrian-loading.png</asset>
     <configuration id="com.qnx.qcc.configuration.exe.debug.1126421720" name="Device-Debug">
        <platformArchitecture>armle-v7</platformArchitecture>
-       <asset path="Device-Debug/opentyrian" entry="true" type="Qnx/Elf">opentyrian</asset>
+       <asset path="arm/o-le-v7-g/opentyrian_g" entry="true" type="Qnx/Elf">opentyrian</asset>
     </configuration>
     <configuration id="com.qnx.qcc.configuration.exe.release.1746496411" name="Device-Release">
        <platformArchitecture>armle-v7</platformArchitecture>
-       <asset path="Device-Release/opentyrian" entry="true" type="Qnx/Elf">opentyrian</asset>
+       <asset path="arm/o-le-v7/opentyrian" entry="true" type="Qnx/Elf">opentyrian</asset>
     </configuration>
     <icon>
         <image>tyrian-icon.png</image>
     </icon>
     <action system="true">run_native</action>
-    <env var="LD_LIBRARY_PATH" value="app/native/lib"/>
 </qnx>

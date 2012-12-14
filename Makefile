@@ -75,17 +75,15 @@ endif
 endif
 include $(QRDIR)$(QRECURSE)
 
-.PHONY: show-variables release clean clean-release
+.PHONY: show-variables clean clean-release
 
 clean-release:
 	rm -f tyrian.bar
 
 clean: clean-release
 
-tyrian.bar: bar-descriptor.xml tyrian-icon.png tyrian-loading.png
-	blackberry-nativepackager -package tyrian.bar bar-descriptor.xml -target bar -C .
-	
-release: tyrian.bar
+tyrian.bar: bar-descriptor.xml tyrian-icon.png tyrian-loading.png Makefile common.mk
+	blackberry-nativepackager -package tyrian.bar bar-descriptor.xml -target bar -C . -configuration Device-Release
 
 show-variables:
 	echo $(VARIABT_BUILD_TYPE)
