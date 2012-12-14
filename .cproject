@@ -33,7 +33,7 @@
 								<option id="com.qnx.qcc.option.compiler.defines.883322714" name="Defines (-D)" superClass="com.qnx.qcc.option.compiler.defines" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="_FORTIFY_SOURCE=2"/>
 									<listOptionValue builtIn="false" value="_DEBUG"/>
-									<listOptionValue builtIn="false" value="__PLAYBOOK__"/>
+									<listOptionValue builtIn="false" value="__BLACKBERRY__"/>
 								</option>
 								<option id="com.qnx.qcc.option.compiler.qccoptions.119001647" name="QCC Options" superClass="com.qnx.qcc.option.compiler.qccoptions"/>
 								<option id="com.qnx.qcc.option.compiler.ccoptions.902650700" name="Compiler Options (-Wc,)" superClass="com.qnx.qcc.option.compiler.ccoptions" valueType="stringList">
@@ -43,7 +43,7 @@
 							</tool>
 							<tool id="com.qnx.qcc.tool.assembler.17569898" name="QCC Assembler" superClass="com.qnx.qcc.tool.assembler">
 								<option id="com.qnx.qcc.option.assembler.debug.989765499" name="Debug (-g)" superClass="com.qnx.qcc.option.assembler.debug" value="true" valueType="boolean"/>
-								<option id="com.qnx.qcc.option.assembler.includePath.182525070" name="Include Directories (-I)" superClass="com.qnx.qcc.option.assembler.includePath" valueType="includePath"/>
+								<option id="com.qnx.qcc.option.assembler.includePath.182525070" name="Include Directories (-I)" superClass="com.qnx.qcc.option.assembler.includePath"/>
 								<inputType id="com.qnx.qcc.inputType.assembler.1092290171" superClass="com.qnx.qcc.inputType.assembler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.linker.1670306411" name="QCC Linker" superClass="com.qnx.qcc.tool.linker">
@@ -116,7 +116,7 @@
 								<option id="com.qnx.qcc.option.compiler.security.915260414" name="Enhanced Security (-fstack-protector-strong)" superClass="com.qnx.qcc.option.compiler.security" value="false" valueType="boolean"/>
 								<option id="com.qnx.qcc.option.compiler.defines.968289826" name="Defines (-D)" superClass="com.qnx.qcc.option.compiler.defines" valueType="definedSymbols">
 									<listOptionValue builtIn="false" value="_FORTIFY_SOURCE=2"/>
-									<listOptionValue builtIn="false" value="__PLAYBOOK__"/>
+									<listOptionValue builtIn="false" value="__BLACKBERRY__"/>
 								</option>
 								<option id="com.qnx.qcc.option.compiler.pie.1538204784" name="Position Independent Executable (-fPIE)" superClass="com.qnx.qcc.option.compiler.pie" value="false" valueType="boolean"/>
 								<option id="com.qnx.qcc.option.compiler.qccoptions.378504111" name="QCC Options" superClass="com.qnx.qcc.option.compiler.qccoptions"/>
@@ -203,5 +203,17 @@
 		<scannerConfigBuildInfo instanceId="com.qnx.qcc.configuration.exe.profile.coverage.1877071506">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.qnx.tools.ide.qde.managedbuilder.core.qccScannerInfo"/>
 		</scannerConfigBuildInfo>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
+		<buildTargets>
+			<target name="all" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>all</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>true</runAllBuilders>
+			</target>
+		</buildTargets>
 	</storageModule>
 </cproject>

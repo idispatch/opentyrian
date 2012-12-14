@@ -1569,7 +1569,7 @@ void JE_itemScreen( void )
 
 	} while (!(quit || gameLoaded || jumpSection));
 
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
 	if (!quit && isNetworkGame)
 	{
@@ -2497,7 +2497,7 @@ void JE_genItemMenu( JE_byte itemNum )
 
 void JE_scaleInPicture( SDL_Surface *dst, const SDL_Surface *src )
 {
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 	for (int i = 5; i <= 160; i += 5)
 #else
 	for (int i = 2; i <= 160; i += 2)

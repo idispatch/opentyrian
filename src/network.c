@@ -85,7 +85,7 @@ Uint16 last_state_in_sync = 0, last_state_out_sync = 0;
 Uint32 last_state_in_tick = 0;
 
 bool net_initialized = false;
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 static bool quit = false;
 #else
 static bool connected = false, quit = false;
@@ -104,7 +104,7 @@ JE_boolean yourInGameMenuRequest, inGameMenuRequest;
 // prepare new packet for sending
 void network_prepare( Uint16 type )
 {
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
 	SDLNet_Write16(type,          &packet_out_temp->data[0]);
 	SDLNet_Write16(last_out_sync, &packet_out_temp->data[2]);
@@ -114,7 +114,7 @@ void network_prepare( Uint16 type )
 // send packet and place it in queue to be acknowledged
 bool network_send( int len )
 {
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 	return true;
 #else
 	bool temp = network_send_no_ack(len);
@@ -139,7 +139,7 @@ bool network_send( int len )
 #endif
 }
 
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
 // send packet but don't expect acknoledgment of delivery
 bool network_send_no_ack( int len )
@@ -160,7 +160,7 @@ bool network_send_no_ack( int len )
 // poll for new packets received, check that connection is alive, resend queued packets if necessary
 int network_check( void )
 {
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
 	if (!net_initialized)
 		return -1;
@@ -353,7 +353,7 @@ int network_check( void )
 	return 0;
 }
 
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
 // send acknowledgement packet
 int network_acknowledge( Uint16 sync )
@@ -369,7 +369,7 @@ int network_acknowledge( Uint16 sync )
 // discard working packet, now processing next packet in queue
 bool network_update( void )
 {
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 	return true;
 #else
 	if (packet_in[0])
@@ -388,14 +388,14 @@ bool network_update( void )
 // has opponent gotten all the packets we've sent?
 bool network_is_sync( void )
 {
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 	return true;
 #else
 	return (queue_out_sync - last_ack_sync == 1);
 #endif
 }
 
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
 
 // activity lately?
@@ -408,7 +408,7 @@ bool network_is_alive( void )
 // prepare new state for sending
 void network_state_prepare( void )
 {
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
 	if (packet_state_out[0])
 	{
@@ -427,7 +427,7 @@ void network_state_prepare( void )
 // send state packet, xor packet if applicable
 int network_state_send( void )
 {
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
 	if (!SDLNet_UDP_Send(socket, 0, packet_state_out[0]))
 	{
@@ -461,7 +461,7 @@ int network_state_send( void )
 // receive state packet, wait until received
 bool network_state_update( void )
 {
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 	return false;
 #else
 	if (network_state_is_reset())
@@ -542,7 +542,7 @@ bool network_state_update( void )
 // ignore first network_delay states of level
 bool network_state_is_reset( void )
 {
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 	return true;
 #else
 	return (last_state_out_sync < network_delay);
@@ -552,7 +552,7 @@ bool network_state_is_reset( void )
 // reset queues for new level
 void network_state_reset( void )
 {
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
 	last_state_in_sync = last_state_out_sync = 0;
 
@@ -589,7 +589,7 @@ void network_state_reset( void )
 // exchange game information
 int network_connect( void )
 {
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
 	SDLNet_ResolveHost(&ip, network_opponent_host, network_opponent_port);
 
@@ -703,7 +703,7 @@ connect_again:
 // something has gone wrong :(
 void network_tyrian_halt( unsigned int err, bool attempt_sync )
 {
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 	quit = true;
 #else
 	const char *err_msg[] = {
@@ -758,7 +758,7 @@ void network_tyrian_halt( unsigned int err, bool attempt_sync )
 
 int network_init( void )
 {
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
 	printf("Initializing network...\n");
 
@@ -795,7 +795,7 @@ int network_init( void )
 	return 0;
 }
 
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
 
 void packet_copy( UDPpacket *dst, UDPpacket *src )

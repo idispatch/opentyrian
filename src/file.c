@@ -25,7 +25,7 @@ const char *custom_data_dir = ".";
 /* finds the Tyrian data directory */
 const char *data_dir( void )
 {
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 	static char dir[512] = "";
 	if(dir[0] == '\0') {
 		char cwd[512] = "";
@@ -74,7 +74,7 @@ const char *data_dir( void )
 /* prepend directory and fopen */
 FILE *dir_fopen( const char *dir, const char *file, const char *mode )
 {
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 	char path[512];
 	snprintf(path, sizeof(path), "%s/%s", dir, file);
 	FILE *f = fopen(path, mode);

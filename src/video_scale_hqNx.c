@@ -23,7 +23,7 @@
 #include "palette.h"
 #include "video.h"
 
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
 void interp1(Uint32 *pc, Uint32 c1, Uint32 c2);
 void interp2(Uint32 *pc, Uint32 c1, Uint32 c2, Uint32 c3);
@@ -11894,5 +11894,5 @@ void hq4x_32( SDL_Surface *src_surface, SDL_Surface *dst_surface )
 		dst = dst_temp + 4 * dst_pitch;
 	}
 }
-#endif /* __PLAYBOOK__ */
+#endif /* __BLACKBERRY__ */
 

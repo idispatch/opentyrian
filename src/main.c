@@ -53,7 +53,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #include <bbami.h>
 #include <eula.h>
 #endif
@@ -62,7 +62,7 @@ char opentyrian_version[100];
 const char *opentyrian_menu_items[] =
 {
     "About OpenTyrian",
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
     "Toggle Fullscreen",
     "Scaler: 3x",
@@ -106,7 +106,7 @@ void opentyrian_menu( void )
         {
             const char *text = opentyrian_menu_items[i];
             char buffer[100];
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
             if (i == 2) /* Scaler */
             {
@@ -187,7 +187,7 @@ void opentyrian_menu( void )
                             JE_showVGA();
                             fade_in = true;
                             break;
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
                         case 1: /* Jukebox */
 #else
                         case 1: /* Fullscreen */
@@ -246,7 +246,7 @@ void opentyrian_menu( void )
 int main( int argc, char *argv[] )
 {
     mt_srand(time(NULL));
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
     if(!show_eula()) {
         return 1;
     }
@@ -333,7 +333,7 @@ int main( int argc, char *argv[] )
 
     JE_loadHelpText();
 
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
     if (isNetworkGame)
     {

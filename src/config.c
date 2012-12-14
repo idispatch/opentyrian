@@ -265,7 +265,7 @@ bool load_opentyrian_config( void )
     // defaults
     fullscreen_enabled = false;
     set_scaler_by_name("3x");
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
 #ifdef ENABLE_CONFIGURATION
     cJSON *root = load_json("opentyrian.conf");
@@ -292,7 +292,7 @@ bool load_opentyrian_config( void )
 
 bool save_opentyrian_config( void )
 {
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
 #ifdef ENABLE_CONFIGURATION
     cJSON *root = load_json("opentyrian.conf");
@@ -509,7 +509,7 @@ void JE_initProcessorType( void )
 {
     /* SYN: Originally this proc looked at your hardware specs and chose appropriate options. We don't care, so I'll just set
        decent defaults here. */
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
     wild = true;
     superWild = true;
     smoothScroll = true;
@@ -746,9 +746,9 @@ const char *get_user_directory( void )
         if (getenv("HOME"))
             snprintf(user_dir, sizeof(user_dir), "%s/.opentyrian", getenv("HOME"));
 #endif /* TARGET_UNIX */
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
         strcpy(user_dir, getenv("HOME"));
-#endif /* __PLAYBOOK__ */
+#endif /* __BLACKBERRY__ */
     }
     return user_dir;
 }

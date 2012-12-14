@@ -40,7 +40,7 @@ Uint16 mouse_x, mouse_y;
 int numkeys;
 Uint8 *keysactive;
 
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 void JE_tyrianHalt( JE_byte code );
 #endif
 
@@ -105,7 +105,7 @@ void input_grab( void )
 #else
 	input_grabbed = input_grab_enabled || fullscreen_enabled;
 #endif
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 	SDL_ShowCursor(SDL_DISABLE);
 #else
 	SDL_ShowCursor(input_grabbed ? SDL_DISABLE : SDL_ENABLE);
@@ -239,7 +239,7 @@ void service_SDL_events( JE_boolean clear_new )
 				break;
 			case SDL_QUIT:
 				/* TODO: Call the cleanup code here. */
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 				JE_tyrianHalt(0);
 #else
 				exit(0);

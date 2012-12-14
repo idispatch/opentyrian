@@ -3345,7 +3345,7 @@ new_game:
 bool JE_titleScreen( JE_boolean animate )
 {
 	bool quit = false;
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 	const int menunum = 6; /* Navigator is not allowing the app to quit by itself. What a stupid restriction. */
 #else
 	const int menunum = 7;
@@ -3368,7 +3368,7 @@ bool JE_titleScreen( JE_boolean animate )
 
 	gameLoaded = false;
 	jumpSection = false;
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
 	if (isNetworkGame)
 	{
@@ -3673,7 +3673,7 @@ bool JE_titleScreen( JE_boolean animate )
 			{
 				switch (lastkey_sym)
 				{
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 				 /* Navigator is not allowing the app to quit by itself. What a stupid restriction. */
 #else
 				case SDLK_ESCAPE:
@@ -3756,7 +3756,7 @@ bool JE_titleScreen( JE_boolean animate )
 
 	trentWinsGame:
 		fade_black(15);
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
 	}
 #endif
@@ -3794,7 +3794,7 @@ void intro_logos( void )
 void JE_readTextSync( void )
 {
 	return;  // this function seems to be unnecessary
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
 	JE_clr256(VGAScreen);
 	JE_showVGA();

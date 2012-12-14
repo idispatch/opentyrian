@@ -482,7 +482,7 @@ void JE_tyrianHalt( JE_byte code )
 	{
 		code = 0;
 	}
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
 	if (trentWin)
 	{

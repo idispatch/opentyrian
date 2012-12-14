@@ -16,7 +16,7 @@
     </initialWindow>
     <category>core.games</category>
     <asset path="assets">assets</asset>
-    <asset path="sdl-controls.xml">sdl-controls.xml</asset>
+    <asset path="controls.json">controls.json</asset>
     <asset path="tyrian-icon.png">tyrian-icon.png</asset>
     <asset path="tyrian-loading.png">tyrian-loading.png</asset>
     <configuration id="com.qnx.qcc.configuration.exe.debug.1126421720" name="Device-Debug">

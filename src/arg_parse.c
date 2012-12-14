@@ -23,7 +23,7 @@
 #define _GNU_SOURCE
 #endif
 
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
 
 #include <stdio.h>
@@ -248,4 +248,4 @@ static int parse_long_opt( int argc, const char *const argv[], const Options *op
 
 	return argn;  // which arg in argv that parse_args() should examine when called again
 }
-#endif /*__PLAYBOOK__*/
+#endif /*__BLACKBERRY__*/

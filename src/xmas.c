@@ -31,7 +31,7 @@ bool xmas = false;
 
 bool xmas_time( void )
 {
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
     return false;
 #else
 	time_t now = time(NULL);

@@ -37,11 +37,11 @@ bool select_gameplay( void )
 	JE_dString(VGAScreen, JE_fontCenter(gameplay_name[0], FONT_SHAPES), 20, gameplay_name[0], FONT_SHAPES);
 
 	int gameplay = 1,
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 		gameplay_max = 2;
 #else
 	    gameplay_max = 4;
-#endif /* __PLAYBOOK__ */
+#endif /* __BLACKBERRY__ */
 
 	bool fade_in = true;
 	for (; ; )

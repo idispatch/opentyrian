@@ -38,7 +38,7 @@ const char pars[][9] = {
 
 void JE_paramCheck( int argc, char *argv[] )
 {
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
 	const Options options[] =
 	{
@@ -260,5 +260,5 @@ void JE_paramCheck( int argc, char *argv[] )
 			}
 		}
 	}
-#endif /*__PLAYBOOK__*/
+#endif /*__BLACKBERRY__*/
 }

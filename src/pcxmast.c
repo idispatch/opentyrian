@@ -19,7 +19,7 @@
 #include "opentyr.h"
 #include "pcxmast.h"
 
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
 const char *pcxfile[PCX_NUM] = /* [1..PCXnum] */
 {
@@ -37,7 +37,7 @@ const char *pcxfile[PCX_NUM] = /* [1..PCXnum] */
 	"ECLIPSE.PCX",
 	"FIREPICA.PCX"
 };
-#endif /* __PLAYBOOK__ */
+#endif /* __BLACKBERRY__ */
 
 const JE_byte pcxpal[PCX_NUM] = /* [1..PCXnum] */
 { 0, 7, 5, 8, 10, 5, 18, 19, 19, 20, 21, 22, 5};

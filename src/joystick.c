@@ -42,7 +42,7 @@ bool ignore_joystick = true;
 int joysticks = 0;
 Joystick *joystick = NULL;
 
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
 static const char joystick_cfg_version = 1;
 static const int joystick_analog_max = 32767;
@@ -82,7 +82,7 @@ int joystick_axis_reduce( int j, int value )
 // returns false if axes are centered (there is no angle)
 bool joystick_analog_angle( int j, float *angle )
 {
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
 	assert(j < joysticks);
 
@@ -110,7 +110,7 @@ bool joystick_analog_angle( int j, float *angle )
 int check_assigned( SDL_Joystick *joystick_handle, const Joystick_assignment assignment[2] )
 {
 	int result = 0;
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
 	for (int i = 0; i < 2; i++)
 	{
@@ -159,7 +159,7 @@ int check_assigned( SDL_Joystick *joystick_handle, const Joystick_assignment ass
 // updates joystick state
 void poll_joystick( int j )
 {
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
 	assert(j < joysticks);
 
@@ -214,7 +214,7 @@ void poll_joystick( int j )
 // updates all joystick states
 void poll_joysticks( void )
 {
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
 	joydown = false;
 
@@ -245,7 +245,7 @@ void push_key( SDLKey key )
 // helps us be lazy by pretending joysticks are a keyboard (useful for menus)
 void push_joysticks_as_keyboard( void )
 {
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
 	const SDLKey confirm = SDLK_RETURN, cancel = SDLK_ESCAPE;
 	const SDLKey direction[4] = { SDLK_UP, SDLK_RIGHT, SDLK_DOWN, SDLK_LEFT };
@@ -276,7 +276,7 @@ void init_joysticks( void )
 {
 	if (ignore_joystick)
 		return;
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
 	if (SDL_InitSubSystem(SDL_INIT_JOYSTICK))
 	{
@@ -310,7 +310,7 @@ void init_joysticks( void )
 
 	if (joysticks == 0)
 		printf("no joysticks detected\n");
-#endif /* __PLAYBOOK__ */
+#endif /* __BLACKBERRY__ */
 }
 
 // deinitializes SDL joystick system and saves joystick assignments
@@ -318,7 +318,7 @@ void deinit_joysticks( void )
 {
 	if (ignore_joystick)
 		return;
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
 	for (int j = 0; j < joysticks; j++)
 	{
@@ -332,12 +332,12 @@ void deinit_joysticks( void )
 	free(joystick);
 
 	SDL_QuitSubSystem(SDL_INIT_JOYSTICK);
-#endif /* __PLAYBOOK__ */
+#endif /* __BLACKBERRY__ */
 }
 
 void reset_joystick_assignments( int j )
 {
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
 
 	assert(j < joysticks);
@@ -379,12 +379,12 @@ void reset_joystick_assignments( int j )
 	joystick[j].analog = false;
 	joystick[j].sensitivity = 5;
 	joystick[j].threshold = 5;
-#endif /* __PLAYBOOK__ */
+#endif /* __BLACKBERRY__ */
 }
 
 bool load_joystick_assignments( int j )
 {
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
 	cJSON *root = load_json("joystick.conf");
 	if (root == NULL)
@@ -426,13 +426,13 @@ bool load_joystick_assignments( int j )
 	}
 
 	cJSON_Delete(root);
-#endif /* __PLAYBOOK__ */
+#endif /* __BLACKBERRY__ */
 	return true;
 }
 
 bool save_joystick_assignments( int j )
 {
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
 	cJSON *root = load_json("joystick.conf");
 	if (root == NULL)
@@ -473,14 +473,14 @@ bool save_joystick_assignments( int j )
 	save_json(root, "joystick.conf");
 
 	cJSON_Delete(root);
-#endif /* __PLAYBOOK__ */
+#endif /* __BLACKBERRY__ */
 	return true;
 }
 
 // fills buffer with comma separated list of assigned joystick functions
 void joystick_assignments_to_string( char *buffer, size_t buffer_len, const Joystick_assignment *assignments )
 {
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
 	strncpy(buffer, "", buffer_len);
 
@@ -498,7 +498,7 @@ void joystick_assignments_to_string( char *buffer, size_t buffer_len, const Joys
 
 		comma = true;
 	}
-#endif /* __PLAYBOOK__ */
+#endif /* __BLACKBERRY__ */
 }
 
 // reverse of assignment_to_code()
@@ -566,7 +566,7 @@ const char *assignment_to_code( const Joystick_assignment *assignment )
 // TODO: input from joystick other than the one being configured probably should not be ignored
 bool detect_joystick_assignment( int j, Joystick_assignment *assignment )
 {
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 	bool detected = false;
 #else
 
@@ -669,7 +669,7 @@ bool detect_joystick_assignment( int j, Joystick_assignment *assignment )
 // compares relevant parts of joystick assignments for equality
 bool joystick_assignment_cmp( const Joystick_assignment *a, const Joystick_assignment *b )
 {
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
 
 	if (a->type == b->type)

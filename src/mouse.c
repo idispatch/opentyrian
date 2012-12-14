@@ -25,7 +25,7 @@
 #if defined(TARGET_GP2X) || defined(TARGET_DINGUX)
 bool has_mouse = false;
 #else
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 bool has_mouse = false;
 #else
 bool has_mouse = true;

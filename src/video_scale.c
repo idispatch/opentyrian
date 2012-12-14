@@ -27,17 +27,18 @@
 
 #include <assert.h>
 
-static void no_scale( SDL_Surface *src_surface, SDL_Surface *dst_surface );
 static void nn_32( SDL_Surface *src_surface, SDL_Surface *dst_surface );
 static void nn_16( SDL_Surface *src_surface, SDL_Surface *dst_surface );
+
+#ifdef __BLACKBERRY__
+#else
+static void no_scale( SDL_Surface *src_surface, SDL_Surface *dst_surface );
 
 static void scale2x_32( SDL_Surface *src_surface, SDL_Surface *dst_surface );
 static void scale2x_16( SDL_Surface *src_surface, SDL_Surface *dst_surface );
 static void scale3x_32( SDL_Surface *src_surface, SDL_Surface *dst_surface );
 static void scale3x_16( SDL_Surface *src_surface, SDL_Surface *dst_surface );
 
-#ifdef __PLAYBOOK__
-#else
 void hq2x_32( SDL_Surface *src_surface, SDL_Surface *dst_surface );
 void hq3x_32( SDL_Surface *src_surface, SDL_Surface *dst_surface );
 void hq4x_32( SDL_Surface *src_surface, SDL_Surface *dst_surface );
@@ -50,7 +51,7 @@ const struct Scalers scalers[] =
 #if defined(TARGET_GP2X) || defined(TARGET_DINGUX)
 	{ 320,           240,            no_scale, nn_16,      nn_32,      "None" },
 #else
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 	{ 3 * vga_width, 3 * vga_height, NULL,     nn_16,      nn_32,      "3x" },
 #else
 	{ 1 * vga_width, 1 * vga_height, no_scale, nn_16,      nn_32,      "None" },
@@ -62,7 +63,7 @@ const struct Scalers scalers[] =
 	{ 3 * vga_width, 3 * vga_height, NULL,     NULL,       hq3x_32,    "hq3x" },
 	{ 4 * vga_width, 4 * vga_height, NULL,     nn_16,      nn_32,      "4x" },
 	{ 4 * vga_width, 4 * vga_height, NULL,     NULL,       hq4x_32,    "hq4x" },
-#endif /* __PLAYBOOK__ */
+#endif /* __BLACKBERRY__ */
 #endif
 };
 const uint scalers_count = COUNTOF(scalers);

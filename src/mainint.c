@@ -1040,7 +1040,7 @@ void JE_doInGameSetup( void )
 {
 	haltGame = false;
 
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 #else
 	if (isNetworkGame)
 	{

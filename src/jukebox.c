@@ -101,7 +101,7 @@ void jukebox( void )
 
 			const int x = VGAScreen->w / 2;
 
-#ifdef __PLAYBOOK__
+#ifdef __BLACKBERRY__
 			draw_font_hv(VGAScreen, x, 170, "Press Enter to quit the jukebox.",         small_font, centered, 1, 0);
 #else
 			draw_font_hv(VGAScreen, x, 170, "Press ESC to quit the jukebox.",           small_font, centered, 1, 0);
