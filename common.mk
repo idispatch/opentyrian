@@ -8,7 +8,7 @@ endif
 include $(QCONFIG)
 
 define PINFO
-PINFO DESCRIPTION = OpenTyrian Game
+PINFO DESCRIPTION = OpenTyrian
 endef
 
 SDL_PATH = $(PROJECT_ROOT)/../SDL
@@ -23,16 +23,17 @@ RIMEULA_PATH = $(PROJECT_ROOT)/../rimeula
 RIMEULA_INC_PATH = $(RIMEULA_PATH)/public
 RIMEULA_LIB_PATH = $(RIMEULA_PATH)/$(CPU)/$(patsubst o%,a%,$(notdir $(CURDIR)))
 
-TOUCH_OVERLAY_PATH = $(PROJECT_ROOT)/../TouchControlOverlay
-TOUCH_OVERLAY_LIB_PATH = $(TOUCH_OVERLAY_PATH)/Device-Release
+TOUCH_OVERLAY_PATH = $(PROJECT_ROOT)/../tco
+TOUCH_OVERLAY_LIB_PATH = $(TOUCH_OVERLAY_PATH)/$(CPU)/$(patsubst o%,a%,$(notdir $(CURDIR)))
 
 USEFILE=
 CCFLAGS += -Wc,-std=c99 -D__BLACKBERRY__ -D__BB10__
+
 EXTRA_SRCVPATH += $(PROJECT_ROOT)/src
 EXTRA_INCVPATH += $(SDL_INC_PATH) $(BBAMI_INC_PATH) $(RIMEULA_INC_PATH)
 EXTRA_LIBVPATH += $(BBAMI_LIB_PATH) $(RIMEULA_LIB_PATH) $(SDL_LIB_PATH) $(TOUCH_OVERLAY_LIB_PATH)
 
-LIBS += m png14 z ^bbami bps ^rimeula screen ^SDL ^TouchControlOverlay cpp xml2 egl asound GLESv2
+LIBS += m png14 z ^bbami bps ^rimeula screen ^SDL ^tco cpp xml2 egl asound GLESv2
 
 include $(MKFILES_ROOT)/qmacros.mk
 ifndef QNX_INTERNAL
@@ -59,8 +60,9 @@ tyrian.bar: $(PROJECT_ROOT)/bar-descriptor.xml \
             $(PROJECT_ROOT)/tyrian-loading.png \
             $(PROJECT_ROOT)/Makefile \
             $(PROJECT_ROOT)/common.mk \
-            $(PROJECT_ROOT)/controls.json
-	$(PACKAGER) -package $(PROJECT_ROOT)/tyrian.bar $(PROJECT_ROOT)/bar-descriptor.xml -C . -configuration Device-Release
+            $(PROJECT_ROOT)/controls.json \
+			$(TARGET)
+	$(PACKAGER) -package $(PROJECT_ROOT)/$(TARGET).bar $(PROJECT_ROOT)/bar-descriptor.xml -C . -configuration Device-Release
 
 all: tyrian.bar
 
