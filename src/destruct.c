@@ -62,6 +62,7 @@
 #include "video.h"
 
 #include <assert.h>
+#include <cJSON.h>
 
 extern JE_byte soundQueue[8];
 
@@ -396,6 +397,61 @@ enum de_unit_t string_to_unit_enum(const char * str) {
 
     return(UNIT_NONE);
 }
+
+static cJSON *cJSON_CreateOrGetObjectItem( cJSON *object, const char *string )
+{
+    cJSON *child = cJSON_GetObjectItem(object, string);
+    if (child == NULL)
+        cJSON_AddItemToObject(object, string, child = cJSON_CreateNull());
+
+    return child;
+};
+
+static void cJSON_ForceType( cJSON *item, int type )
+{
+    if (item->type != type)
+    {
+        cJSON_Delete(item->child);
+        item->child = NULL;
+
+        item->type = type;
+    }
+}
+
+static void *(*cJSON_malloc)( size_t ) = malloc;
+static void *(*cJSON_realloc)( void *, size_t ) = realloc;
+static void (*cJSON_free)( void *ptr ) = free;
+
+static char *cJSON_strdup( const char *str )
+{
+    size_t size = strlen(str) + 1;
+    char *copy = (char *)cJSON_malloc(size);
+
+    if (copy != NULL)
+        memcpy(copy, str, size);
+
+    return copy;
+}
+
+static void cJSON_SetBoolean( cJSON *item, bool value )
+{
+    cJSON_ForceType(item, value ? cJSON_True : cJSON_False);
+}
+
+static void cJSON_SetNumber( cJSON *item, double value )
+{
+    cJSON_ForceType(item, cJSON_Number);
+    item->valueint = item->valuedouble = value;
+}
+
+static void cJSON_SetString( cJSON *item, const char *value )
+{
+    cJSON_ForceType(item, cJSON_String);
+    cJSON_free(item->valuestring);
+    item->valuestring = cJSON_strdup(value);
+}
+
+
 bool write_default_destruct_config( void ) {
 
 	cJSON * root;

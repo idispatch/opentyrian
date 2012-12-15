@@ -24,10 +24,11 @@
 								<option id="com.qnx.qcc.option.compiler.optlevel.1248939400" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
 								<option id="com.qnx.qcc.option.compile.debug.1765201453" name="Debug (-g)" superClass="com.qnx.qcc.option.compile.debug" value="true" valueType="boolean"/>
 								<option id="com.qnx.qcc.option.compiler.includePath.99966633" name="Include Directories (-I)" superClass="com.qnx.qcc.option.compiler.includePath" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SDL12/include}&quot;"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/../target-override/usr/include"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/bbami/public}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/rimeula/public}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SDL/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/cJSON}&quot;"/>
 								</option>
 								<option id="com.qnx.qcc.option.compiler.security.564650535" name="Enhanced Security (-fstack-protector-strong)" superClass="com.qnx.qcc.option.compiler.security" value="true" valueType="boolean"/>
 								<option id="com.qnx.qcc.option.compiler.defines.883322714" name="Defines (-D)" superClass="com.qnx.qcc.option.compiler.defines" valueType="definedSymbols">
@@ -52,14 +53,13 @@
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/../target-override/${CPUVARDIR}/lib"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/../target-override/${CPUVARDIR}/usr/lib"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/bbami/arm/a-le-v7-g}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SDL12/Device-Debug}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/TouchControlOverlay/Device-Debug}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/rimeula/arm/a-le-v7-g}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/tco/arm/a-le-v7-g}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SDL/arm/a-le-v7-g}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/cJSON/arm/a-le-v7-g}&quot;"/>
 								</option>
 								<option id="com.qnx.qcc.option.linker.security.773310958" name="Enhanced Security (-Wl,-z,relro -Wl,-z,now)" superClass="com.qnx.qcc.option.linker.security" value="true" valueType="boolean"/>
 								<option id="com.qnx.qcc.option.linker.libraries.1807607931" name="Libraries (-l)" superClass="com.qnx.qcc.option.linker.libraries" valueType="libs">
-									<listOptionValue builtIn="false" value="xml2"/>
-									<listOptionValue builtIn="false" value="cpp"/>
 									<listOptionValue builtIn="false" value="png"/>
 									<listOptionValue builtIn="false" value="m"/>
 									<listOptionValue builtIn="false" value="screen"/>
@@ -68,9 +68,10 @@
 									<listOptionValue builtIn="false" value="asound"/>
 									<listOptionValue builtIn="false" value="GLESv2"/>
 									<listOptionValue builtIn="false" value="bbami_g"/>
-									<listOptionValue builtIn="false" value="SDL12"/>
-									<listOptionValue builtIn="false" value="TouchControlOverlay"/>
+									<listOptionValue builtIn="false" value="SDL_g"/>
 									<listOptionValue builtIn="false" value="rimeula_g"/>
+									<listOptionValue builtIn="false" value="tco_g"/>
+									<listOptionValue builtIn="false" value="cJSON_g"/>
 								</option>
 								<inputType id="com.qnx.qcc.inputType.linker.1663614306" superClass="com.qnx.qcc.inputType.linker">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
@@ -107,11 +108,12 @@
 							<tool id="com.qnx.qcc.tool.compiler.995090851" name="QCC Compiler" superClass="com.qnx.qcc.tool.compiler">
 								<option id="com.qnx.qcc.option.compiler.optlevel.216666996" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.2" valueType="enumerated"/>
 								<option id="com.qnx.qcc.option.compiler.includePath.677153815" name="Include Directories (-I)" superClass="com.qnx.qcc.option.compiler.includePath" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SDL12/include}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/TouchControlOverlay/public}&quot;"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/../target-override/usr/include"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/bbami/public}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/rimeula/public}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SDL/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/cJSON}&quot;"/>
 								</option>
 								<option id="com.qnx.qcc.option.compiler.security.915260414" name="Enhanced Security (-fstack-protector-strong)" superClass="com.qnx.qcc.option.compiler.security" value="false" valueType="boolean"/>
 								<option id="com.qnx.qcc.option.compiler.defines.968289826" name="Defines (-D)" superClass="com.qnx.qcc.option.compiler.defines" valueType="definedSymbols">
@@ -131,12 +133,13 @@
 							</tool>
 							<tool id="com.qnx.qcc.tool.linker.1141055326" name="QCC Linker" superClass="com.qnx.qcc.tool.linker">
 								<option id="com.qnx.qcc.option.linker.libraryPaths.515879404" name="Library Paths (-L)" superClass="com.qnx.qcc.option.linker.libraryPaths" valueType="libPaths">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/TouchControlOverlay/Device-Release}&quot;"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/../target-override/${CPUVARDIR}/lib"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/../target-override/${CPUVARDIR}/usr/lib"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/bbami/arm/a-le-v7}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/rimeula/arm/a-le-v7}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SDL12/Device-Release}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/tco/arm/a-le-v7}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SDL/arm/a-le-v7}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/cJSON/arm/a-le-v7}&quot;"/>
 								</option>
 								<option id="com.qnx.qcc.option.linker.pie.1846707483" name="Position Independent Executable (-pie)" superClass="com.qnx.qcc.option.linker.pie" value="false" valueType="boolean"/>
 								<option id="com.qnx.qcc.option.linker.security.1763190869" name="Enhanced Security (-Wl,-z,relro -Wl,-z,now)" superClass="com.qnx.qcc.option.linker.security" value="false" valueType="boolean"/>
@@ -144,16 +147,15 @@
 									<listOptionValue builtIn="false" value="m"/>
 									<listOptionValue builtIn="false" value="screen"/>
 									<listOptionValue builtIn="false" value="png"/>
-									<listOptionValue builtIn="false" value="cpp"/>
-									<listOptionValue builtIn="false" value="xml2"/>
 									<listOptionValue builtIn="false" value="bps"/>
 									<listOptionValue builtIn="false" value="EGL"/>
 									<listOptionValue builtIn="false" value="asound"/>
 									<listOptionValue builtIn="false" value="GLESv2"/>
 									<listOptionValue builtIn="false" value="bbami"/>
+									<listOptionValue builtIn="false" value="SDL"/>
 									<listOptionValue builtIn="false" value="rimeula"/>
-									<listOptionValue builtIn="false" value="SDL12"/>
-									<listOptionValue builtIn="false" value="TouchControlOverlay"/>
+									<listOptionValue builtIn="false" value="tco"/>
+									<listOptionValue builtIn="false" value="cJSON"/>
 								</option>
 								<option id="com.qnx.qcc.option.linker.warningLevel.441276830" name="Warning Level (-w)" superClass="com.qnx.qcc.option.linker.warningLevel" value="com.qnx.qcc.option.warningLevel.5" valueType="enumerated"/>
 								<option id="com.qnx.qcc.option.linker.symbols.1899763379" name="Symbol options" superClass="com.qnx.qcc.option.linker.symbols" value="com.qnx.qcc.option.linker.symbols.none" valueType="enumerated"/>
@@ -206,6 +208,22 @@
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
 		<buildTargets>
+			<target name="all" path="arm/o-le-v7-g" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>all</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>true</runAllBuilders>
+			</target>
+			<target name="all" path="arm/o-le-v7" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>all</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>true</runAllBuilders>
+			</target>
 			<target name="all" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
 				<buildCommand>make</buildCommand>
 				<buildArguments/>

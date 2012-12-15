@@ -31,12 +31,8 @@ bool xmas = false;
 
 bool xmas_time( void )
 {
-#ifdef __BLACKBERRY__
-    return false;
-#else
 	time_t now = time(NULL);
 	return localtime(&now)->tm_mon == 11;
-#endif
 }
 
 bool xmas_prompt( void )

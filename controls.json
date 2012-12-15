@@ -6,7 +6,7 @@
 "y":440,
 "width":130,
 "height":130,
-"image":"assets/button-alt-fire.png",
+"image":"app/native/assets/button-alt-fire.png",
 "symbol":13,
 "modifier":0,
 "scancode":13,
@@ -15,7 +15,7 @@
 "y":0,
 "width":130,
 "height":130,
-"image":"assets/button-alt-fire.png",
+"image":"app/native/assets/button-alt-fire.png",
 "alpha":110
 }
 },
@@ -25,7 +25,7 @@
 "y":300,
 "width":130,
 "height":130,
-"image":"assets/button-fire.png",
+"image":"app/native/assets/button-fire.png",
 "symbol":32,
 "modifier":0,
 "scancode":32,
@@ -34,7 +34,7 @@
 "y":0,
 "width":130,
 "height":130,
-"image":"assets/button-fire.png",
+"image":"app/native/assets/button-fire.png",
 "alpha":110
 }
 },
@@ -44,7 +44,7 @@
 "y":300,
 "width":130,
 "height":130,
-"image":"assets/button-left-fire.png",
+"image":"app/native/assets/button-left-fire.png",
 "symbol":306,
 "modifier":0,
 "scancode":306,
@@ -53,7 +53,7 @@
 "y":0,
 "width":130,
 "height":130,
-"image":"assets/button-left-fire.png",
+"image":"app/native/assets/button-left-fire.png",
 "alpha":110
 }
 },
@@ -63,7 +63,7 @@
 "y":440,
 "width":130,
 "height":130,
-"image":"assets/button-right-fire.png",
+"image":"app/native/assets/button-right-fire.png",
 "symbol":308,
 "modifier":0,
 "scancode":308,
@@ -72,7 +72,7 @@
 "y":0,
 "width":130,
 "height":130,
-"image":"assets/button-right-fire.png",
+"image":"app/native/assets/button-right-fire.png",
 "alpha":110
 }
 },
@@ -82,7 +82,7 @@
 "y":5,
 "width":130,
 "height":130,
-"image":"assets/button-esc.png",
+"image":"app/native/assets/button-esc.png",
 "symbol":27,
 "modifier":0,
 "scancode":27,
@@ -91,7 +91,7 @@
 "y":0,
 "width":130,
 "height":130,
-"image":"assets/button-esc.png",
+"image":"app/native/assets/button-esc.png",
 "alpha":110
 }
 },
@@ -101,12 +101,12 @@
 "y":290,
 "width":280,
 "height":300,
-"image":"assets/dpad.png",
+"image":"app/native/assets/dpad.png",
 "label":{"x":0,
 "y":0,
 "width":280,
 "height":300,
-"image":"assets/dpad.png",
+"image":"app/native/assets/dpad.png",
 "alpha":110}
 }
 ]

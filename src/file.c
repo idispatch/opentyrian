@@ -28,7 +28,6 @@ const char *data_dir( void )
 #ifdef __BLACKBERRY__
 	static char dir[512] = "";
 	if(dir[0] == '\0') {
-		char cwd[512] = "";
 		snprintf(dir, sizeof(dir), "%s/../app/native/assets", getenv("HOME"));
 		FILE *f = dir_fopen(dir, "tyrian1.lvl", "rb");
 		if(f) {

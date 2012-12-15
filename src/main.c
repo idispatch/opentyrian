@@ -252,14 +252,14 @@ int main( int argc, char *argv[] )
     }
 
     bbami_info_ptr info;
-    snprintf(opentyrian_version, sizeof(opentyrian_version), "BlackBerry PlayBook port");
+    snprintf(opentyrian_version, sizeof(opentyrian_version), "BlackBerry 10 port");
     int rc = bbami_init(BBAMI_API_VERSION, DEFAULT_MANIFEST_PATH, &info);
     if(rc == 0) {
         int count;
         char * version;
         rc = bbami_query(info, BBAMI_APPLICATION_VERSION, &version);
         if(rc == 0) {
-            snprintf(opentyrian_version, sizeof(opentyrian_version), "BlackBerry PlayBook port, version %s", version);
+            snprintf(opentyrian_version, sizeof(opentyrian_version), "BlackBerry 10 port, version %s", version);
             free(version);
         }
         bbami_done(info);

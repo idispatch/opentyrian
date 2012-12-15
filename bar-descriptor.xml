@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <qnx xmlns="http://www.qnx.com/schemas/application/1.0">
     <id>com.idispatch.opentyrian</id>
-    <versionNumber>1.0.5</versionNumber>
-    <buildId>5</buildId>
+    <versionNumber>1.0.6</versionNumber>
+    <buildId>0</buildId>
     <description>OpenTyrian is an open-source port of the DOS game Tyrian.</description>
     <author>Oleg Kosenkov</author>
     <splashscreen>tyrian-loading.png</splashscreen>
@@ -21,11 +21,11 @@
     <asset path="tyrian-loading.png">tyrian-loading.png</asset>
     <configuration id="com.qnx.qcc.configuration.exe.debug.1126421720" name="Device-Debug">
        <platformArchitecture>armle-v7</platformArchitecture>
-       <asset path="arm/o-le-v7-g/opentyrian_g" entry="true" type="Qnx/Elf">opentyrian</asset>
+       <asset path="Device-Debug/opentyrian" entry="true" type="Qnx/Elf">opentyrian</asset>
     </configuration>
     <configuration id="com.qnx.qcc.configuration.exe.release.1746496411" name="Device-Release">
        <platformArchitecture>armle-v7</platformArchitecture>
-       <asset path="arm/o-le-v7/opentyrian" entry="true" type="Qnx/Elf">opentyrian</asset>
+       <asset path="Device-Release/opentyrian" entry="true" type="Qnx/Elf">opentyrian</asset>
     </configuration>
     <icon>
         <image>tyrian-icon.png</image>

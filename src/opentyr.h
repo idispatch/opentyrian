@@ -19,6 +19,7 @@
 #ifndef OPENTYR_H
 #define OPENTYR_H
 
+#include <stddef.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <malloc.h>

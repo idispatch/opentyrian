@@ -16,7 +16,6 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#include "cJSON.h"
 #include "config.h"
 #include "file.h"
 #include "joystick.h"
@@ -26,7 +25,7 @@
 #include "params.h"
 #include "varz.h"
 #include "video.h"
-
+#include <cJSON.h>
 #include <assert.h>
 
 int joystick_axis_threshold( int j, int value );
