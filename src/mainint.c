@@ -51,6 +51,9 @@
 #include <assert.h>
 #include <ctype.h>
 
+#ifdef __BLACKBERRY__
+#include <bps/virtualkeyboard.h>
+#endif
 bool button[4];
 
 #define MAX_PAGE 8
@@ -1500,7 +1503,6 @@ void JE_highScoreCheck( void )
 
 			{
 				/* Enter Thy name */
-
 				JE_byte flash = 8 * 16 + 10;
 				JE_boolean fadein = true;
 				JE_boolean quit = false, cancel = false;
@@ -1511,7 +1513,9 @@ void JE_highScoreCheck( void )
 				temp = 0;
 
 				JE_barShade(VGAScreen, 65, 55, 255, 155);
-
+#ifdef __BLACKBERRY__
+                virtualkeyboard_show();
+#endif
 				do
 				{
 					service_SDL_events(true);
@@ -1648,6 +1652,9 @@ void JE_highScoreCheck( void )
 					strcpy(saveFiles[slot].highScoreName, stemp);
 					saveFiles[slot].highScoreDiff = difficultyLevel;
 				}
+#ifdef __BLACKBERRY__
+                virtualkeyboard_hide();
+#endif
 
 				fade_black(15);
 				JE_loadPic(VGAScreen, 2, false);
@@ -2362,7 +2369,9 @@ void JE_operation( JE_byte slot )
 		wait_noinput(false, true, false);
 
 		JE_barShade(VGAScreen, 65, 55, 255, 155);
-
+#ifdef __BLACKBERRY__
+		virtualkeyboard_show();
+#endif
 		bool quit = false;
 		while (!quit)
 		{
@@ -2478,6 +2487,10 @@ void JE_operation( JE_byte slot )
 
 			}
 		}
+#ifdef __BLACKBERRY__
+        virtualkeyboard_hide();
+#endif
+
 	}
 
 	wait_noinput(false, true, false);
