@@ -19,16 +19,16 @@
     <asset path="controls.json">controls.json</asset>
     <asset path="tyrian-icon.png">tyrian-icon.png</asset>
     <asset path="tyrian-loading.png">tyrian-loading.png</asset>
-    <configuration id="com.qnx.qcc.configuration.exe.debug.1126421720" name="Device-Debug">
+    <configuration name="Device-Debug">
        <platformArchitecture>armle-v7</platformArchitecture>
        <asset path="Device-Debug/opentyrian" entry="true" type="Qnx/Elf">opentyrian</asset>
     </configuration>
-    <configuration id="com.qnx.qcc.configuration.exe.release.1746496411" name="Device-Release">
+    <configuration name="Device-Release">
        <platformArchitecture>armle-v7</platformArchitecture>
        <asset path="Device-Release/opentyrian" entry="true" type="Qnx/Elf">opentyrian</asset>
     </configuration>
     <icon>
         <image>tyrian-icon.png</image>
     </icon>
-    <action system="true">run_native</action>
+    <permission system="true">run_native</permission>
 </qnx>

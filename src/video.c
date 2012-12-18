@@ -113,7 +113,7 @@ bool init_scaler( unsigned int new_scaler, bool fullscreen )
 	h = surface->h;
 	bpp = surface->format->BitsPerPixel;
 
-	printf("initialized video: %dx%dx%d\n", w, h, bpp);
+	fprintf(stderr, "initialized video: %dx%dx%d\n", w, h, bpp);
 
 	scaler = new_scaler;
 	fullscreen_enabled = fullscreen;
@@ -170,7 +170,10 @@ void JE_clr256( SDL_Surface * screen)
 {
 	memset(screen->pixels, 0, screen->pitch * screen->h);
 }
-void JE_showVGA( void ) { scale_and_flip(VGAScreen); }
+
+void JE_showVGA( void ) {
+    scale_and_flip(VGAScreen);
+}
 
 void scale_and_flip( SDL_Surface *src_surface )
 {

@@ -1,4 +1,4 @@
-/* 
+/*
  * OpenTyrian Classic: A modern cross-platform port of Tyrian
  * Copyright (C) 2007-2009  The OpenTyrian Development Team
  *
@@ -47,7 +47,7 @@ int freq = 11025 * OUTPUT_QUALITY;
 
 static SDL_AudioCVT audio_cvt; // used for format conversion
 
-void audio_cb( void *userdata, unsigned char *feedme, int howmuch );
+static void audio_cb( void *userdata, unsigned char *feedme, int howmuch );
 
 void load_song( unsigned int song_num );
 
@@ -55,46 +55,46 @@ bool init_audio( void )
 {
 	if (audio_disabled)
 		return false;
-	
+
 	SDL_AudioSpec ask, got;
-	
+
 	ask.freq = freq;
 	ask.format = (BYTES_PER_SAMPLE == 2) ? AUDIO_S16SYS : AUDIO_S8;
 	ask.channels = 1;
 	ask.samples = 2048;
 	ask.callback = audio_cb;
-	
+
 	printf("\trequested %d Hz, %d channels, %d samples\n", ask.freq, ask.channels, ask.samples);
-	
+
 	if (SDL_OpenAudio(&ask, &got) == -1)
 	{
 		fprintf(stderr, "error: failed to initialize SDL audio: %s\n", SDL_GetError());
 		audio_disabled = true;
 		return false;
 	}
-	
+
 	printf("\tobtained  %d Hz, %d channels, %d samples\n", got.freq, got.channels, got.samples);
-	
+
 	SDL_BuildAudioCVT(&audio_cvt, ask.format, ask.channels, ask.freq, got.format, got.channels, got.freq);
-	
+
 	opl_init();
-	
+
 	SDL_PauseAudio(0); // unpause
-	
+
 	return true;
 }
 
-void audio_cb( void *user_data, unsigned char *sdl_buffer, int howmuch )
+static void audio_cb( void *user_data, unsigned char *sdl_buffer, int howmuch )
 {
 	(void)user_data;
-	
+
 	// prepare for conversion
 	howmuch /= audio_cvt.len_mult;
 	audio_cvt.buf = sdl_buffer;
 	audio_cvt.len = howmuch;
-	
+
 	static long ct = 0;
-	
+
 	SAMPLE_TYPE *feedme = (SAMPLE_TYPE *)sdl_buffer;
 
 	if (!music_disabled && !music_stopped)
@@ -116,7 +116,7 @@ void audio_cb( void *user_data, unsigned char *sdl_buffer, int howmuch )
 			- ct represents the margin between play time (representing # of samples) and tick speed of
 			the songs (70Hz by default). It keeps track of which one is ahead, because they don't
 			synch perfectly. */
-			
+
 			/* set i to smaller of data requested by SDL and a value calculated from the refresh rate */
 			long i = (long)((ct / REFRESH) + 4) & ~3;
 			i = (i > remaining) ? remaining : i; /* i should now equal the number of samples we get */
@@ -125,7 +125,7 @@ void audio_cb( void *user_data, unsigned char *sdl_buffer, int howmuch )
 			remaining -= i;
 			ct -= (long)(REFRESH * i);
 		}
-		
+
 		/* Reduce the music volume. */
 		int qu = howmuch / BYTES_PER_SAMPLE;
 		for (int smp = 0; smp < qu; smp++)
@@ -133,14 +133,14 @@ void audio_cb( void *user_data, unsigned char *sdl_buffer, int howmuch )
 			feedme[smp] *= music_volume;
 		}
 	}
-	
+
 	if (!samples_disabled)
 	{
 		/* SYN: Mix sound channels and shove into audio buffer */
 		for (int ch = 0; ch < SFX_CHANNELS; ch++)
 		{
 			float volume = sample_volume * (channel_vol[ch] / (float)SFX_CHANNELS);
-			
+
 			/* SYN: Don't copy more data than is in the channel! */
 			unsigned int qu = ((unsigned)howmuch > channel_len[ch] ? channel_len[ch] : (unsigned)howmuch) / BYTES_PER_SAMPLE;
 			for (unsigned int smp = 0; smp < qu; smp++)
@@ -153,10 +153,10 @@ void audio_cb( void *user_data, unsigned char *sdl_buffer, int howmuch )
 				feedme[smp] = (clip > 0x7f) ? 0x7f : (clip <= -0x80) ? -0x80 : (Sint8)clip;
 #endif  /* BYTES_PER_SAMPLE */
 			}
-			
+
 			channel_pos[ch] += qu;
 			channel_len[ch] -= qu * BYTES_PER_SAMPLE;
-			
+
 			/* SYN: If we've emptied a channel buffer, let's free the memory and clear the channel. */
 			if (channel_len[ch] == 0)
 			{
@@ -165,7 +165,7 @@ void audio_cb( void *user_data, unsigned char *sdl_buffer, int howmuch )
 			}
 		}
 	}
-	
+
 	// do conversion
 	SDL_ConvertAudio(&audio_cvt);
 }
@@ -174,20 +174,20 @@ void deinit_audio( void )
 {
 	if (audio_disabled)
 		return;
-	
+
 	SDL_PauseAudio(1); // pause
-	
+
 	SDL_CloseAudio();
-	
+
 	for (unsigned int i = 0; i < SFX_CHANNELS; i++)
 	{
 		free(channel_buffer[i]);
 		channel_buffer[i] = channel_pos[i] = NULL;
 		channel_len[i] = 0;
 	}
-	
+
 	opl_deinit();
-	
+
 	lds_free();
 }
 
@@ -197,11 +197,11 @@ void load_music( void )
 	if (music_file == NULL)
 	{
 		music_file = dir_fopen_die(data_dir(), "music.mus", "rb");
-		
+
 		efread(&song_count, sizeof(song_count), 1, music_file);
-		
+
 		song_offset = malloc((song_count + 1) * sizeof(song_offset));
-		
+
 		efread(song_offset, 4, song_count, music_file);
 		song_offset[song_count] = ftell_eof(music_file);
 	}
@@ -211,9 +211,9 @@ void load_song( unsigned int song_num )
 {
 	if (audio_disabled)
 		return;
-	
+
 	SDL_LockAudio();
-	
+
 	if (song_num < song_count)
 	{
 		unsigned int song_size = song_offset[song_num + 1] - song_offset[song_num];
@@ -223,7 +223,7 @@ void load_song( unsigned int song_num )
 	{
 		fprintf(stderr, "warning: failed to load song %d\n", song_num + 1);
 	}
-	
+
 	SDL_UnlockAudio();
 }
 
@@ -234,7 +234,7 @@ void play_song( unsigned int song_num )
 		load_song(song_num);
 		song_playing = song_num;
 	}
-	
+
 	music_stopped = false;
 }
 
@@ -265,11 +265,11 @@ void JE_multiSamplePlay(JE_byte *buffer, JE_word size, JE_byte chan, JE_byte vol
 {
 	if (audio_disabled || samples_disabled)
 		return;
-	
+
 	SDL_LockAudio();
-	
+
 	free(channel_buffer[chan]);
-	
+
 	channel_len[chan] = size * BYTES_PER_SAMPLE * SAMPLE_SCALING;
 	channel_buffer[chan] = malloc(channel_len[chan]);
 	channel_pos[chan] = channel_buffer[chan];

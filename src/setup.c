@@ -1,4 +1,4 @@
-/* 
+/*
  * OpenTyrian Classic: A modern cross-platform port of Tyrian
  * Copyright (C) 2007-2009  The OpenTyrian Development Team
  *
@@ -32,30 +32,30 @@
 void JE_textMenuWait( JE_word *waitTime, JE_boolean doGamma )
 {
 	set_mouse_position(160, 100);
-	
+
 	do
 	{
 		JE_showVGA();
-		
+
 		push_joysticks_as_keyboard();
 		service_SDL_events(true);
-		
+
 		if (doGamma)
 			JE_gammaCheck();
-		
+
 		inputDetected = newkey | mousedown;
-		
+
 		if (lastkey_sym == SDLK_SPACE)
 		{
 			lastkey_sym = SDLK_RETURN;
 		}
-		
+
 		if (mousedown)
 		{
 			newkey = true;
 			lastkey_sym = SDLK_RETURN;
 		}
-		
+
 		if (has_mouse && input_grabbed)
 		{
 			if (abs(mouse_y - 100) > 10)
@@ -81,11 +81,11 @@ void JE_textMenuWait( JE_word *waitTime, JE_boolean doGamma )
 				newkey = true;
 			}
 		}
-		
+
 		NETWORK_KEEP_ALIVE();
-		
+
 		SDL_Delay(16);
-		
+
 		if (*waitTime > 0)
 		{
 			(*waitTime)--;

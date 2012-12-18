@@ -807,7 +807,7 @@ void JE_loadConfiguration( void )
         tyrMusicVolume = fxVolume = 128;
         gammaCorrection = 0;
         processorType = 6; /* SuperWild */
-        gameSpeed = 4; /* Normal */
+        gameSpeed = 4;
 #ifdef ENABLE_CONFIGURATION
     }
 #endif /*ENABLE_CONFIGURATION*/

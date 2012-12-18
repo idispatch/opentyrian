@@ -419,7 +419,6 @@ static void cJSON_ForceType( cJSON *item, int type )
 }
 
 static void *(*cJSON_malloc)( size_t ) = malloc;
-static void *(*cJSON_realloc)( void *, size_t ) = realloc;
 static void (*cJSON_free)( void *ptr ) = free;
 
 static char *cJSON_strdup( const char *str )

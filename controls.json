@@ -6,7 +6,6 @@
 "y":440,
 "width":130,
 "height":130,
-"image":"app/native/assets/button-alt-fire.png",
 "symbol":13,
 "modifier":0,
 "scancode":13,
@@ -16,7 +15,7 @@
 "width":130,
 "height":130,
 "image":"app/native/assets/button-alt-fire.png",
-"alpha":110
+"alpha":120
 }
 },
 {"type":"key",
@@ -25,7 +24,6 @@
 "y":300,
 "width":130,
 "height":130,
-"image":"app/native/assets/button-fire.png",
 "symbol":32,
 "modifier":0,
 "scancode":32,
@@ -35,7 +33,7 @@
 "width":130,
 "height":130,
 "image":"app/native/assets/button-fire.png",
-"alpha":110
+"alpha":120
 }
 },
 {"type":"key",
@@ -44,7 +42,6 @@
 "y":300,
 "width":130,
 "height":130,
-"image":"app/native/assets/button-left-fire.png",
 "symbol":306,
 "modifier":0,
 "scancode":306,
@@ -54,7 +51,7 @@
 "width":130,
 "height":130,
 "image":"app/native/assets/button-left-fire.png",
-"alpha":110
+"alpha":120
 }
 },
 {"type":"key",
@@ -63,7 +60,6 @@
 "y":440,
 "width":130,
 "height":130,
-"image":"app/native/assets/button-right-fire.png",
 "symbol":308,
 "modifier":0,
 "scancode":308,
@@ -73,7 +69,7 @@
 "width":130,
 "height":130,
 "image":"app/native/assets/button-right-fire.png",
-"alpha":110
+"alpha":120
 }
 },
 {"type":"key",
@@ -82,7 +78,6 @@
 "y":5,
 "width":130,
 "height":130,
-"image":"app/native/assets/button-esc.png",
 "symbol":27,
 "modifier":0,
 "scancode":27,
@@ -92,7 +87,7 @@
 "width":130,
 "height":130,
 "image":"app/native/assets/button-esc.png",
-"alpha":110
+"alpha":120
 }
 },
 {"type":"dpad",
@@ -101,13 +96,12 @@
 "y":290,
 "width":280,
 "height":300,
-"image":"app/native/assets/dpad.png",
 "label":{"x":0,
 "y":0,
 "width":280,
 "height":300,
 "image":"app/native/assets/dpad.png",
-"alpha":110}
+"alpha":120}
 }
 ]
 }
