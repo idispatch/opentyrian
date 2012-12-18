@@ -10,6 +10,10 @@ include $(QCONFIG)
 define PINFO
 PINFO DESCRIPTION = OpenTyrian
 endef
+DEVICE_IP = 169.254.0.1
+DEVICE_PASS = pass
+BAR_CONFIGURATION = Arm-Release
+BAR_NAME = opentyrian.bar
 
 SDL_PATH = $(PROJECT_ROOT)/../SDL
 SDL_INC_PATH = $(SDL_PATH)/include
@@ -51,23 +55,28 @@ OPTIMIZE_TYPE=$(OPTIMIZE_TYPE_$(filter g, $(VARIANTS)))
 
 NDK_TOOLS_PATH = $(QNX_HOST)/usr/bin
 PACKAGER = $(NDK_TOOLS_PATH)/blackberry-nativepackager
+DEPLOYER = $(NDK_TOOLS_PATH)/blackberry-deploy
 
-.PHONY: show-variables clean clean-release display-vars
+.PHONY: deploy undeploy show-variables clean clean-release display-vars
 
 clean-release:
-	rm -f $(PROJECT_ROOT)/tyrian.bar
+	rm -f $(PROJECT_ROOT)/$(BAR_NAME)
 
 clean: clean-release
 
-tyrian.bar: $(PROJECT_ROOT)/bar-descriptor.xml \
-            $(PROJECT_ROOT)/tyrian-icon.png \
-            $(PROJECT_ROOT)/tyrian-loading.png \
-            $(PROJECT_ROOT)/Makefile \
-            $(PROJECT_ROOT)/common.mk \
-            $(PROJECT_ROOT)/controls.json
-	$(PACKAGER) -package $(PROJECT_ROOT)/$(TARGET).bar $(PROJECT_ROOT)/bar-descriptor.xml -C . -configuration Device-Debug
+opentyrian.bar: $(PROJECT_ROOT)/bar-descriptor.xml \
+                $(PROJECT_ROOT)/tyrian-icon.png \
+                $(PROJECT_ROOT)/tyrian-loading.png \
+                $(PROJECT_ROOT)/Makefile \
+                $(PROJECT_ROOT)/common.mk \
+                $(PROJECT_ROOT)/controls.json
+	$(PACKAGER) -package $(PROJECT_ROOT)/$(BAR_NAME) $(PROJECT_ROOT)/bar-descriptor.xml -C . -configuration $(BAR_CONFIGURATION) 
 
-all: tyrian.bar
+deploy:
+	$(DEPLOYER) -installApp -device $(DEVICE_IP) -password $(DEVICE_PASS) $(PROJECT_ROOT)/$(BAR_NAME) 
+
+undeploy:
+	$(DEPLOYER) -uninstallApp -device $(DEVICE_IP) -password $(DEVICE_PASS) $(PROJECT_ROOT)/$(BAR_NAME) 
 
 display-vars:
 	$(foreach v,$(.VARIABLES),$(info $(v) = $($(v))))

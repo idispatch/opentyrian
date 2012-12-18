@@ -342,10 +342,11 @@ int main( int argc, char *argv[] )
             network_tyrian_halt(3, false);
         }
     }
-#endif
 #ifdef NDEBUG
-    if (!isNetworkGame)
+    if (!isNetworkGame) {
         intro_logos();
+    }
+#endif
 #endif
 
     for (; ; )
