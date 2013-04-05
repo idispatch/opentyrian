@@ -19,17 +19,21 @@
     <asset path="controls.json">controls.json</asset>
     <asset path="tyrian-icon.png">tyrian-icon.png</asset>
     <asset path="tyrian-loading.png">tyrian-loading.png</asset>
-    <configuration name="Device-Debug">
+    <configuration id="com.qnx.qcc.configuration.exe.debug.1126421720" name="Device-Debug">
        <platformArchitecture>armle-v7</platformArchitecture>
        <asset path="Device-Debug/opentyrian" entry="true" type="Qnx/Elf">opentyrian</asset>
     </configuration>
-    <configuration name="Device-Release">
+    <configuration id="com.qnx.qcc.configuration.exe.release.1746496411" name="Device-Release">
        <platformArchitecture>armle-v7</platformArchitecture>
        <asset path="Device-Release/opentyrian" entry="true" type="Qnx/Elf">opentyrian</asset>
     </configuration>
-    <configuration name="Arm-Release">
+    <configuration id="com.qnx.qcc.configuration.exe.debug.1126421720.1509297987" name="PlayBook-Debug">
        <platformArchitecture>armle-v7</platformArchitecture>
-       <asset path="arm/o-le-v7/opentyrian" entry="true" type="Qnx/Elf">opentyrian</asset>
+       <asset path="PlayBook-Debug/opentyrian" entry="true" type="Qnx/Elf">opentyrian</asset>
+    </configuration>
+    <configuration id="com.qnx.qcc.configuration.exe.release.1746496411.773528668" name="PlayBook-Release">
+       <platformArchitecture>armle-v7</platformArchitecture>
+       <asset path="PlayBook-Release/opentyrian" entry="true" type="Qnx/Elf">opentyrian</asset>
     </configuration>
     <icon>
         <image>tyrian-icon.png</image>

@@ -251,14 +251,22 @@ int main( int argc, char *argv[] )
         return 1;
     }
     bbami_info_ptr info;
+#ifdef __PLAYBOOK__
+    snprintf(opentyrian_version, sizeof(opentyrian_version), "Port for BlackBerry PlayBook");
+#else
     snprintf(opentyrian_version, sizeof(opentyrian_version), "Port for BlackBerry 10");
+#endif
     int rc = bbami_init(BBAMI_API_VERSION, DEFAULT_MANIFEST_PATH, &info);
     if(rc == 0) {
         int count;
         char * version;
         rc = bbami_query(info, BBAMI_APPLICATION_VERSION, &version);
         if(rc == 0) {
+#ifdef __PLAYBOOK__
+            snprintf(opentyrian_version, sizeof(opentyrian_version), "Port for BlackBerry PlayBook, version %s", version);
+#else
             snprintf(opentyrian_version, sizeof(opentyrian_version), "Port for BlackBerry 10, version %s", version);
+#endif
             free(version);
         }
         bbami_done(info);
