@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <qnx xmlns="http://www.qnx.com/schemas/application/1.0">
     <id>com.idispatch.opentyrian</id>
-    <versionNumber>1.0.8</versionNumber>
+    <versionNumber>1.0.9</versionNumber>
     <buildId>0</buildId>
     <description>OpenTyrian is an open-source port of the DOS game Tyrian.</description>
     <author>kosenkov.ca</author>
@@ -26,14 +26,6 @@
     <configuration id="com.qnx.qcc.configuration.exe.release.1746496411" name="Device-Release">
        <platformArchitecture>armle-v7</platformArchitecture>
        <asset path="Device-Release/opentyrian" entry="true" type="Qnx/Elf">opentyrian</asset>
-    </configuration>
-    <configuration id="com.qnx.qcc.configuration.exe.debug.1126421720.1509297987" name="PlayBook-Debug">
-       <platformArchitecture>armle-v7</platformArchitecture>
-       <asset path="PlayBook-Debug/opentyrian" entry="true" type="Qnx/Elf">opentyrian</asset>
-    </configuration>
-    <configuration id="com.qnx.qcc.configuration.exe.release.1746496411.773528668" name="PlayBook-Release">
-       <platformArchitecture>armle-v7</platformArchitecture>
-       <asset path="PlayBook-Release/opentyrian" entry="true" type="Qnx/Elf">opentyrian</asset>
     </configuration>
     <icon>
         <image>tyrian-icon.png</image>
