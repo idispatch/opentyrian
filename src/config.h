@@ -20,8 +20,9 @@
 #define CONFIG_H
 
 #include "opentyr.h"
-#include "cJSON.h"
-#include "SDL.h"
+#include <cJSON.h>
+#include <SDL.h>
+#include <SDL_keyboard.h>
 
 #define SAVE_FILES_NUM (11 * 2)
 

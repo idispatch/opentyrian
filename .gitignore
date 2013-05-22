@@ -9,3 +9,6 @@ tyrian.bar
 *.pinfo
 arm/o-le-v7/opentyrian
 arm/o-le-v7-g/opentyrian_g
+.DS_Store
+.assets.index
+
