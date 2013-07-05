@@ -51,9 +51,6 @@
 #include <assert.h>
 #include <ctype.h>
 
-#ifdef __BLACKBERRY__
-#include <bps/virtualkeyboard.h>
-#endif
 bool button[4];
 
 #define MAX_PAGE 8
@@ -1514,7 +1511,7 @@ void JE_highScoreCheck( void )
 
 				JE_barShade(VGAScreen, 65, 55, 255, 155);
 #ifdef __BLACKBERRY__
-                virtualkeyboard_show();
+				SDL_ShowKeyboard(1);
 #endif
 				do
 				{
@@ -1619,6 +1616,7 @@ void JE_highScoreCheck( void )
 							case '"':
 							case '\'':
 								validkey = true;
+								/* no break */
 							default:
 								if (temp < 28 && (validkey || (lastkey_char >= 'A' && lastkey_char <= 'Z') || (lastkey_char >= '0' && lastkey_char <= '9')))
 								{
@@ -1653,7 +1651,7 @@ void JE_highScoreCheck( void )
 					saveFiles[slot].highScoreDiff = difficultyLevel;
 				}
 #ifdef __BLACKBERRY__
-                virtualkeyboard_hide();
+				SDL_ShowKeyboard(0);
 #endif
 
 				fade_black(15);
@@ -2370,7 +2368,7 @@ void JE_operation( JE_byte slot )
 
 		JE_barShade(VGAScreen, 65, 55, 255, 155);
 #ifdef __BLACKBERRY__
-		virtualkeyboard_show();
+		SDL_ShowKeyboard(1);
 #endif
 		bool quit = false;
 		while (!quit)
@@ -2457,6 +2455,7 @@ void JE_operation( JE_byte slot )
 					case '"':
 					case '\'':
 						validkey = true;
+						/* no break */
 					default:
 						if (temp < 14 && (validkey || (lastkey_char >= 'A' && lastkey_char <= 'Z') || (lastkey_char >= '0' && lastkey_char <= '9')))
 						{
@@ -2488,7 +2487,7 @@ void JE_operation( JE_byte slot )
 			}
 		}
 #ifdef __BLACKBERRY__
-        virtualkeyboard_hide();
+		SDL_ShowKeyboard(0);
 #endif
 
 	}
