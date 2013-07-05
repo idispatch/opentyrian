@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <qnx xmlns="http://www.qnx.com/schemas/application/1.0">
     <id>com.idispatch.opentyrian</id>
-    <versionNumber>1.0.6</versionNumber>
+    <versionNumber>1.0.8</versionNumber>
     <buildId>0</buildId>
     <description>OpenTyrian is an open-source port of the DOS game Tyrian.</description>
-    <author>Oleg Kosenkov</author>
+    <author>kosenkov.ca</author>
     <splashscreen>tyrian-loading.png</splashscreen>
     <name>Tyrian</name>
-    <authorId>gYAAgOgucABbvsraEHuj9N_cK6E</authorId>
+    <authorId>gYAAgNvOOqSvefTEeSiCjimMZSs</authorId>
     <initialWindow>
         <aspectRatio>landscape</aspectRatio>
         <autoOrients>false</autoOrients>

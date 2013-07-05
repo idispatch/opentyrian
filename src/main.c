@@ -247,19 +247,18 @@ int main( int argc, char *argv[] )
 {
     mt_srand(time(NULL));
 #ifdef __BLACKBERRY__
-    if(!show_eula()) {
+    if(!show_hint_dialog()) {
         return 1;
     }
-
     bbami_info_ptr info;
-    snprintf(opentyrian_version, sizeof(opentyrian_version), "BlackBerry 10 port");
+    snprintf(opentyrian_version, sizeof(opentyrian_version), "Port for BlackBerry 10");
     int rc = bbami_init(BBAMI_API_VERSION, DEFAULT_MANIFEST_PATH, &info);
     if(rc == 0) {
         int count;
         char * version;
         rc = bbami_query(info, BBAMI_APPLICATION_VERSION, &version);
         if(rc == 0) {
-            snprintf(opentyrian_version, sizeof(opentyrian_version), "BlackBerry 10 port, version %s", version);
+            snprintf(opentyrian_version, sizeof(opentyrian_version), "Port for BlackBerry 10, version %s", version);
             free(version);
         }
         bbami_done(info);
