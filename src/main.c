@@ -55,7 +55,9 @@
 
 #ifdef __BLACKBERRY__
 #include <bbami.h>
+#if 0
 #include <eula.h>
+#endif
 #endif
 const char *opentyrian_str = "OpenTyrian";
 char opentyrian_version[100];
@@ -247,9 +249,11 @@ int main( int argc, char *argv[] )
 {
     mt_srand(time(NULL));
 #ifdef __BLACKBERRY__
+#if 0
     if(!show_hint_dialog()) {
         return 1;
     }
+#endif
     bbami_info_ptr info;
     snprintf(opentyrian_version, sizeof(opentyrian_version), "Port for BlackBerry 10");
     int rc = bbami_init(BBAMI_API_VERSION, DEFAULT_MANIFEST_PATH, &info);

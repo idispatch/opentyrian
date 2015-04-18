@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <qnx xmlns="http://www.qnx.com/schemas/application/1.0">
     <id>com.idispatch.opentyrian</id>
-    <versionNumber>1.0.8</versionNumber>
+    <versionNumber>1.1.0</versionNumber>
     <buildId>0</buildId>
     <description>OpenTyrian is an open-source port of the DOS game Tyrian.</description>
     <author>kosenkov.ca</author>
