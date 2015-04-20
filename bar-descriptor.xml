@@ -27,9 +27,9 @@
        <platformArchitecture>armle-v7</platformArchitecture>
        <asset path="Device-Release/opentyrian" entry="true" type="Qnx/Elf">opentyrian</asset>
     </configuration>
-    <configuration name="Arm-Release">
-       <platformArchitecture>armle-v7</platformArchitecture>
-       <asset path="arm/o-le-v7/opentyrian" entry="true" type="Qnx/Elf">opentyrian</asset>
+    <configuration name="Simulator">
+       <platformArchitecture>x86</platformArchitecture>
+       <asset path="Simulator/opentyrian" entry="true" type="Qnx/Elf">opentyrian</asset>
     </configuration>
     <icon>
         <image>tyrian-icon.png</image>
