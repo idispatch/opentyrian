@@ -5,18 +5,22 @@
     <buildId>0</buildId>
     <description>OpenTyrian is an open-source port of the DOS game Tyrian.</description>
     <author>kosenkov.ca</author>
-    <splashscreen>tyrian-loading.png</splashscreen>
     <name>Tyrian</name>
     <authorId>gYAAgNvOOqSvefTEeSiCjimMZSs</authorId>
     <initialWindow>
         <aspectRatio>landscape</aspectRatio>
         <autoOrients>false</autoOrients>
         <systemChrome>none</systemChrome>
-        <transparent>false</transparent>
     </initialWindow>
+    <splashScreens>
+       <image>tyrian-loading.png</image>
+    </splashScreens>
     <category>core.games</category>
     <asset path="assets">assets</asset>
-    <asset path="controls.json">controls.json</asset>
+    <asset path="controls-720x720.json">controls-720x720.json</asset>
+    <asset path="controls-1280x720.json">controls-1280x720.json</asset>
+    <asset path="controls-1280x768.json">controls-1280x768.json</asset>
+    <asset path="controls-1440x1440.json">controls-1440x1440.json</asset>
     <asset path="tyrian-icon.png">tyrian-icon.png</asset>
     <asset path="tyrian-loading.png">tyrian-loading.png</asset>
     <configuration name="Device-Debug">

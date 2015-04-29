@@ -264,9 +264,9 @@ bool load_opentyrian_config( void )
 {
     // defaults
     fullscreen_enabled = false;
-    set_scaler_by_name("3x");
 #ifdef __BLACKBERRY__
 #else
+    set_scaler_by_name("3x");
 #ifdef ENABLE_CONFIGURATION
     cJSON *root = load_json("opentyrian.conf");
     if (root == NULL)

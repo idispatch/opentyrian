@@ -152,6 +152,8 @@ void opentyrian_menu( void )
                     JE_playSampleNum(S_CURSOR);
                     break;
                 case SDLK_LEFT:
+#ifdef __BLACKBERRY__
+#else
                     if (sel == 2)
                     {
                         do
@@ -163,8 +165,11 @@ void opentyrian_menu( void )
                         while (!can_init_scaler(temp_scaler, fullscreen_enabled));
                         JE_playSampleNum(S_CURSOR);
                     }
+#endif
                     break;
                 case SDLK_RIGHT:
+#ifdef __BLACKBERRY__
+#else
                     if (sel == 2)
                     {
                         do
@@ -176,6 +181,7 @@ void opentyrian_menu( void )
                         while (!can_init_scaler(temp_scaler, fullscreen_enabled));
                         JE_playSampleNum(S_CURSOR);
                     }
+#endif
                     break;
                 case SDLK_RETURN:
                     switch (sel)

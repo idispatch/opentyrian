@@ -50,7 +50,7 @@ void JE_textMenuWait( JE_word *waitTime, JE_boolean doGamma )
 			lastkey_sym = SDLK_RETURN;
 		}
 
-		if (mousedown)
+		if (has_mouse && mousedown)
 		{
 			newkey = true;
 			lastkey_sym = SDLK_RETURN;

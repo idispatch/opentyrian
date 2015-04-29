@@ -32,6 +32,7 @@ JE_boolean newkey, newmouse, keydown, mousedown;
 SDLKey lastkey_sym;
 SDLMod lastkey_mod;
 unsigned char lastkey_char;
+extern bool has_mouse;
 Uint8 lastmouse_but;
 Uint16 lastmouse_x, lastmouse_y;
 JE_boolean mouse_pressed[3] = {false, false, false};
@@ -173,12 +174,19 @@ void service_SDL_events( JE_boolean clear_new )
 					/* <alt><enter> toggle fullscreen */
 					if (ev.key.keysym.sym == SDLK_RETURN)
 					{
-						if (!init_scaler(scaler, !fullscreen_enabled) && // try new fullscreen state
-						    !init_any_scaler(!fullscreen_enabled) &&     // try any scaler in new fullscreen state
-						    !init_scaler(scaler, fullscreen_enabled))    // revert on fail
+#ifdef __BLACKBERRY__
+						if (!init_scaler())
 						{
 							exit(EXIT_FAILURE);
 						}
+#else
+						if (!init_scaler(scaler, !fullscreen_enabled) && // try new fullscreen state
+							!init_any_scaler(!fullscreen_enabled) &&     // try any scaler in new fullscreen state
+							!init_scaler(scaler, fullscreen_enabled))    // revert on fail
+						{
+							exit(EXIT_FAILURE);
+						}
+#endif
 						break;
 					}
 
@@ -188,12 +196,19 @@ void service_SDL_events( JE_boolean clear_new )
 						input_grab_enabled = false;
 						input_grab();
 
+#ifdef __BLACKBERRY__
+						if (!init_scaler())
+						{
+							exit(EXIT_FAILURE);
+						}
+#else
 						if (!init_scaler(scaler, false) &&             // try windowed
 						    !init_any_scaler(false) &&                 // try any scaler windowed
 						    !init_scaler(scaler, fullscreen_enabled))  // revert on fail
 						{
 							exit(EXIT_FAILURE);
 						}
+#endif
 						break;
 					}
 				}
@@ -208,33 +223,43 @@ void service_SDL_events( JE_boolean clear_new )
 				keydown = false;
 				return;
 			case SDL_MOUSEBUTTONDOWN:
-				if (!input_grabbed)
+				if(has_mouse)
 				{
-					input_grab_enabled = !input_grab_enabled;
-					input_grab();
-					break;
+					if (!input_grabbed)
+					{
+						input_grab_enabled = !input_grab_enabled;
+						input_grab();
+						break;
+					}
 				}
+				/* no break */
 			case SDL_MOUSEBUTTONUP:
-				if (ev.type == SDL_MOUSEBUTTONDOWN)
+				if(has_mouse)
 				{
-					newmouse = true;
-					lastmouse_but = ev.button.button;
-					lastmouse_x = ev.button.x * vga_width / scalers[scaler].width;
-					lastmouse_y = ev.button.y * vga_height / scalers[scaler].height;
-					mousedown = true;
-				}
-				else
-				{
-					mousedown = false;
-				}
-				switch (ev.button.button)
-				{
-					case SDL_BUTTON_LEFT:
-						mouse_pressed[0] = mousedown; break;
-					case SDL_BUTTON_RIGHT:
-						mouse_pressed[1] = mousedown; break;
-					case SDL_BUTTON_MIDDLE:
-						mouse_pressed[2] = mousedown; break;
+					if (ev.type == SDL_MOUSEBUTTONDOWN)
+					{
+						newmouse = true;
+						lastmouse_but = ev.button.button;
+						lastmouse_x = ev.button.x * vga_width / scalers[scaler].width;
+						lastmouse_y = ev.button.y * vga_height / scalers[scaler].height;
+						mousedown = true;
+					}
+					else
+					{
+						mousedown = false;
+					}
+					switch (ev.button.button)
+					{
+						case SDL_BUTTON_LEFT:
+							mouse_pressed[0] = mousedown;
+							break;
+						case SDL_BUTTON_RIGHT:
+							mouse_pressed[1] = mousedown;
+							break;
+						case SDL_BUTTON_MIDDLE:
+							mouse_pressed[2] = mousedown;
+							break;
+					}
 				}
 				break;
 			case SDL_QUIT:

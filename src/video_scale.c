@@ -27,13 +27,12 @@
 
 #include <assert.h>
 
+static void no_scale( SDL_Surface *src_surface, SDL_Surface *dst_surface );
 static void nn_32( SDL_Surface *src_surface, SDL_Surface *dst_surface );
 static void nn_16( SDL_Surface *src_surface, SDL_Surface *dst_surface );
 
 #ifdef __BLACKBERRY__
 #else
-static void no_scale( SDL_Surface *src_surface, SDL_Surface *dst_surface );
-
 static void scale2x_32( SDL_Surface *src_surface, SDL_Surface *dst_surface );
 static void scale2x_16( SDL_Surface *src_surface, SDL_Surface *dst_surface );
 static void scale3x_32( SDL_Surface *src_surface, SDL_Surface *dst_surface );
@@ -48,28 +47,25 @@ uint scaler;
 
 const struct Scalers scalers[] =
 {
-#if defined(TARGET_GP2X) || defined(TARGET_DINGUX)
-	{ 320,           240,            no_scale, nn_16,      nn_32,      "None" },
-#else
 #ifdef __BLACKBERRY__
+	{ 4 * vga_width, 4 * vga_height, NULL,     nn_16,      nn_32,      "4x" },
 	{ 3 * vga_width, 3 * vga_height, NULL,     nn_16,      nn_32,      "3x" },
-#else
-	{ 1 * vga_width, 1 * vga_height, no_scale, nn_16,      nn_32,      "None" },
 	{ 2 * vga_width, 2 * vga_height, NULL,     nn_16,      nn_32,      "2x" },
+	{ 1 * vga_width, 1 * vga_height, no_scale, nn_16,      nn_32,      "None" },
+#else
 	{ 2 * vga_width, 2 * vga_height, NULL,     scale2x_16, scale2x_32, "Scale2x" },
 	{ 2 * vga_width, 2 * vga_height, NULL,     NULL,       hq2x_32,    "hq2x" },
-	{ 3 * vga_width, 3 * vga_height, NULL,     nn_16,      nn_32,      "3x" },
 	{ 3 * vga_width, 3 * vga_height, NULL,     scale3x_16, scale3x_32, "Scale3x" },
 	{ 3 * vga_width, 3 * vga_height, NULL,     NULL,       hq3x_32,    "hq3x" },
-	{ 4 * vga_width, 4 * vga_height, NULL,     nn_16,      nn_32,      "4x" },
 	{ 4 * vga_width, 4 * vga_height, NULL,     NULL,       hq4x_32,    "hq4x" },
 #endif /* __BLACKBERRY__ */
-#endif
 };
 const uint scalers_count = COUNTOF(scalers);
 
 void set_scaler_by_name( const char *name )
 {
+#ifdef __BLACKBERRY__
+#else
 	for (uint i = 0; i < scalers_count; ++i)
 	{
 		if (strcmp(name, scalers[i].name) == 0)
@@ -78,6 +74,7 @@ void set_scaler_by_name( const char *name )
 			break;
 		}
 	}
+#endif
 }
 
 #if defined(TARGET_GP2X) || defined(TARGET_DINGUX)
@@ -202,7 +199,8 @@ void nn_16( SDL_Surface *src_surface, SDL_Surface *dst_surface )
 #endif
 }
 
-
+#ifdef __BLACKBERRY__
+#else
 void scale2x_32( SDL_Surface *src_surface, SDL_Surface *dst_surface )
 {
 	Uint8 *src = src_surface->pixels, *src_temp,
@@ -443,3 +441,4 @@ void scale3x_16( SDL_Surface *src_surface, SDL_Surface *dst_surface )
 		dst = dst_temp + 3 * dst_pitch;
 	}
 }
+#endif

@@ -52,14 +52,14 @@ void init_video( void )
 
 	SDL_FillRect(VGAScreen, NULL, 0);
 
-	if (!init_scaler(scaler, fullscreen_enabled) &&  // try desired scaler and desired fullscreen state
-	    !init_any_scaler(fullscreen_enabled) &&      // try any scaler in desired fullscreen state
-	    !init_any_scaler(!fullscreen_enabled))       // try any scaler in other fullscreen state
+	if (!init_scaler())
 	{
 		exit(EXIT_FAILURE);
 	}
 }
 
+#ifdef __BLACKBERRY__
+#else
 int can_init_scaler( unsigned int new_scaler, bool fullscreen )
 {
 	if (new_scaler >= scalers_count)
@@ -90,12 +90,35 @@ int can_init_scaler( unsigned int new_scaler, bool fullscreen )
 
 	return 0;
 }
+#endif
 
+#ifdef __BLACKBERRY__
+bool init_scaler()
+#else
 bool init_scaler( unsigned int new_scaler, bool fullscreen )
+#endif
 {
+	const SDL_VideoInfo *info =  SDL_GetVideoInfo();
+	const int screen_w = info->current_w; // Z10: 1280
+	const int screen_h = info->current_h; // Z10: 768
+#ifdef __BLACKBERRY__
+	bool fullscreen = true;
+	unsigned int new_scaler = 0;
+	while(new_scaler < scalers_count &&
+			(scalers[new_scaler].width > screen_w || scalers[new_scaler].height > screen_h)) {
+		new_scaler++;
+	}
+	if(scalers_count == new_scaler) {
+		new_scaler = scalers_count - 1;
+	}
+#endif
 	int w = scalers[new_scaler].width,
 	    h = scalers[new_scaler].height;
+#ifdef __BLACKBERRY__
+	int bpp = 32;
+#else
 	int bpp = can_init_scaler(new_scaler, fullscreen);
+#endif
 	int flags = SDL_SWSURFACE | SDL_HWPALETTE | (fullscreen ? SDL_FULLSCREEN : 0);
 
 	if (bpp == 0)
@@ -147,6 +170,8 @@ bool init_scaler( unsigned int new_scaler, bool fullscreen )
 	return true;
 }
 
+#ifdef __BLACKBERRY__
+#else
 bool init_any_scaler( bool fullscreen )
 {
 	// attempts all scalers from last to first
@@ -156,6 +181,7 @@ bool init_any_scaler( bool fullscreen )
 
 	return false;
 }
+#endif
 
 void deinit_video( void )
 {
@@ -172,7 +198,7 @@ void JE_clr256( SDL_Surface * screen)
 }
 
 void JE_showVGA( void ) {
-    scale_and_flip(VGAScreen);
+	scale_and_flip(VGAScreen);
 }
 
 void scale_and_flip( SDL_Surface *src_surface )

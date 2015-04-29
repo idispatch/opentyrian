@@ -33,15 +33,16 @@ extern SDL_Surface *game_screen;
 extern SDL_Surface *VGAScreen2;
 
 void init_video( void );
-
+#ifdef __BLACKBERRY__
+bool init_scaler();
+#else
 int can_init_scaler( unsigned int new_scaler, bool fullscreen );
 bool init_scaler( unsigned int new_scaler, bool fullscreen );
 bool init_any_scaler( bool fullscreen );
+#endif
 void deinit_video( void );
 void JE_clr256( SDL_Surface * );
 void JE_showVGA( void );
 void scale_and_flip( SDL_Surface * );
 
 #endif /* VIDEO_H */
-
-// kate: tab-width 4; vim: set noet:

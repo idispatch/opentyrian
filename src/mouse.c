@@ -22,15 +22,12 @@
 #include "video.h"
 #include "vga256d.h"
 
-#if defined(TARGET_GP2X) || defined(TARGET_DINGUX)
-bool has_mouse = false;
-#else
 #ifdef __BLACKBERRY__
 bool has_mouse = false;
 #else
 bool has_mouse = true;
 #endif
-#endif
+
 bool mouse_has_three_buttons = true;
 
 JE_word lastMouseX, lastMouseY;
