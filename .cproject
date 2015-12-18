@@ -65,8 +65,8 @@
 									<listOptionValue builtIn="false" value="bbami_g"/>
 									<listOptionValue builtIn="false" value="SDL_g"/>
 									<listOptionValue builtIn="false" value="tco_g"/>
-									<listOptionValue builtIn="false" value="png"/>
 									<listOptionValue builtIn="false" value="cJSON_g"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="png16"/>
 								</option>
 								<inputType id="com.qnx.qcc.inputType.linker.1663614306" superClass="com.qnx.qcc.inputType.linker">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
@@ -146,8 +146,8 @@
 									<listOptionValue builtIn="false" value="bbami"/>
 									<listOptionValue builtIn="false" value="SDL"/>
 									<listOptionValue builtIn="false" value="tco"/>
-									<listOptionValue builtIn="false" value="png"/>
 									<listOptionValue builtIn="false" value="cJSON"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="png16"/>
 								</option>
 								<option id="com.qnx.qcc.option.linker.warningLevel.441276830" name="Warning Level (-w)" superClass="com.qnx.qcc.option.linker.warningLevel" value="com.qnx.qcc.option.warningLevel.5" valueType="enumerated"/>
 								<option id="com.qnx.qcc.option.linker.symbols.1899763379" name="Symbol options" superClass="com.qnx.qcc.option.linker.symbols" value="com.qnx.qcc.option.linker.symbols.none" valueType="enumerated"/>
@@ -230,8 +230,8 @@
 									<listOptionValue builtIn="false" value="bbami_g"/>
 									<listOptionValue builtIn="false" value="SDL_g"/>
 									<listOptionValue builtIn="false" value="tco_g"/>
-									<listOptionValue builtIn="false" value="png"/>
 									<listOptionValue builtIn="false" value="cJSON_g"/>
+									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="png16"/>
 								</option>
 								<inputType id="com.qnx.qcc.inputType.linker.1824128147" superClass="com.qnx.qcc.inputType.linker">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
