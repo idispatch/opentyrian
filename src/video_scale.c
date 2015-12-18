@@ -25,14 +25,13 @@
 #include "palette.h"
 #include "video.h"
 
-#include <assert.h>
-
+#ifdef __BLACKBERRY__
+static void nn_bb( SDL_Surface *src_surface, SDL_Surface *dst_surface );
+#else
 static void no_scale( SDL_Surface *src_surface, SDL_Surface *dst_surface );
 static void nn_32( SDL_Surface *src_surface, SDL_Surface *dst_surface );
 static void nn_16( SDL_Surface *src_surface, SDL_Surface *dst_surface );
 
-#ifdef __BLACKBERRY__
-#else
 static void scale2x_32( SDL_Surface *src_surface, SDL_Surface *dst_surface );
 static void scale2x_16( SDL_Surface *src_surface, SDL_Surface *dst_surface );
 static void scale3x_32( SDL_Surface *src_surface, SDL_Surface *dst_surface );
@@ -48,11 +47,15 @@ uint scaler;
 const struct Scalers scalers[] =
 {
 #ifdef __BLACKBERRY__
-	{ 4 * vga_width, 4 * vga_height, NULL,     nn_16,      nn_32,      "4x" },
-	{ 3 * vga_width, 3 * vga_height, NULL,     nn_16,      nn_32,      "3x" },
-	{ 2 * vga_width, 2 * vga_height, NULL,     nn_16,      nn_32,      "2x" },
-	{ 1 * vga_width, 1 * vga_height, no_scale, nn_16,      nn_32,      "None" },
+    { 1280,          768,            NULL,     NULL,      nn_bb,      "bb10-z10" },
+    { 1280,          720,            NULL,     NULL,      nn_bb,      "bb10-z30" },
+    { 720,           720,            NULL,     NULL,      nn_bb,      "bb10-q10" },
+    { 1440,         1440,            NULL,     NULL,      nn_bb,      "bb10-passport" },
 #else
+    { 4 * vga_width, 4 * vga_height, NULL,     NULL,      nn_bb,      "4x" },
+	{ 3 * vga_width, 3 * vga_height, NULL,     NULL,      nn_bb,      "3x" },
+	{ 2 * vga_width, 2 * vga_height, NULL,     NULL,      nn_bb,      "2x" },
+	{ 1 * vga_width, 1 * vga_height, no_scale, NULL,      nn_bb,      "None" },
 	{ 2 * vga_width, 2 * vga_height, NULL,     scale2x_16, scale2x_32, "Scale2x" },
 	{ 2 * vga_width, 2 * vga_height, NULL,     NULL,       hq2x_32,    "hq2x" },
 	{ 3 * vga_width, 3 * vga_height, NULL,     scale3x_16, scale3x_32, "Scale3x" },
@@ -60,12 +63,71 @@ const struct Scalers scalers[] =
 	{ 4 * vga_width, 4 * vga_height, NULL,     NULL,       hq4x_32,    "hq4x" },
 #endif /* __BLACKBERRY__ */
 };
-const uint scalers_count = COUNTOF(scalers);
+const uint scalers_count = sizeof(scalers)/sizeof(scalers[0]);
 
+#ifdef __BLACKBERRY__
+void nn_bb( SDL_Surface *src_surface, SDL_Surface *dst_surface )
+{
+    Uint8 *src = src_surface->pixels;
+    Uint8 *dst = dst_surface->pixels;
+
+    const int src_height = src_surface->h;
+    const int src_width  = src_surface->w;
+
+    const int dst_height = dst_surface->h;
+    const int dst_width  = dst_surface->w;
+
+    const int src_surface_pitch = src_surface->pitch;
+    const int dst_surface_pitch = dst_surface->pitch;
+
+    const double vert_ratio = (double)dst_height / src_height;
+    const double horz_ratio = (double)dst_width  / src_width;
+    const double ratio = vert_ratio < horz_ratio ? vert_ratio : horz_ratio;
+
+    static double   cached_ratio;
+    static int      offset_x;
+    static int      limit_x;
+    static int      limit_y;
+    static int      mapping[1440];
+
+    if (cached_ratio != ratio) {
+        const int max_mapping = dst_width > dst_height ? dst_width : dst_height;
+
+        if (vert_ratio < horz_ratio) {
+            limit_x  = src_width * ratio;
+            limit_y  = dst_height;
+            offset_x = (dst_width - limit_x) * sizeof(Uint32) / 2;
+        } else {
+            limit_x  = dst_width;
+            limit_y  = src_height * ratio;
+            offset_x = 0;
+        }
+
+        for (int i = 0; i < max_mapping; ++i) {
+            mapping[i] = i / ratio;
+        }
+
+        cached_ratio = ratio;
+    }
+
+    if (dst_width > 1400) {
+        dst += dst_surface_pitch * 160;
+    }
+    dst += offset_x;
+    for (int dy = 0; dy < limit_y; dy++) {
+        const Uint8  *from = src + mapping[dy] * src_surface_pitch;
+              Uint32 *to   = (Uint32 *)dst;
+
+        for (int dx = 0; dx < limit_x; dx++) {
+            *to++ = rgb_palette[from[mapping[dx]]];
+        }
+
+        dst += dst_surface_pitch;
+    }
+}
+#else
 void set_scaler_by_name( const char *name )
 {
-#ifdef __BLACKBERRY__
-#else
 	for (uint i = 0; i < scalers_count; ++i)
 	{
 		if (strcmp(name, scalers[i].name) == 0)
@@ -74,7 +136,6 @@ void set_scaler_by_name( const char *name )
 			break;
 		}
 	}
-#endif
 }
 
 #if defined(TARGET_GP2X) || defined(TARGET_DINGUX)
@@ -83,8 +144,8 @@ void set_scaler_by_name( const char *name )
 
 void no_scale( SDL_Surface *src_surface, SDL_Surface *dst_surface )
 {
-	Uint8 *src = src_surface->pixels,
-	      *dst = dst_surface->pixels;
+	Uint8 *src = src_surface->pixels;
+	Uint8 *dst = dst_surface->pixels;
 
 #ifdef VGA_CENTERED
 	size_t blank = (dst_surface->h - src_surface->h) / 2 * dst_surface->pitch;
@@ -100,7 +161,6 @@ void no_scale( SDL_Surface *src_surface, SDL_Surface *dst_surface )
 #endif
 }
 
-
 void nn_32( SDL_Surface *src_surface, SDL_Surface *dst_surface )
 {
 	Uint8 *src = src_surface->pixels, *src_temp,
@@ -112,7 +172,6 @@ void nn_32( SDL_Surface *src_surface, SDL_Surface *dst_surface )
 	const int height = vga_height, // src_surface->h
 	          width = vga_width,   // src_surface->w
 	          scale = dst_surface->w / width;
-	assert(scale == dst_surface->h / height);
 
 #ifdef VGA_CENTERED
 	size_t blank = (dst_surface->h - src_surface->h) / 2 * dst_surface->pitch;
@@ -161,7 +220,6 @@ void nn_16( SDL_Surface *src_surface, SDL_Surface *dst_surface )
 	const int height = vga_height, // src_surface->h
 	          width = vga_width,   // src_surface->w
 	          scale = dst_surface->w / width;
-	assert(scale == dst_surface->h / height);
 
 #ifdef VGA_CENTERED
 	size_t blank = (dst_surface->h - src_surface->h) / 2 * dst_surface->pitch;
@@ -199,8 +257,6 @@ void nn_16( SDL_Surface *src_surface, SDL_Surface *dst_surface )
 #endif
 }
 
-#ifdef __BLACKBERRY__
-#else
 void scale2x_32( SDL_Surface *src_surface, SDL_Surface *dst_surface )
 {
 	Uint8 *src = src_surface->pixels, *src_temp,
@@ -306,7 +362,6 @@ void scale2x_16( SDL_Surface *src_surface, SDL_Surface *dst_surface )
 		dst = dst_temp + 2 * dst_pitch;
 	}
 }
-
 
 void scale3x_32( SDL_Surface *src_surface, SDL_Surface *dst_surface )
 {

@@ -27,15 +27,19 @@ typedef void (*ScalerFunction)( SDL_Surface *dst, SDL_Surface *src );
 
 struct Scalers
 {
-	int width, height;
-	ScalerFunction scaler8, scaler16, scaler32;
+	int width;
+	int height;
+	ScalerFunction scaler8;
+	ScalerFunction scaler16;
+	ScalerFunction scaler32;
 	const char *name;
 };
 
 extern uint scaler;
 extern const struct Scalers scalers[];
 extern const uint scalers_count;
-
+#ifdef __BLACKBERRY__
+#else
 void set_scaler_by_name( const char *name );
-
+#endif
 #endif /* VIDEO_SCALE_H */
