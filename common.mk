@@ -19,29 +19,14 @@ SDL_PATH = $(PROJECT_ROOT)/../SDL
 SDL_INC_PATH = $(SDL_PATH)/include
 SDL_LIB_PATH = $(SDL_PATH)/$(CPU)/$(patsubst o%,a%,$(notdir $(CURDIR)))
 
-BBAMI_PATH = $(PROJECT_ROOT)/../bbami
-BBAMI_INC_PATH = $(BBAMI_PATH)/public
-BBAMI_LIB_PATH = $(BBAMI_PATH)/$(CPU)/$(patsubst o%,a%,$(notdir $(CURDIR)))
-
-RIMEULA_PATH = $(PROJECT_ROOT)/../rimeula
-RIMEULA_INC_PATH = $(RIMEULA_PATH)/public
-RIMEULA_LIB_PATH = $(RIMEULA_PATH)/$(CPU)/$(patsubst o%,a%,$(notdir $(CURDIR)))
-
-TOUCH_OVERLAY_PATH = $(PROJECT_ROOT)/../tco
-TOUCH_OVERLAY_LIB_PATH = $(TOUCH_OVERLAY_PATH)/$(CPU)/$(patsubst o%,a%,$(notdir $(CURDIR)))
-
-CJSON_PATH = $(PROJECT_ROOT)/../cJSON
-CJSON_INC_PATH = $(CJSON_PATH)
-CJSON_LIB_PATH = $(CJSON_PATH)/$(CPU)/$(patsubst o%,a%,$(notdir $(CURDIR)))
-
 USEFILE=
 CCFLAGS += -Wc,-std=c99 -D__BLACKBERRY__ -D__BB10__ -D__QNXNTO__
 
 EXTRA_SRCVPATH += $(PROJECT_ROOT)/src
-EXTRA_INCVPATH += $(SDL_INC_PATH) $(BBAMI_INC_PATH) $(RIMEULA_INC_PATH) $(CJSON_INC_PATH)
-EXTRA_LIBVPATH += $(BBAMI_LIB_PATH) $(RIMEULA_LIB_PATH) $(SDL_LIB_PATH) $(TOUCH_OVERLAY_LIB_PATH) $(CJSON_LIB_PATH)
+EXTRA_INCVPATH += $(SDL_INC_PATH)
+EXTRA_LIBVPATH += $(SDL_LIB_PATH)
 
-LIBS += m png14 z ^bbami bps ^rimeula screen ^SDL ^tco ^cJSON egl asound GLESv2
+LIBS += m png14 z bps screen ^SDL egl asound GLESv2
 
 include $(MKFILES_ROOT)/qmacros.mk
 ifndef QNX_INTERNAL
@@ -66,10 +51,16 @@ clean: clean-release
 
 opentyrian.bar: $(PROJECT_ROOT)/bar-descriptor.xml \
                 $(PROJECT_ROOT)/tyrian-icon.png \
-                $(PROJECT_ROOT)/tyrian-loading.png \
+                $(PROJECT_ROOT)/splash-720x720.png \
+                $(PROJECT_ROOT)/splash-1280x720.png \
+                $(PROJECT_ROOT)/splash-1280x768.png \
+                $(PROJECT_ROOT)/splash-1440x1440.png \
                 $(PROJECT_ROOT)/Makefile \
                 $(PROJECT_ROOT)/common.mk \
-                $(PROJECT_ROOT)/controls.json
+                $(PROJECT_ROOT)/controls-720x720.json \
+                $(PROJECT_ROOT)/controls-1280x720.json \
+                $(PROJECT_ROOT)/controls-1280x768.json \
+                $(PROJECT_ROOT)/controls-1440x1440.json
 	$(PACKAGER) -package $(PROJECT_ROOT)/$(BAR_NAME) $(PROJECT_ROOT)/bar-descriptor.xml -C . -configuration $(BAR_CONFIGURATION) 
 
 deploy:
