@@ -3,10 +3,7 @@
 	<name>opentyrian</name>
 	<comment></comment>
 	<projects>
-		<project>bbami</project>
-		<project>cJSON</project>
 		<project>SDL12</project>
-		<project>tco</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

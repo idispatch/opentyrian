@@ -23,8 +23,6 @@
 								<option id="com.qnx.qcc.option.compile.debug.1765201453" name="Debug (-g)" superClass="com.qnx.qcc.option.compile.debug" value="true" valueType="boolean"/>
 								<option id="com.qnx.qcc.option.compiler.includePath.99966633" name="Include Directories (-I)" superClass="com.qnx.qcc.option.compiler.includePath" valueType="includePath">
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/../target-override/usr/include"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/bbami/public}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/cJSON}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SDL12/include}&quot;"/>
 								</option>
 								<option id="com.qnx.qcc.option.compiler.security.564650535" name="Enhanced Security (-fstack-protector-strong)" superClass="com.qnx.qcc.option.compiler.security" value="true" valueType="boolean"/>
@@ -49,9 +47,6 @@
 								<option id="com.qnx.qcc.option.linker.libraryPaths.2034790520" name="Library Paths (-L)" superClass="com.qnx.qcc.option.linker.libraryPaths" valueType="libPaths">
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/../target-override/${CPUVARDIR}/lib"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/../target-override/${CPUVARDIR}/usr/lib"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/bbami/arm/a-le-v7-g}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/tco/arm/a-le-v7-g}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/cJSON/arm/a-le-v7-g}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SDL12/arm/a-le-v7-g}&quot;"/>
 								</option>
 								<option id="com.qnx.qcc.option.linker.security.773310958" name="Enhanced Security (-Wl,-z,relro -Wl,-z,now)" superClass="com.qnx.qcc.option.linker.security" value="true" valueType="boolean"/>
@@ -62,10 +57,7 @@
 									<listOptionValue builtIn="false" value="EGL"/>
 									<listOptionValue builtIn="false" value="asound"/>
 									<listOptionValue builtIn="false" value="GLESv2"/>
-									<listOptionValue builtIn="false" value="bbami_g"/>
 									<listOptionValue builtIn="false" value="SDL_g"/>
-									<listOptionValue builtIn="false" value="tco_g"/>
-									<listOptionValue builtIn="false" value="cJSON_g"/>
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="png16"/>
 								</option>
 								<inputType id="com.qnx.qcc.inputType.linker.1663614306" superClass="com.qnx.qcc.inputType.linker">
@@ -81,7 +73,9 @@
 					</sourceEntries>
 				</configuration>
 			</storageModule>
-			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings">
+				<externalSettings containerId="SDL12;" factoryId="org.eclipse.cdt.core.cfg.export.settings.sipplier"/>
+			</storageModule>
 		</cconfiguration>
 		<cconfiguration id="com.qnx.qcc.configuration.exe.release.1746496411">
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.qnx.qcc.configuration.exe.release.1746496411" moduleId="org.eclipse.cdt.core.settings" name="Device-Release">
@@ -104,10 +98,7 @@
 								<option id="com.qnx.qcc.option.compiler.optlevel.216666996" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.2" valueType="enumerated"/>
 								<option id="com.qnx.qcc.option.compiler.includePath.677153815" name="Include Directories (-I)" superClass="com.qnx.qcc.option.compiler.includePath" valueType="includePath">
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/../target-override/usr/include"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/bbami/public}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/cJSON}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SDL12/include}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/tco}&quot;"/>
 								</option>
 								<option id="com.qnx.qcc.option.compiler.security.915260414" name="Enhanced Security (-fstack-protector-strong)" superClass="com.qnx.qcc.option.compiler.security" value="false" valueType="boolean"/>
 								<option id="com.qnx.qcc.option.compiler.defines.968289826" name="Defines (-D)" superClass="com.qnx.qcc.option.compiler.defines" valueType="definedSymbols">
@@ -129,9 +120,6 @@
 								<option id="com.qnx.qcc.option.linker.libraryPaths.515879404" name="Library Paths (-L)" superClass="com.qnx.qcc.option.linker.libraryPaths" valueType="libPaths">
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/../target-override/${CPUVARDIR}/lib"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/../target-override/${CPUVARDIR}/usr/lib"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/bbami/arm/a-le-v7}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/tco/arm/a-le-v7}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/cJSON/arm/a-le-v7}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SDL12/arm/a-le-v7}&quot;"/>
 								</option>
 								<option id="com.qnx.qcc.option.linker.pie.1846707483" name="Position Independent Executable (-pie)" superClass="com.qnx.qcc.option.linker.pie" value="false" valueType="boolean"/>
@@ -143,10 +131,7 @@
 									<listOptionValue builtIn="false" value="EGL"/>
 									<listOptionValue builtIn="false" value="asound"/>
 									<listOptionValue builtIn="false" value="GLESv2"/>
-									<listOptionValue builtIn="false" value="bbami"/>
 									<listOptionValue builtIn="false" value="SDL"/>
-									<listOptionValue builtIn="false" value="tco"/>
-									<listOptionValue builtIn="false" value="cJSON"/>
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="png16"/>
 								</option>
 								<option id="com.qnx.qcc.option.linker.warningLevel.441276830" name="Warning Level (-w)" superClass="com.qnx.qcc.option.linker.warningLevel" value="com.qnx.qcc.option.warningLevel.5" valueType="enumerated"/>
@@ -164,7 +149,9 @@
 					</sourceEntries>
 				</configuration>
 			</storageModule>
-			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings">
+				<externalSettings containerId="SDL12;" factoryId="org.eclipse.cdt.core.cfg.export.settings.sipplier"/>
+			</storageModule>
 		</cconfiguration>
 		<cconfiguration id="com.qnx.qcc.configuration.exe.debug.1126421720.1827759636">
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.qnx.qcc.configuration.exe.debug.1126421720.1827759636" moduleId="org.eclipse.cdt.core.settings" name="Simulator">
@@ -188,8 +175,6 @@
 								<option id="com.qnx.qcc.option.compile.debug.2119346684" name="Debug (-g)" superClass="com.qnx.qcc.option.compile.debug" value="true" valueType="boolean"/>
 								<option id="com.qnx.qcc.option.compiler.includePath.1980313369" name="Include Directories (-I)" superClass="com.qnx.qcc.option.compiler.includePath" valueType="includePath">
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/../target-override/usr/include"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/bbami/public}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/cJSON}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SDL12/include}&quot;"/>
 								</option>
 								<option id="com.qnx.qcc.option.compiler.security.659425599" name="Enhanced Security (-fstack-protector-strong)" superClass="com.qnx.qcc.option.compiler.security" value="true" valueType="boolean"/>
@@ -214,9 +199,6 @@
 								<option id="com.qnx.qcc.option.linker.libraryPaths.1553351879" name="Library Paths (-L)" superClass="com.qnx.qcc.option.linker.libraryPaths" valueType="libPaths">
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/../target-override/${CPUVARDIR}/lib"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/../target-override/${CPUVARDIR}/usr/lib"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/bbami/x86/a-g}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/tco/x86/a-g}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/cJSON/x86/a-g}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SDL12/x86/a-g}&quot;"/>
 								</option>
 								<option id="com.qnx.qcc.option.linker.security.1878563250" name="Enhanced Security (-Wl,-z,relro -Wl,-z,now)" superClass="com.qnx.qcc.option.linker.security" value="true" valueType="boolean"/>
@@ -227,10 +209,7 @@
 									<listOptionValue builtIn="false" value="EGL"/>
 									<listOptionValue builtIn="false" value="asound"/>
 									<listOptionValue builtIn="false" value="GLESv2"/>
-									<listOptionValue builtIn="false" value="bbami_g"/>
 									<listOptionValue builtIn="false" value="SDL_g"/>
-									<listOptionValue builtIn="false" value="tco_g"/>
-									<listOptionValue builtIn="false" value="cJSON_g"/>
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="png16"/>
 								</option>
 								<inputType id="com.qnx.qcc.inputType.linker.1824128147" superClass="com.qnx.qcc.inputType.linker">
@@ -246,7 +225,9 @@
 					</sourceEntries>
 				</configuration>
 			</storageModule>
-			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings">
+				<externalSettings containerId="SDL12;" factoryId="org.eclipse.cdt.core.cfg.export.settings.sipplier"/>
+			</storageModule>
 		</cconfiguration>
 	</storageModule>
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">

@@ -54,7 +54,7 @@
 #include <time.h>
 
 #ifdef __BLACKBERRY__
-#include <bbami.h>
+#include "bbami.h"
 #if 0
 #include <eula.h>
 #endif

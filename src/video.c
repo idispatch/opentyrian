@@ -103,8 +103,8 @@ bool init_scaler( unsigned int new_scaler, bool fullscreen )
 	bool fullscreen = true;
 	unsigned int new_scaler = 0;
 	while (new_scaler < scalers_count &&
-	       scalers[new_scaler].width != screen_w &&
-	       scalers[new_scaler].height != screen_h) {
+	       (scalers[new_scaler].width != screen_w ||
+	        scalers[new_scaler].height != screen_h)) {
 		new_scaler++;
 	}
 	if (scalers_count == new_scaler) {

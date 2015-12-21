@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <qnx xmlns="http://www.qnx.com/schemas/application/1.0">
     <id>com.idispatch.opentyrian</id>
-    <versionNumber>1.2.2</versionNumber>
+    <versionNumber>1.2.3</versionNumber>
     <buildId>0</buildId>
-    <description>Tyrian is an open-source port of the MSDOS game Tyrian.</description>
+    <description>Tyrian is an open-source port of the MS-DOS game Tyrian.</description>
     <author>kosenkov.ca</author>
     <name>Tyrian</name>
     <authorId>gYAAgNvOOqSvefTEeSiCjimMZSs</authorId>
@@ -13,7 +13,10 @@
         <systemChrome>none</systemChrome>
     </initialWindow>
     <splashScreens>
-       <image>tyrian-loading.png</image>
+        <image>splash-1280x720.png</image>
+        <image>splash-1280x768.png</image>
+        <image>splash-720x720.png</image>
+        <image>splash-1440x1440.png</image>
     </splashScreens>
     <category>core.games</category>
     <asset path="assets">assets</asset>
@@ -22,18 +25,21 @@
     <asset path="controls-1280x768.json">controls-1280x768.json</asset>
     <asset path="controls-1440x1440.json">controls-1440x1440.json</asset>
     <asset path="tyrian-icon.png">tyrian-icon.png</asset>
-    <asset path="tyrian-loading.png">tyrian-loading.png</asset>
+    <asset path="splash-1280x720.png">splash-1280x720.png</asset>
+    <asset path="splash-1280x768.png">splash-1280x768.png</asset>
+    <asset path="splash-720x720.png">splash-720x720.png</asset>
+    <asset path="splash-1440x1440.png">splash-1440x1440.png</asset>
     <configuration name="Device-Debug">
-       <platformArchitecture>armle-v7</platformArchitecture>
-       <asset path="Device-Debug/opentyrian" entry="true" type="Qnx/Elf">opentyrian</asset>
+        <platformArchitecture>armle-v7</platformArchitecture>
+        <asset path="Device-Debug/opentyrian" entry="true" type="Qnx/Elf">opentyrian</asset>
     </configuration>
     <configuration name="Device-Release">
-       <platformArchitecture>armle-v7</platformArchitecture>
-       <asset path="Device-Release/opentyrian" entry="true" type="Qnx/Elf">opentyrian</asset>
+        <platformArchitecture>armle-v7</platformArchitecture>
+        <asset path="Device-Release/opentyrian" entry="true" type="Qnx/Elf">opentyrian</asset>
     </configuration>
     <configuration name="Simulator">
-       <platformArchitecture>x86</platformArchitecture>
-       <asset path="Simulator/opentyrian" entry="true" type="Qnx/Elf">opentyrian</asset>
+        <platformArchitecture>x86</platformArchitecture>
+        <asset path="Simulator/opentyrian" entry="true" type="Qnx/Elf">opentyrian</asset>
     </configuration>
     <icon>
         <image>tyrian-icon.png</image>
