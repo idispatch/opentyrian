@@ -23,7 +23,7 @@
 								<option id="com.qnx.qcc.option.compile.debug.1765201453" name="Debug (-g)" superClass="com.qnx.qcc.option.compile.debug" value="true" valueType="boolean"/>
 								<option id="com.qnx.qcc.option.compiler.includePath.99966633" name="Include Directories (-I)" superClass="com.qnx.qcc.option.compiler.includePath" valueType="includePath">
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/../target-override/usr/include"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SDL12/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SDL/include}&quot;"/>
 								</option>
 								<option id="com.qnx.qcc.option.compiler.security.564650535" name="Enhanced Security (-fstack-protector-strong)" superClass="com.qnx.qcc.option.compiler.security" value="true" valueType="boolean"/>
 								<option id="com.qnx.qcc.option.compiler.defines.883322714" name="Defines (-D)" superClass="com.qnx.qcc.option.compiler.defines" valueType="definedSymbols">
@@ -47,7 +47,7 @@
 								<option id="com.qnx.qcc.option.linker.libraryPaths.2034790520" name="Library Paths (-L)" superClass="com.qnx.qcc.option.linker.libraryPaths" valueType="libPaths">
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/../target-override/${CPUVARDIR}/lib"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/../target-override/${CPUVARDIR}/usr/lib"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SDL12/arm/a-le-v7-g}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SDL/arm/a-le-v7-g}&quot;"/>
 								</option>
 								<option id="com.qnx.qcc.option.linker.security.773310958" name="Enhanced Security (-Wl,-z,relro -Wl,-z,now)" superClass="com.qnx.qcc.option.linker.security" value="true" valueType="boolean"/>
 								<option id="com.qnx.qcc.option.linker.libraries.1807607931" name="Libraries (-l)" superClass="com.qnx.qcc.option.linker.libraries" valueType="libs">
@@ -98,7 +98,7 @@
 								<option id="com.qnx.qcc.option.compiler.optlevel.216666996" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.2" valueType="enumerated"/>
 								<option id="com.qnx.qcc.option.compiler.includePath.677153815" name="Include Directories (-I)" superClass="com.qnx.qcc.option.compiler.includePath" valueType="includePath">
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/../target-override/usr/include"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SDL12/include}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SDL/include}&quot;"/>
 								</option>
 								<option id="com.qnx.qcc.option.compiler.security.915260414" name="Enhanced Security (-fstack-protector-strong)" superClass="com.qnx.qcc.option.compiler.security" value="false" valueType="boolean"/>
 								<option id="com.qnx.qcc.option.compiler.defines.968289826" name="Defines (-D)" superClass="com.qnx.qcc.option.compiler.defines" valueType="definedSymbols">
@@ -120,7 +120,7 @@
 								<option id="com.qnx.qcc.option.linker.libraryPaths.515879404" name="Library Paths (-L)" superClass="com.qnx.qcc.option.linker.libraryPaths" valueType="libPaths">
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/../target-override/${CPUVARDIR}/lib"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/../target-override/${CPUVARDIR}/usr/lib"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SDL12/arm/a-le-v7}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/SDL/arm/a-le-v7}&quot;"/>
 								</option>
 								<option id="com.qnx.qcc.option.linker.pie.1846707483" name="Position Independent Executable (-pie)" superClass="com.qnx.qcc.option.linker.pie" value="false" valueType="boolean"/>
 								<option id="com.qnx.qcc.option.linker.security.1763190869" name="Enhanced Security (-Wl,-z,relro -Wl,-z,now)" superClass="com.qnx.qcc.option.linker.security" value="false" valueType="boolean"/>

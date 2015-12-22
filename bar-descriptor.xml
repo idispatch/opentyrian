@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <qnx xmlns="http://www.qnx.com/schemas/application/1.0">
     <id>com.idispatch.opentyrian</id>
-    <versionNumber>1.2.3</versionNumber>
+    <name>Tyrian</name>
+    <versionNumber>1.2.4</versionNumber>
     <buildId>0</buildId>
     <description>Tyrian is an open-source port of the MS-DOS game Tyrian.</description>
-    <author>kosenkov.ca</author>
-    <name>Tyrian</name>
     <authorId>gYAAgNvOOqSvefTEeSiCjimMZSs</authorId>
+    <author>Oleg Kosenkov</author>
     <initialWindow>
         <aspectRatio>landscape</aspectRatio>
         <autoOrients>false</autoOrients>

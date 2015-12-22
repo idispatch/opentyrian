@@ -108,14 +108,6 @@ void opentyrian_menu( void )
         {
             const char *text = opentyrian_menu_items[i];
             char buffer[100];
-#ifdef __BLACKBERRY__
-#else
-            if (i == 2) /* Scaler */
-            {
-                snprintf(buffer, sizeof(buffer), "Scaler: %s", scalers[temp_scaler].name);
-                text = buffer;
-            }
-#endif
             draw_font_hv_shadow(VGAScreen, VGAScreen->w / 2, (i != maxSel) ? i * 16 + 32 : 118, text, normal_font, centered, 15, (i != sel) ? -4 : -2, false, 2);
         }
 
@@ -253,15 +245,12 @@ void opentyrian_menu( void )
 
 int main( int argc, char *argv[] )
 {
+    fprintf(stderr, "entered main\n");
     mt_srand(time(NULL));
 #ifdef __BLACKBERRY__
-#if 0
-    if(!show_hint_dialog()) {
-        return 1;
-    }
-#endif
-    bbami_info_ptr info;
     snprintf(opentyrian_version, sizeof(opentyrian_version), "Port for BlackBerry 10");
+
+    bbami_info_ptr info;
     int rc = bbami_init(BBAMI_API_VERSION, DEFAULT_MANIFEST_PATH, &info);
     if(rc == 0) {
         int count;
@@ -273,20 +262,14 @@ int main( int argc, char *argv[] )
         }
         bbami_done(info);
     }
-#else
-    printf("\nWelcome to... >> %s %s <<\n\n", opentyrian_str, opentyrian_version);
-
-    printf("Copyright (C) 2007-2009 The OpenTyrian Development Team\n\n");
-
-    printf("This program comes with ABSOLUTELY NO WARRANTY.\n");
-    printf("This is free software, and you are welcome to redistribute it\n");
-    printf("under certain conditions.  See the file GPL.txt for details.\n\n");
 #endif
-    if (SDL_Init(0))
-    {
-        printf("Failed to initialize SDL: %s\n", SDL_GetError());
+    fprintf(stderr, "preparing SDL\n");
+    if (SDL_Init(0)) {
+        fprintf(stderr, "Failed to initialize SDL: %s\n", SDL_GetError());
         return -1;
     }
+
+    fprintf(stderr, "loading configuration\n");
 
     JE_loadConfiguration();
     xmas = xmas_time();  // arg handler may override
@@ -294,7 +277,11 @@ int main( int argc, char *argv[] )
 
     JE_scanForEpisodes();
 
+    fprintf(stderr, "initializing video\n");
+
     init_video();
+
+    fprintf(stderr, "initializing keyboard\n");
     init_keyboard();
     init_joysticks();
 
@@ -323,7 +310,7 @@ int main( int argc, char *argv[] )
 
     if (!audio_disabled)
     {
-        printf("initializing SDL audio...\n");
+        fprintf(stderr, "initializing SDL audio...\n");
 
         init_audio();
 
@@ -332,31 +319,17 @@ int main( int argc, char *argv[] )
     }
     else
     {
-        printf("audio disabled\n");
+        fprintf(stderr, "audio disabled\n");
     }
 
-    if (record_demo)
-        printf("demo recording enabled (input limited to keyboard)\n");
+    if (record_demo) {
+        fprintf(stderr, "demo recording enabled (input limited to keyboard)\n");
+    }
+
 
     JE_loadExtraShapes();  /*Editship*/
 
     JE_loadHelpText();
-
-#ifdef __BLACKBERRY__
-#else
-    if (isNetworkGame)
-    {
-        if (network_init())
-        {
-            network_tyrian_halt(3, false);
-        }
-    }
-#ifdef NDEBUG
-    if (!isNetworkGame) {
-        intro_logos();
-    }
-#endif
-#endif
 
     for (; ; )
     {
@@ -377,7 +350,9 @@ int main( int argc, char *argv[] )
         }
     }
 
+    fprintf(stderr, "preparing to exit\n");
     JE_tyrianHalt(0);
 
+    fprintf(stderr, "exiting\n");
     return 0;
 }
