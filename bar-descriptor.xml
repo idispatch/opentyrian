@@ -2,7 +2,7 @@
 <qnx xmlns="http://www.qnx.com/schemas/application/1.0">
     <id>com.idispatch.opentyrian</id>
     <name>Tyrian</name>
-    <versionNumber>1.2.4</versionNumber>
+    <versionNumber>1.2.5</versionNumber>
     <buildId>0</buildId>
     <description>Tyrian is an open-source port of the MS-DOS game Tyrian.</description>
     <authorId>gYAAgNvOOqSvefTEeSiCjimMZSs</authorId>

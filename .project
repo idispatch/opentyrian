@@ -3,7 +3,7 @@
 	<name>opentyrian</name>
 	<comment></comment>
 	<projects>
-		<project>SDL12</project>
+		<project>SDL</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
